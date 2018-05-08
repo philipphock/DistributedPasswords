@@ -8,40 +8,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="505.357" Width="826.143">
 
-
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionary1.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-
-
-    <Grid Margin="0,0,0,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition Height="21"/>
-        </Grid.RowDefinitions>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
-        <Button Content="Button"  HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0" />
-        <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36"/>
-
-        <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True">
-            <Image Source="{DynamicResource search}"></Image>
-        </Button>
-
-
-
-
-
+    <Grid>
+        <Frame x:Name="Main"/>
     </Grid>
+
+   
 </Window>

@@ -16,16 +16,13 @@ using System.Windows.Shapes;
 namespace DistributedPasswordsWPF
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für MainView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Page
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
-
-            ViewModel.instance.init(this);
-            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
         }
     }
 }
