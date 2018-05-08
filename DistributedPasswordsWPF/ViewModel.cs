@@ -9,21 +9,24 @@ namespace DistributedPasswordsWPF
 {
     class ViewModel
     {
-        public enum Pages { Main, Unlock };
+        public enum Pages { Main, Unlock, EditNew };
         private Dictionary<Pages, Page> pagesLUT = new Dictionary<Pages, Page>();
         
         private MainWindow window;
         private readonly Page mainView;
         private readonly Page unlock;
+        private readonly Page editnew;
 
 
         private ViewModel()
         {
-            mainView = new MainView();
-            unlock = new Unlock();
+            mainView    = new MainView();
+            unlock      = new Unlock();
+            editnew     = new EditNew();
 
             pagesLUT.Add(Pages.Main, mainView);
             pagesLUT.Add(Pages.Unlock, unlock);
+            pagesLUT.Add(Pages.EditNew, editnew);
 
         }
 
@@ -35,7 +38,6 @@ namespace DistributedPasswordsWPF
         public void DisplayPage(Pages page)
         {
             window.Main.Content = pagesLUT[page];
-            
         }
 
         public static ViewModel instance = new ViewModel();
