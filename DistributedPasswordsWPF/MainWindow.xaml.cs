@@ -26,6 +26,7 @@ namespace DistributedPasswordsWPF
 
             ViewModel.instance.init(this);
             ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+            
         }
     }
 }

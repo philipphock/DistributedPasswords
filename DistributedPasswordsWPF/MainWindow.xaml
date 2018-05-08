@@ -9,8 +9,8 @@
         Title="MainWindow" Height="505.357" Width="826.143">
 
     <Grid>
-        <Frame x:Name="Main"/>
+        <Frame x:Name="Main" />
     </Grid>
 
-   
+
 </Window>

@@ -34,7 +34,8 @@ namespace DistributedPasswordsWPF
 
         public void DisplayPage(Pages page)
         {
-            window.Content = pagesLUT[page];
+            window.Main.Content = pagesLUT[page];
+            
         }
 
         public static ViewModel instance = new ViewModel();
