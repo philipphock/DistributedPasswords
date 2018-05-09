@@ -8,6 +8,10 @@ namespace DistributedPasswordsWPF.model
 {
     class PasswordSystem
     {
-        
+        public PasswordSystem()
+        {
+            //FileHelper.ListDatabaseFiles();
+            Settings.Init();
+        }
     }
 }
