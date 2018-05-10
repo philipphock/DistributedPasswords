@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,8 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
 
             ViewModel.instance.init(this);
-            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
-            
+            PasswordSystem pws = new PasswordSystem();
+
         }
     }
 }

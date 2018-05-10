@@ -14,7 +14,6 @@ namespace DistributedPasswordsWPF
     /// </summary>
     public partial class App : Application
     {
-        PasswordSystem pws = new PasswordSystem();
         
 
     }

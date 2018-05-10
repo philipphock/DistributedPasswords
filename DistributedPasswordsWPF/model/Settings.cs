@@ -107,6 +107,11 @@ namespace DistributedPasswordsWPF.model
         {
             get
             {
+                if (KEYS_PATH == "" || KEYS_PATH == null)
+                {
+                    throw new System.ArgumentException("Path not set");
+                }
+
                 return KEYS_DIR;
             }
 
@@ -124,6 +129,10 @@ namespace DistributedPasswordsWPF.model
         {
             get
             {
+                if (DB_DIR == "" || DB_DIR == null)
+                {
+                    throw new System.ArgumentException("Path not set");
+                }
                 return DB_DIR;
             }
 

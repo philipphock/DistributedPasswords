@@ -12,6 +12,21 @@ namespace DistributedPasswordsWPF.model
         {
             //FileHelper.ListDatabaseFiles();
             Settings.Init();
+            try
+            {
+                string db = Settings.DB_PATH;
+                string keys = Settings.KEYS_PATH;
+                ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+
+            }
+            catch (ArgumentException e)
+            {
+                ViewModel.instance.DisplayPage(ViewModel.Pages.PathSettings);
+
+            }
+
+
+
         }
     }
 }
