@@ -13,27 +13,27 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="22"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="24*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="22"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="71*"/>
+            <RowDefinition Height="73*"/>
         </Grid.RowDefinitions>
-        <Label Content="Label" Grid.Column="1" Margin="0" Grid.Row="2" />
-        <Label Content="Label" Grid.Column="1" Margin="0" Grid.Row="6" />
-        <Button Content="Button"  Grid.Row="2" />
-        <Button Content="Button"  Grid.Row="6" />
-        <Label Content="Label" Grid.Column="1" Margin="0,10,0,0" Grid.Row="3" />
-        <Label Content="Label" Grid.Column="1" Margin="0,10,0,0" Grid.Row="7" />
-        <Label Content="Label" Grid.Column="1" Grid.Row="1"/>
-        <Label Content="Label" Grid.Column="1" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="1" Margin="100,20" Grid.Row="8" />
-        <Button Content="Button" Grid.Row="8" Width="75" Margin="0,20"/>
-        <Label Content="Label" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Label Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" />
+        <Label Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" />
+        <Button Content="browse"  Grid.Row="2" Click="Button_Click" />
+        <Button Content="browse"  Grid.Row="6" />
+        <Label Content="info" Grid.Column="1" Margin="0,2,0,0" Grid.Row="3" VerticalAlignment="Top" />
+        <Label Content="info" Grid.Column="1" Margin="0,2,0,0" Grid.Row="7" VerticalAlignment="Top" />
+        <Label Content="Database" Grid.Column="1" Grid.Row="1" FontSize="10" Margin="10,0,0,0" FontStyle="Italic"/>
+        <Label Content="Keys" Grid.Column="1" Grid.Row="5" FontSize="10" Margin="10,0,0,0" FontStyle="Italic"/>
+        <Button Content="save" Grid.Column="1" Margin="100,20" Grid.Row="8" />
+        <Button Content="cancel" Grid.Row="8" Margin="40,20"/>
+        <Label Content="Settings" Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" Height="58" Margin="245,6" Width="148"/>
 
     </Grid>
 </Page>
