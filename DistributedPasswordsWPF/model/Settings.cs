@@ -98,7 +98,6 @@ namespace DistributedPasswordsWPF.model
             }
 
 
-            Debug.WriteLine("init");
         }
 
         
@@ -114,8 +113,8 @@ namespace DistributedPasswordsWPF.model
             set
             {
                 SQLiteCommand command = new SQLiteCommand(UPDATE_KEYS, dbConnection);
-                command.
-
+                command.Parameters.Add(value);
+                command.ExecuteNonQuery();
                 KEYS_DIR = value;
 
             }
@@ -130,6 +129,10 @@ namespace DistributedPasswordsWPF.model
 
             set
             {
+                SQLiteCommand command = new SQLiteCommand(UPDATE_DB, dbConnection);
+                command.Parameters.Add(value);
+                command.ExecuteNonQuery();
+
                 DB_DIR = value;
             }
         }
