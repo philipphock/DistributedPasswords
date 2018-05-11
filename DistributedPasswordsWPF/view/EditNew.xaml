@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="EditNew" Height="480" Width="895">
 
-    <Grid Margin="10,10,10,10">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
@@ -27,8 +27,8 @@
         <Button Content="Button" Grid.Column="2"  Grid.Row="1" Margin="3"/>
         <Button Content="Button" Grid.Column="2"  Grid.Row="3" Margin="3"/>
         <Button Content="Button" Grid.Column="2"  Grid.Row="4" Margin="3"/>
-        <Button Content="Button" Grid.Column="2" Grid.Row="7" Margin="3,10"/>
-        <Button Content="Button" Grid.Row="7" Margin="3,10"/>
+        <Button Content="save" Grid.Column="2" Grid.Row="7" Margin="3,10" FontSize="36"/>
+        <Button Content="back" Grid.Row="7" Margin="3,20" FontSize="26"/>
         <TextBox  Grid.Row="6" TextWrapping="Wrap" Text="TextBox" Grid.ColumnSpan="3" Margin="3"/>
         <Label Content="Label" Margin="3"/>
         <Label Content="Label" Grid.Row="1" Margin="3"/>

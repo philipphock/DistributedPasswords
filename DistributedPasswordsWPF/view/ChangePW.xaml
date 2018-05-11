@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="Page1" Height="440" Width="900">
 
-    <Grid Margin="20,50,20,10">
+    <Grid Margin="10,50,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
@@ -21,8 +21,8 @@
             <RowDefinition/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Button Content="Button" Grid.Row="5" Margin="10,20"/>
-        <Button Content="Button" Grid.Row="5" Grid.Column="2" Margin="3,10"/>
+        <Button Content="back" Grid.Row="5" Margin="3,20" FontSize="26"/>
+        <Button Content="save" Grid.Row="5" Grid.Column="2" Margin="3,10" FontSize="36"/>
         <Label Content="New Password" Grid.Column="1" Margin="0" FontSize="36" HorizontalAlignment="Center" FontWeight="Bold"/>
         <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="3,3,20,3"/>
         <PasswordBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="3,3,20,3"/>
