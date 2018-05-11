@@ -25,7 +25,7 @@ namespace DistributedPasswordsWPF
         {
             InitializeComponent();
 
-            ViewModel.instance.init(this);
+            Router.instance.init(this);
             PasswordSystem pws = new PasswordSystem();
 
         }

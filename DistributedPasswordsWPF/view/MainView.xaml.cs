@@ -24,5 +24,21 @@ namespace DistributedPasswordsWPF
         {
             InitializeComponent();
         }
+
+        private void Lock_Click(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.Unlock);
+        }
+
+        private void ChgPW_Click(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.ChangePW);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.EditNew);
+        }
     }
 }

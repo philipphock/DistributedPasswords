@@ -39,13 +39,13 @@ namespace DistributedPasswordsWPF.view
 
         private void SaveButtonClicked(object sender, RoutedEventArgs e)
         {
-            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+            Router.instance.DisplayPage(Router.Pages.Unlock);
             //TODO Save
         }
 
         private void Backbutton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+            Router.instance.DisplayPage(Router.Pages.Unlock);
 
         }
     }

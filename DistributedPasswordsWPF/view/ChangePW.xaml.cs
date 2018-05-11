@@ -24,5 +24,16 @@ namespace DistributedPasswordsWPF
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.Main);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.Main);
+
+        }
     }
 }

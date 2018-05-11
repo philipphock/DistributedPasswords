@@ -27,7 +27,7 @@ namespace DistributedPasswordsWPF
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.instance.DisplayPage(ViewModel.Pages.PathSettings);
+            Router.instance.DisplayPage(Router.Pages.PathSettings);
         }
 
         private void PasswordBoxUp(object sender, KeyEventArgs e)
@@ -35,7 +35,7 @@ namespace DistributedPasswordsWPF
             if (e.Key == Key.Enter)
             {
                 //TODO check password, if correct, route
-                ViewModel.instance.DisplayPage(ViewModel.Pages.Main);
+                Router.instance.DisplayPage(Router.Pages.Main);
             }
         }
     }

@@ -16,12 +16,12 @@ namespace DistributedPasswordsWPF.model
             {
                 string db = Settings.DB_PATH;
                 string keys = Settings.KEYS_PATH;
-                ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+                Router.instance.DisplayPage(Router.Pages.Unlock);
 
             }
             catch (ArgumentException e)
             {
-                ViewModel.instance.DisplayPage(ViewModel.Pages.PathSettings);
+                Router.instance.DisplayPage(Router.Pages.PathSettings);
 
             }
 

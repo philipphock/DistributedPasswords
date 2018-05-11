@@ -1,16 +1,12 @@
 ﻿using DistributedPasswordsWPF.view;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace DistributedPasswordsWPF
 {
-    class ViewModel
+    class Router
     {
-        public enum Pages { Main, Unlock, EditNew, ChangePW, PathSettings };
+        public enum Pages { Main, Unlock, EditNew, ChangePW, PathSettings,GenPW };
         private Dictionary<Pages, Page> pagesLUT = new Dictionary<Pages, Page>();
         
         private MainWindow window;
@@ -19,20 +15,24 @@ namespace DistributedPasswordsWPF
         private readonly Page editnew;
         private readonly Page changepw;
         private readonly Page pathsettings;
+        private readonly Page generatePW;
 
 
-        private ViewModel()
+        private Router()
         {
             mainView    = new MainView();
             unlock      = new Unlock();
             editnew     = new EditNew();
             pathsettings = new PathSettings();
+            changepw = new ChangePW();
+            generatePW = new GeneratePassword();
 
             pagesLUT.Add(Pages.Main, mainView);
             pagesLUT.Add(Pages.Unlock, unlock);
             pagesLUT.Add(Pages.EditNew, editnew);
             pagesLUT.Add(Pages.ChangePW, changepw);
             pagesLUT.Add(Pages.PathSettings, pathsettings);
+            pagesLUT.Add(Pages.GenPW, generatePW);
 
 
         }
@@ -47,6 +47,6 @@ namespace DistributedPasswordsWPF
             window.Main.Content = pagesLUT[page];
         }
 
-        public static ViewModel instance = new ViewModel();
+        public static Router instance = new Router();
     }
 }

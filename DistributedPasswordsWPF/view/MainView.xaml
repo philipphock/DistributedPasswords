@@ -29,13 +29,14 @@
             <RowDefinition/>
             <RowDefinition Height="21"/>
         </Grid.RowDefinitions>
-        <Button Content="change password"  HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0" />
-        <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36"/>
+        <Button Content="change password" Name="ChgPW" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Margin="0,0,0,0" Click="ChgPW_Click" />
+        <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36" AutomationProperties.Name="Add" Click="Button_Click"/>
 
         <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True">
             <Image Source="/DistributedPasswordsWPF;component/assets/img/search.png" ></Image>
         </Button>
         <TextBox Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="36"/>
+        <Button Content="lock" Name="Lock"  HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Click="Lock_Click"  />
 
 
     </Grid>
