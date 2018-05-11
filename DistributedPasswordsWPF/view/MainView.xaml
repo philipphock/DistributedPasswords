@@ -33,7 +33,7 @@
         <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36"/>
 
         <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True">
-            <Image Source="{DynamicResource search}"></Image>
+            <Image Source="/DistributedPasswordsWPF;component/assets/img/search.png" ></Image>
         </Button>
         <TextBox Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="36"/>
 

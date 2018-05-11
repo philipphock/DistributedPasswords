@@ -20,13 +20,32 @@ namespace DistributedPasswordsWPF.view
     /// </summary>
     public partial class PathSettings : Page
     {
+        private string _InfoDBText = "";
+
         public PathSettings()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void SaveButtonClicked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
+            //TODO Save
+        }
+
+        private void Backbutton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.instance.DisplayPage(ViewModel.Pages.Unlock);
 
         }
     }

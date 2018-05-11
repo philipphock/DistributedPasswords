@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:DistributedPasswordsWPF"
              StartupUri="view/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="view/Strings.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

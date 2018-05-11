@@ -17,8 +17,8 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <PasswordBox HorizontalAlignment="Stretch" Margin="0,198" VerticalAlignment="Center" Height="54" Grid.Column="1" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button Content="☰" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" FontSize="36"/>
+        <PasswordBox KeyUp="PasswordBoxUp" Name="PasswordBox" HorizontalAlignment="Stretch" Margin="0,198" VerticalAlignment="Center" Height="54" Grid.Column="1" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="MenuButton" Content="☰" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" FontSize="36" Click="MenuButton_Click" />
 
     </Grid>
 </Page>
