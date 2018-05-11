@@ -9,13 +9,16 @@
       Title="Unlock">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <PasswordBox HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Center" Height="55" Grid.Column="1" FontSize="24" Password="Test"/>
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50"/>
+        <PasswordBox HorizontalAlignment="Stretch" Margin="0,198" VerticalAlignment="Center" Height="54" Grid.Column="1" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button Content="☰" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" FontSize="36"/>
 
     </Grid>
 </Page>
