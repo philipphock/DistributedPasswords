@@ -35,10 +35,10 @@
             <RowDefinition/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Label Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="2" />
-        <Label Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" Grid.ColumnSpan="2" />
-        <Button Content="browse"  Grid.Row="2" Click="Button_Click" />
-        <Button Content="browse"  Grid.Row="6" />
+        <Label Name="DBPath" Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="2" />
+        <Label Name="KeysPath" Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" Grid.ColumnSpan="2" />
+        <Button Name="BrowseDB"  Content="browse"  Grid.Row="2" Height="30" VerticalAlignment="Top" Click="BrowseDB_Click" />
+        <Button Name="BrowseKeys" Content="browse"  Grid.Row="6" Click="BrowseKeys_Click" />
         <Label Content="{DynamicResource PathSettings_InfoDB_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" x:Name="InfoDB"/>
         <Label Content="{DynamicResource PathSettings_InfoKeys_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Database" Grid.Column="1" Grid.Row="1" FontSize="10" Margin="10,0,0,0" FontStyle="Italic" Grid.ColumnSpan="2"/>

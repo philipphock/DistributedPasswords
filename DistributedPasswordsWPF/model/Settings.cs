@@ -34,11 +34,11 @@ namespace DistributedPasswordsWPF.model
                 ";
 
         private static readonly string UPDATE_DB = @"
-            UPDATE `settings` SET `VALUE`=? WHERE _rowid_='1';
+            UPDATE `settings` SET `VALUE`=:v WHERE _rowid_='1';
         ";
 
         private static readonly string UPDATE_KEYS = @"
-            UPDATE `settings` SET `VALUE`=? WHERE _rowid_='2';
+            UPDATE `settings` SET `VALUE`=:v WHERE _rowid_='2';
         ";
 
         private static readonly string SELECT_DB = @"
@@ -107,7 +107,7 @@ namespace DistributedPasswordsWPF.model
         {
             get
             {
-                if (KEYS_PATH == "" || KEYS_PATH == null)
+                if (KEYS_DIR == "" || KEYS_DIR == null)
                 {
                     throw new System.ArgumentException("Path not set");
                 }
@@ -118,7 +118,7 @@ namespace DistributedPasswordsWPF.model
             set
             {
                 SQLiteCommand command = new SQLiteCommand(UPDATE_KEYS, dbConnection);
-                command.Parameters.Add(value, System.Data.DbType.String);
+                command.Parameters.Add("v", System.Data.DbType.String).Value = value;
                 command.ExecuteNonQuery();
                 KEYS_DIR = value;
 
@@ -139,7 +139,7 @@ namespace DistributedPasswordsWPF.model
             set
             {
                 SQLiteCommand command = new SQLiteCommand(UPDATE_DB, dbConnection);
-                command.Parameters.Add(value, System.Data.DbType.String);
+                command.Parameters.Add("v", System.Data.DbType.String).Value = value;
                 command.ExecuteNonQuery();
 
                 DB_DIR = value;
