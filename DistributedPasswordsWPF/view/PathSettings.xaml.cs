@@ -62,7 +62,7 @@ namespace DistributedPasswordsWPF.view
         private void SaveButtonClicked(object sender, RoutedEventArgs e)
         {
             string dbString = DBPath.Content.ToString();
-            string keysString = DBPath.Content.ToString();
+            string keysString = KeysPath.Content.ToString();
             bool dbOk = isOKFolder(dbString);
             bool keysOk = isOKFolder(keysString);
 

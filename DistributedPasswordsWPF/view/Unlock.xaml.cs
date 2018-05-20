@@ -46,10 +46,21 @@ namespace DistributedPasswordsWPF
 
         private void PasswordBoxUp(object sender, KeyEventArgs e)
         {
+            Info.Content = "";
             if (e.Key == Key.Enter)
             {
+                if (!PasswordSystem.Instance.IsHeaderFilePresent())
+                {
+                    PasswordSystem.Instance.CreateHeader(PasswordBox.Password);
+                    Info.Content = "Header created, retype your password to unlock";
+                }
+                else
+                {
+                    PasswordSystem.Instance.Unlock(PasswordBox.Password);
+
+                }
                 //TODO check password, if correct, route
-                Router.instance.DisplayPage(Router.Pages.Main);
+                //Router.instance.DisplayPage(Router.Pages.Main);
             }
         }
     }

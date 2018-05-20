@@ -40,17 +40,19 @@ namespace DistributedPasswordsWPF.model
         }
 
 
-        public bool Unlock()
+        public bool Unlock(string password)
         {
+
             return false;
         }
-
+        public void CreateHeader(string password)
+        {
+            this.header.CreateHeader(password);
+        }
         public static PasswordSystem Instance = new PasswordSystem();
         private PasswordSystem()
         {
-            //FileHelper.ListDatabaseFiles();
-            
-
+           
 
         }
     }

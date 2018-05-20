@@ -11,34 +11,55 @@ namespace DistributedPasswordsWPF.model
     class Header
     {
         private string _header = null;
+        private string _decryptedheader = null;
+
         private string _hash = null;
         private static Random random = new Random();
 
+        private string EnhancePassword(string password)
+        {
+            ReadHash();
+            return _hash + password;
+        }
         
+        public string EncryptWithHeaderPassword(string text)
+        {
+            return Crypto.Encrypt(text, _decryptedheader);
+        }
 
+        public string DecryptWithHeaderPassword(string text)
+        {
+            return Crypto.Decrypt(text, _decryptedheader);
+        }
+
+        private string GenerateHash()
+        {
+            return ""; //TODO
+        }
         private string GenerateHeader(string password)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             string plainheader = new string(Enumerable.Repeat(chars, 256).Select(s => s[random.Next(s.Length)]).ToArray());
-            return Crypto.Encrypt(plainheader, password);    
+            return Crypto.Encrypt(plainheader, EnhancePassword(password));    
 
         }
 
+        public void CreateHeader(string password)
+        {
+            string encryptedHeader = GenerateHeader(password);
+            string p = Path.Combine(Settings.KEYS_PATH, "header").ToString();
+            File.WriteAllText(p, encryptedHeader);
+        }
         
 
-        public Task<bool> DecryptHeader()
+        public void DecryptHeader(string password)
         {
             if (_header == null)
             {
-                throw new InvalidOperationException("Header not encrypted");
+                throw new InvalidOperationException("Header not decrypted");
             }
-
-            Task<bool> ret = Task.Run(() =>
-            {
-                return false;
-            });
-
-            return ret;
+            this._decryptedheader = Crypto.Decrypt(this._header, EnhancePassword(password));
+            
         }
 
         private void ReadHeader()
@@ -55,6 +76,11 @@ namespace DistributedPasswordsWPF.model
         }
         private void ReadHash()
         {
+            if (!string.IsNullOrEmpty(_hash))
+            {
+                //hash already read, do nothing
+                return;
+            }
             string file = Path.Combine(Settings.KEYS_PATH, "hash");
             if (File.Exists(file))
             {
@@ -63,7 +89,8 @@ namespace DistributedPasswordsWPF.model
             }
             else
             {
-                throw new InvalidOperationException("File not readable");
+                _hash = GenerateHash();
+                File.WriteAllText(Path.Combine(Settings.KEYS_PATH, "hash").ToString(), _hash);
             }
         }
 
@@ -73,31 +100,6 @@ namespace DistributedPasswordsWPF.model
             return File.Exists(file);
         }
 
-        public string getHeader(string password){
-            if (_header == null)
-            {
-                Debug.WriteLine("header not cached");
-                try
-                {
-                    Debug.WriteLine("try reading header from file");
-
-                    ReadHeader();
-                }
-                catch (InvalidOperationException)
-                {
-                    Debug.WriteLine("no file exist, generate header");
-
-                    _header = GenerateHeader(password);
-                }
-
-            }
-            else
-            {
-                Debug.WriteLine("header cached");
-            }
-
-                return _header;
-            }
-
+        
     }
 }

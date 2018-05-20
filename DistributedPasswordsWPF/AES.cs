@@ -11,7 +11,7 @@ namespace DistributedPasswordsWPF
     class AES
     {
 
-        static byte[] Encrypt(string plainText, byte[] Key, byte[] IV)
+        public static byte[] Encrypt(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments.
             if (plainText == null || plainText.Length <= 0)
@@ -53,7 +53,7 @@ namespace DistributedPasswordsWPF
 
         }
 
-        static string Decrypt(byte[] cipherText, byte[] Key, byte[] IV)
+        public static string Decrypt(byte[] cipherText, byte[] Key, byte[] IV)
         {
             // Check arguments.
             if (cipherText == null || cipherText.Length <= 0)
