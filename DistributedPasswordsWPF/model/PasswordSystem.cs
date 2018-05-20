@@ -17,15 +17,7 @@ namespace DistributedPasswordsWPF.model
             Debug.WriteLine(header);
         }
 
-        public async void EncryptHeader()
-        {
-
-        }
-
-        public async void DecryptHeader()
-        {
-
-        }
+        
 
         public PasswordSystem()
         {
