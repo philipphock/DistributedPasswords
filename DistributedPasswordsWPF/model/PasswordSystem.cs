@@ -42,7 +42,7 @@ namespace DistributedPasswordsWPF.model
 
         public bool Unlock(string password)
         {
-
+            this.header.DecryptHeader(password);
             return false;
         }
         public void CreateHeader(string password)

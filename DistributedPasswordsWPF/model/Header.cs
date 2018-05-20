@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace DistributedPasswordsWPF.model
 {
     class Header
     {
-        private string _header = null;
+        public string _header = null;
         private string _decryptedheader = null;
 
         private string _hash = null;
@@ -19,7 +20,8 @@ namespace DistributedPasswordsWPF.model
         private string EnhancePassword(string password)
         {
             ReadHash();
-            return _hash + password;
+            byte[] h = (new SHA256Managed()).ComputeHash(Encoding.UTF8.GetBytes(String.Concat(password, _hash)));
+            return DecodeEncodeHelper.Bin2Hex(h);
         }
         
         public string EncryptWithHeaderPassword(string text)
@@ -54,6 +56,8 @@ namespace DistributedPasswordsWPF.model
 
         public void DecryptHeader(string password)
         {
+            ReadHeader();
+
             if (_header == null)
             {
                 throw new InvalidOperationException("Header not decrypted");
@@ -68,6 +72,7 @@ namespace DistributedPasswordsWPF.model
             if (File.Exists(file))
             {
                 this._header = File.ReadAllText(file);
+                Debug.WriteLine("eHeader: " + this._header);
             }
             else
             {
@@ -85,10 +90,12 @@ namespace DistributedPasswordsWPF.model
             if (File.Exists(file))
             {
                 this._hash = File.ReadAllText(file);
+                //Debug.WriteLine("############# - Hash: "+this._hash);
 
             }
             else
             {
+                //Debug.WriteLine("############# - Generate Hash");
                 _hash = GenerateHash();
                 File.WriteAllText(Path.Combine(Settings.KEYS_PATH, "hash").ToString(), _hash);
             }
@@ -100,6 +107,8 @@ namespace DistributedPasswordsWPF.model
             return File.Exists(file);
         }
 
+
+        
         
     }
 }

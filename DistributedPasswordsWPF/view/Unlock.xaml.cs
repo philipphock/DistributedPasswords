@@ -21,6 +21,7 @@ namespace DistributedPasswordsWPF
     /// </summary>
     public partial class Unlock : Page
     {
+        private int wrongpasswordcounter = 0;
         public Unlock()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace DistributedPasswordsWPF
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+            wrongpasswordcounter = 0;
             if (!PasswordSystem.Instance.IsHeaderFilePresent())
             {
                 Info.Content = "Header file not present, type in a new password to create one";
@@ -56,7 +58,11 @@ namespace DistributedPasswordsWPF
                 }
                 else
                 {
-                    PasswordSystem.Instance.Unlock(PasswordBox.Password);
+                    bool op = PasswordSystem.Instance.Unlock(PasswordBox.Password);
+                    if (!op)
+                    {
+                        Info.Content = "Wrong password" + String.Concat(Enumerable.Repeat(".", wrongpasswordcounter));
+                    }
 
                 }
                 //TODO check password, if correct, route

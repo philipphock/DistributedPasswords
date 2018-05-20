@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -25,7 +27,7 @@ namespace DistributedPasswordsWPF
             // with the specified key and IV.
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Key;
+                aesAlg.Key = (new SHA256Managed()).ComputeHash(Key);
                 aesAlg.IV = IV;
 
                 // Create a decrytor to perform the stream transform.
@@ -71,8 +73,10 @@ namespace DistributedPasswordsWPF
             // with the specified key and IV.
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Key;
+                aesAlg.Key = (new SHA256Managed()).ComputeHash(Key);
                 aesAlg.IV = IV;
+                Debug.WriteLine("KEY: " + DecodeEncodeHelper.Bin2Hex((new SHA256Managed()).ComputeHash(Key)));
+                Debug.WriteLine("IV : " + DecodeEncodeHelper.Bin2Hex(IV));
 
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
@@ -82,6 +86,8 @@ namespace DistributedPasswordsWPF
                 {
                     using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {
+                       
+                            
                         using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                         {
 
