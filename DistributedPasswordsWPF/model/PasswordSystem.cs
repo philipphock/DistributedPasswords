@@ -11,25 +11,20 @@ namespace DistributedPasswordsWPF.model
     {
         private readonly Header header = new Header();
 
-        private async void Init()
+        public void Init()
         {
-            string header = await this.header.GenerateHeader();
-            Debug.WriteLine(header);
-        }
+            Settings.Init();
 
-        
+            
+            
 
-        public PasswordSystem()
-        {
-            //FileHelper.ListDatabaseFiles();
-            //Settings.Init();
-            Init();
+            //Debug.WriteLine(_header);
 
             try
             {
                 string db = Settings.DB_PATH;
                 string keys = Settings.KEYS_PATH;
-                //Router.instance.DisplayPage(Router.Pages.Unlock);
+                Router.instance.DisplayPage(Router.Pages.Unlock);
 
             }
             catch (ArgumentException)
@@ -37,7 +32,24 @@ namespace DistributedPasswordsWPF.model
                 Router.instance.DisplayPage(Router.Pages.PathSettings);
 
             }
+        }
 
+        public bool IsHeaderFilePresent()
+        {
+            return this.header.IsHeaderFilePresent();
+        }
+
+
+        public bool Unlock()
+        {
+            return false;
+        }
+
+        public static PasswordSystem Instance = new PasswordSystem();
+        private PasswordSystem()
+        {
+            //FileHelper.ListDatabaseFiles();
+            
 
 
         }

@@ -9,11 +9,16 @@ namespace DistributedPasswordsWPF.model
 {
     class FileHelper
     {
-        private const string DB_FOLDER = "assets/pypassDatabase";
-        private const string KEYS_FOLDER = "assets/pypassKeys";
 
-        public static void readFile()
-        { 
+        
+
+        public static void WriteHeader()
+        {
+            Path.Combine(Settings.KEYS_PATH, "header");
+        }
+        public static void WriteHash()
+        {
+            Path.Combine(Settings.KEYS_PATH, "hash");
         }
 
         private static void ListFiles(string path)
@@ -29,7 +34,7 @@ namespace DistributedPasswordsWPF.model
 
         public static void ListDatabaseFiles()
         {
-            ListFiles(DB_FOLDER);
+        //    ListFiles(DB_FOLDER);
         }
     }
 }

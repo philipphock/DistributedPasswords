@@ -26,7 +26,7 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
 
             Router.instance.init(this);
-            PasswordSystem pws = new PasswordSystem();
+            PasswordSystem.Instance.Init();
 
         }
     }

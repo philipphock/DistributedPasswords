@@ -35,28 +35,17 @@ namespace DistributedPasswordsWPF.view
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
 
-            try
-            {
-                string dbp = Settings.DB_PATH;
-                DBPath.Content = dbp;
+            
+            string dbp = Settings.DB_PATH;
+            DBPath.Content = dbp;
 
-            }
-            catch (ArgumentException)
-            {
-                DBPath.Content = "PATH/TO/DB";
-            }
+            
 
+            
+            string keys = Settings.KEYS_PATH;
+            KeysPath.Content = keys;
 
-            try
-            {
-                string keys = Settings.KEYS_PATH;
-                KeysPath.Content = keys;
-
-            }
-            catch (ArgumentException)
-            {
-                KeysPath.Content = "PATH/TO/KEYS";
-            }
+            
 
         }
 

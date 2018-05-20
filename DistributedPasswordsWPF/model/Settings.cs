@@ -55,10 +55,10 @@ namespace DistributedPasswordsWPF.model
             
         }
 
+
         public static void Init()
         {
             bool init = false;
-            Debug.WriteLine(SETTINGS);
             if (!System.IO.Directory.Exists(SETTINGS_DIR))
             {
                 init = true;
@@ -81,21 +81,7 @@ namespace DistributedPasswordsWPF.model
                 command2.ExecuteNonQuery();
 
             }
-            else
-            {
-                SQLiteCommand command = new SQLiteCommand(SELECT_DB, dbConnection);
-                SQLiteCommand command2 = new SQLiteCommand(SELECT_KEYS, dbConnection);
-                SQLiteDataReader reader1 = command.ExecuteReader();
-                while (reader1.Read())
-                {
-                    DB_PATH = reader1["VALUE"].ToString();
-                }
-                SQLiteDataReader reader2 = command2.ExecuteReader();
-                while (reader2.Read())
-                {
-                    KEYS_PATH = reader2["VALUE"].ToString();
-                }
-            }
+            
 
 
         }
@@ -109,7 +95,14 @@ namespace DistributedPasswordsWPF.model
             {
                 if (KEYS_DIR == "" || KEYS_DIR == null)
                 {
-                    throw new System.ArgumentException("Path not set");
+
+                    SQLiteCommand command2 = new SQLiteCommand(SELECT_KEYS, dbConnection);
+
+                    SQLiteDataReader reader2 = command2.ExecuteReader();
+                    while (reader2.Read())
+                    {
+                        KEYS_DIR = reader2["VALUE"].ToString();
+                    }
                 }
 
                 return KEYS_DIR;
@@ -131,7 +124,12 @@ namespace DistributedPasswordsWPF.model
             {
                 if (DB_DIR == "" || DB_DIR == null)
                 {
-                    throw new System.ArgumentException("Path not set");
+                    SQLiteCommand command = new SQLiteCommand(SELECT_DB, dbConnection);
+                    SQLiteDataReader reader1 = command.ExecuteReader();
+                    while (reader1.Read())
+                    {
+                        DB_DIR = reader1["VALUE"].ToString();
+                    }
                 }
                 return DB_DIR;
             }

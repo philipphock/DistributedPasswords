@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,19 @@ namespace DistributedPasswordsWPF
         public Unlock()
         {
             InitializeComponent();
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (!PasswordSystem.Instance.IsHeaderFilePresent())
+            {
+                Info.Content = "Header file not present, type in a new password to create one";
+            }
+            else
+            {
+                Info.Content = "";
+            }
+                        
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)

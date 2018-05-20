@@ -6,19 +6,24 @@
       xmlns:local="clr-namespace:DistributedPasswordsWPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="PageLoaded"
       Title="Unlock">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="11*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <PasswordBox KeyUp="PasswordBoxUp" Name="PasswordBox" HorizontalAlignment="Stretch" Margin="0,198" VerticalAlignment="Center" Height="54" Grid.Column="1" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <PasswordBox KeyUp="PasswordBoxUp" Name="PasswordBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0.5,0,0"  Grid.Column="1" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="1" />
         <Button x:Name="MenuButton" Content="☰" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" FontSize="36" Click="MenuButton_Click" />
+        <Label x:Name="Info" Content="" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch"   Grid.Row="2" />
 
     </Grid>
 </Page>
