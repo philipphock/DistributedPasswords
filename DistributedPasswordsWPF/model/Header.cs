@@ -63,6 +63,7 @@ namespace DistributedPasswordsWPF.model
                 throw new InvalidOperationException("Header not decrypted");
             }
             this._decryptedheader = Crypto.Decrypt(this._header, EnhancePassword(password));
+            Debug.WriteLine("decryptedHeader"+this._decryptedheader);
             
         }
 

@@ -73,8 +73,11 @@ namespace DistributedPasswordsWPF
             // with the specified key and IV.
             using (Aes aesAlg = Aes.Create())
             {
+                aesAlg.Mode = CipherMode.CBC;
+
                 aesAlg.Key = (new SHA256Managed()).ComputeHash(Key);
                 aesAlg.IV = IV;
+                aesAlg.Padding = PaddingMode.Zeros;
                 Debug.WriteLine("KEY: " + DecodeEncodeHelper.Bin2Hex((new SHA256Managed()).ComputeHash(Key)));
                 Debug.WriteLine("IV : " + DecodeEncodeHelper.Bin2Hex(IV));
 
@@ -86,11 +89,10 @@ namespace DistributedPasswordsWPF
                 {
                     using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {
-                       
-                            
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
 
+                      
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt, Encoding.UTF8))
+                        {
                             // Read the decrypted bytes from the decrypting stream
                             // and place them in a string.
                             plaintext = srDecrypt.ReadToEnd();
