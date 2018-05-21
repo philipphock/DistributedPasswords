@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
@@ -16,6 +17,7 @@ namespace DistributedPasswordsWPF.model
 
         private string _hash = null;
         private static Random random = new Random();
+        private readonly Regex _headerRegex = new Regex("^[a-zA-Z0-9]*$");
 
         private string EnhancePassword(string password)
         {
@@ -36,7 +38,10 @@ namespace DistributedPasswordsWPF.model
 
         private string GenerateHash()
         {
-            return ""; //TODO
+            byte[] rnd = new byte[4];
+            random.NextBytes(rnd);
+            string h = DecodeEncodeHelper.Bin2Hex(rnd);
+            return h; 
         }
         private string GenerateHeader(string password)
         {
@@ -54,7 +59,7 @@ namespace DistributedPasswordsWPF.model
         }
         
 
-        public void DecryptHeader(string password)
+        public bool DecryptHeader(string password)
         {
             ReadHeader();
 
@@ -62,10 +67,17 @@ namespace DistributedPasswordsWPF.model
             {
                 throw new InvalidOperationException("Header not decrypted");
             }
-            this._decryptedheader = Crypto.Decrypt(this._header, EnhancePassword(password));
-            DEBUG.Print(this.GetType(), "decryptedHeader" + this._decryptedheader);
-            
-        }
+            string d = Crypto.Decrypt(this._header, EnhancePassword(password));
+            DEBUG.Print(this.GetType(), "decryptedHeader: " + d);
+
+            if (_headerRegex.IsMatch(d))
+            {
+                this._decryptedheader = d;            
+                return true;
+            }
+            return false;
+        }           
+        
 
         private void ReadHeader()
         {
@@ -95,6 +107,7 @@ namespace DistributedPasswordsWPF.model
             }
             else
             {
+                DEBUG.Print(this.GetType(), "generate hash");
                 _hash = GenerateHash();
                 File.WriteAllText(Path.Combine(Settings.KEYS_PATH, "hash").ToString(), _hash);
             }

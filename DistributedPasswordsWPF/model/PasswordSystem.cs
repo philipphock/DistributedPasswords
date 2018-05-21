@@ -38,8 +38,9 @@ namespace DistributedPasswordsWPF.model
 
         public bool Unlock(string password)
         {
-            this.header.DecryptHeader(password);
-            return true;
+            bool success = this.header.DecryptHeader(password);
+
+            return success;
         }
         public void CreateHeader(string password)
         {

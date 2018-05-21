@@ -63,6 +63,10 @@ namespace DistributedPasswordsWPF
                     {
                         Info.Content = "Wrong password" + String.Concat(Enumerable.Repeat(".", wrongpasswordcounter));
                     }
+                    else
+                    {
+                        Router.instance.DisplayPage(Router.Pages.Main);
+                    }
 
                 }
                 //TODO check password, if correct, route

@@ -31,8 +31,11 @@ namespace DistributedPasswordsWPF
             // with the specified key and IV.
             using (Aes aesAlg = Aes.Create())
             {
+
+          
                 aesAlg.Key = (new SHA256Managed()).ComputeHash(Key);
                 aesAlg.IV = IV;
+                aesAlg.Padding = PaddingMode.Zeros;
 
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
