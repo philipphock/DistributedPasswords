@@ -49,9 +49,34 @@ namespace DistributedPasswordsWPF
 
         }
 
+        //new button
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Router.instance.DisplayPage(Router.Pages.EditNew);
+            Router.instance.DisplayPage(Router.Pages.EditNew, "new");
+        }
+
+        //select button
+        private void Button_Item_Select(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            PasswordEntry entry = button.DataContext as PasswordEntry;
+            DEBUG.Print(this.GetType(), entry.Id);
+        }
+
+        //ei´dit button
+        private void Button_Item_Edit(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            PasswordEntry entry = button.DataContext as PasswordEntry;
+            DEBUG.Print(this.GetType(), entry.Id);
+        }
+
+        //delete button
+        private void Button_Item_Delete(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            PasswordEntry entry = button.DataContext as PasswordEntry;
+            DEBUG.Print(this.GetType(), entry.Id);
         }
     }
 }

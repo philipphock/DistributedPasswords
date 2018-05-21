@@ -44,8 +44,25 @@ namespace DistributedPasswordsWPF
 
         public void DisplayPage(Pages page)
         {
+            _payload = null;
             window.Main.Content = pagesLUT[page];
         }
+
+        public void DisplayPage(Pages page, object payload)
+        {
+            _payload = payload;
+            window.Main.Content = pagesLUT[page];
+        }
+
+        private object _payload;
+        public object Payload
+        {
+            get
+            {
+                return _payload;
+            }
+        }
+
 
         public static Router instance = new Router();
     }
