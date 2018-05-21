@@ -8,5 +8,34 @@ namespace DistributedPasswordsWPF.model.dataobjects
 {
     class PasswordEntry
     {
+        private string _id;
+        private string _encryptedfilename;
+
+        
+
+        public string EncryptedFileName
+        {
+            get
+            {
+                return _encryptedfilename;
+            }
+            set
+            {
+                _encryptedfilename = value;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
     }
 }

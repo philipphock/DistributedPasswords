@@ -1,4 +1,5 @@
 ﻿using DistributedPasswordsWPF.model;
+using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
         }
 
+        private void _getData()
+        {
+            List<PasswordEntry> data = PasswordSystem.Instance.ReadDatabase();
+            listView.ItemsSource = data;
+
+        }
+
         private void Lock_Click(object sender, RoutedEventArgs e)
         {
             Router.instance.DisplayPage(Router.Pages.Unlock);
@@ -33,8 +41,7 @@ namespace DistributedPasswordsWPF
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            PasswordSystem.Instance.ListDatabase();
-
+            _getData();
         }
         private void ChgPW_Click(object sender, RoutedEventArgs e)
         {

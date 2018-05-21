@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model.dataobjects;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -47,15 +48,30 @@ namespace DistributedPasswordsWPF.model
             this.header.CreateHeader(password);
         }
 
-        public string[] ListDatabase()
+        public List<PasswordEntry> ReadDatabase()
         {
+
             string[] ss = FileHelper.ListFiles(Settings.DB_PATH);
+            List<PasswordEntry> ret = new List<PasswordEntry>(ss.Length);
+            int cnt = 0;
             foreach (string s in ss)
             {
-                Debug.WriteLine(this.header.DecryptWithHeaderPassword(s));
+                
+                string dec = this.header.DecryptWithHeaderPassword(s);
+                string enc = s;
+
+                PasswordEntry e = new PasswordEntry
+                {
+                    Id = dec,
+                    EncryptedFileName = enc
+                };
+
+                ret.Add(e);
+
+                cnt++;
             }
 
-            return null;
+            return ret;
         }
 
         public static PasswordSystem Instance = new PasswordSystem();
