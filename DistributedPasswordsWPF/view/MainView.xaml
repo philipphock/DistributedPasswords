@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:DistributedPasswordsWPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="PageLoaded"
       Title="MainView">
 
     <Page.Resources>

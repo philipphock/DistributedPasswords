@@ -46,6 +46,18 @@ namespace DistributedPasswordsWPF.model
         {
             this.header.CreateHeader(password);
         }
+
+        public string[] ListDatabase()
+        {
+            string[] ss = FileHelper.ListFiles(Settings.DB_PATH);
+            foreach (string s in ss)
+            {
+                Debug.WriteLine(this.header.DecryptWithHeaderPassword(s));
+            }
+
+            return null;
+        }
+
         public static PasswordSystem Instance = new PasswordSystem();
         private PasswordSystem()
         {

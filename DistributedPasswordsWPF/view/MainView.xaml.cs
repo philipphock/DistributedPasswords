@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,11 @@ namespace DistributedPasswordsWPF
             Router.instance.DisplayPage(Router.Pages.Unlock);
         }
 
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            PasswordSystem.Instance.ListDatabase();
+
+        }
         private void ChgPW_Click(object sender, RoutedEventArgs e)
         {
             Router.instance.DisplayPage(Router.Pages.ChangePW);

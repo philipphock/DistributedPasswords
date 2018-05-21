@@ -21,15 +21,18 @@ namespace DistributedPasswordsWPF.model
             Path.Combine(Settings.KEYS_PATH, "hash");
         }
 
-        private static void ListFiles(string path)
+        public static string[] ListFiles(string path)
         {
             DirectoryInfo d = new DirectoryInfo(@path);
-            FileInfo[] Files = d.GetFiles(); 
-            string str = "";
+            FileInfo[] Files = d.GetFiles();
+            string[] ret = new string[Files.Length];
+            int cnt = 0;
             foreach (FileInfo file in Files)
             {
-                Console.WriteLine(file);
+                ret[cnt] = file.Name;
+                cnt++;
             }
+            return ret;
         }
 
         public static void ListDatabaseFiles()
