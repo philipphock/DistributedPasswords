@@ -37,13 +37,13 @@ namespace DistributedPasswordsWPF.view
 
             
             string dbp = Settings.DB_PATH;
-            DBPath.Content = dbp;
+            DBPath.Text = dbp;
 
             
 
             
             string keys = Settings.KEYS_PATH;
-            KeysPath.Content = keys;
+            KeysPath.Text = keys;
 
             
 
@@ -64,8 +64,8 @@ namespace DistributedPasswordsWPF.view
             
             _pathsOK(() =>
             {
-                string dbString = DBPath.Content.ToString();
-                string keysString = KeysPath.Content.ToString();
+                string dbString = DBPath.Text.ToString();
+                string keysString = KeysPath.Text.ToString();
 
                 Settings.DB_PATH = dbString;
                 Settings.KEYS_PATH = keysString;
@@ -77,8 +77,8 @@ namespace DistributedPasswordsWPF.view
 
         private void _pathsOK(Action success = null, Router.Pages page = Router.Pages.Unlock, object payload = null)
         {
-            string dbString = DBPath.Content.ToString();
-            string keysString = KeysPath.Content.ToString();
+            string dbString = DBPath.Text.ToString();
+            string keysString = KeysPath.Text.ToString();
             bool dbOk = _isOKFolder(dbString);
             bool keysOk = _isOKFolder(keysString);
 
@@ -107,15 +107,15 @@ namespace DistributedPasswordsWPF.view
 
         }
 
-        private void _labelFileChooser(System.Windows.Controls.Label lbl)
+        private void _labelFileChooser(System.Windows.Controls.TextBox lbl)
         {
 
 
             using (var fbd = new FolderBrowserDialog())
             {
-                if (_isOKFolder(lbl.Content.ToString()))
+                if (_isOKFolder(lbl.Text.ToString()))
                 {
-                    fbd.SelectedPath = lbl.Content.ToString();
+                    fbd.SelectedPath = lbl.Text.ToString();
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace DistributedPasswordsWPF.view
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    lbl.Content = fbd.SelectedPath.ToString();
+                    lbl.Text = fbd.SelectedPath.ToString();
                 }
             }
         }

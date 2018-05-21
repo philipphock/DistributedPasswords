@@ -35,8 +35,9 @@
             <RowDefinition/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Label Name="DBPath" Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="2" />
-        <Label Name="KeysPath" Content="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" Grid.ColumnSpan="2" />
+        <TextBox Name="DBPath" Text="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
+        <TextBox Name="KeysPath" Text="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
+        
         <Button Name="BrowseDB"  Content="browse"  Grid.Row="2" Height="30" VerticalAlignment="Top" Click="BrowseDB_Click" />
         <Button Name="BrowseKeys" Content="browse"  Grid.Row="6" Click="BrowseKeys_Click" />
         <Label Content="{DynamicResource PathSettings_InfoDB_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" x:Name="InfoDB"/>
