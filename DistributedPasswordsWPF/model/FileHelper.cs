@@ -12,14 +12,7 @@ namespace DistributedPasswordsWPF.model
 
         
 
-        public static void WriteHeader()
-        {
-            Path.Combine(Settings.KEYS_PATH, "header");
-        }
-        public static void WriteHash()
-        {
-            Path.Combine(Settings.KEYS_PATH, "hash");
-        }
+        
 
         public static string[] ListFiles(string path)
         {
@@ -35,10 +28,7 @@ namespace DistributedPasswordsWPF.model
             return ret;
         }
 
-        public static void ListDatabaseFiles()
-        {
-        //    ListFiles(DB_FOLDER);
-        }
+        
     }
 }
 

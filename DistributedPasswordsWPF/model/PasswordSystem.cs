@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,11 @@ namespace DistributedPasswordsWPF.model
                     EncryptedFileName = enc
                 };
 
+                string encryptedContent = File.ReadAllText(Path.Combine(Settings.DB_PATH, enc));
+                string decryptedContent = this.header.DecryptWithHeaderPassword(encryptedContent);
+
+                ContentParser.ParseToEntry(e, decryptedContent);
+
                 ret.Add(e);
 
                 cnt++;
@@ -81,6 +87,9 @@ namespace DistributedPasswordsWPF.model
 
             return ret;
         }
+
+
+        public ContentParser ContentParser { get; } = new ContentParser();
 
         public static PasswordSystem Instance = new PasswordSystem();
         private PasswordSystem()
