@@ -10,32 +10,12 @@ namespace DistributedPasswordsWPF.model.dataobjects
     {
         private string _id;
         private string _encryptedfilename;
+        private List<Username> usernames = new List<Username>();
 
         
-
-        public string EncryptedFileName
-        {
-            get
-            {
-                return _encryptedfilename;
-            }
-            set
-            {
-                _encryptedfilename = value;
-            }
-        }
-
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
-
+        public string Encryptedfilename { get => _encryptedfilename; set => _encryptedfilename = value; }
+        
+        public string Id { get => _id; set => _id = value; }
+        internal List<Username> Usernames { get => usernames; set => usernames = value; }
     }
 }

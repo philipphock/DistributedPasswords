@@ -72,7 +72,7 @@ namespace DistributedPasswordsWPF.model
                 PasswordEntry e = new PasswordEntry
                 {
                     Id = dec,
-                    EncryptedFileName = enc
+                    Encryptedfilename = enc
                 };
 
                 string encryptedContent = File.ReadAllText(Path.Combine(Settings.DB_PATH, enc));

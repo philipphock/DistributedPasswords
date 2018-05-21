@@ -62,6 +62,7 @@ namespace DistributedPasswordsWPF
                     if (!op)
                     {
                         Info.Content = "Wrong password" + String.Concat(Enumerable.Repeat(".", wrongpasswordcounter));
+                        wrongpasswordcounter++;
                     }
                     else
                     {

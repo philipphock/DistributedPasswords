@@ -1,4 +1,5 @@
 ﻿using DistributedPasswordsWPF.model.dataobjects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,21 @@ namespace DistributedPasswordsWPF.model
     {
         public void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
         {
-            DEBUG.Print(this.GetType(), decryptedFileContent);
+
+            dynamic o = JsonConvert.DeserializeObject(decryptedFileContent);
+            foreach (dynamic d in o.usernames)
+            {
+                Username u = new Username();
+                u.username = d.username;
+                u.password = d.password;
+                u.email = d.email;
+                u.notes = d.notes;
+                
+                entry.Usernames.Add(u);
+                DEBUG.Print(this.GetType(), u);
+
+            }
+            
         }
     }
 }
