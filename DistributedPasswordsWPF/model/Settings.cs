@@ -55,11 +55,20 @@ namespace DistributedPasswordsWPF.model
             
         }
 
+        private static bool _initCalled = false;
 
         public static void Init()
         {
+            if (_initCalled)
+            {
+                throw new InvalidOperationException("Settings.Init() already called");
+            }
+
+            _initCalled = true;
+
+
             bool init = false;
-            if (!System.IO.Directory.Exists(SETTINGS_DIR))
+            if (!System.IO.Directory.Exists(SETTINGS_DIR) || !System.IO.File.Exists(SETTINGS))
             {
                 init = true;
                 System.IO.Directory.CreateDirectory(SETTINGS_DIR);
@@ -72,6 +81,7 @@ namespace DistributedPasswordsWPF.model
 
             if (init)
             {
+                DEBUG.Print("Settings", "init");
 
 
                 SQLiteCommand command = new SQLiteCommand(CREATE_TABLE, dbConnection);
@@ -92,6 +102,10 @@ namespace DistributedPasswordsWPF.model
         {
             get
             {
+                if (!_initCalled)
+                {
+                    throw new InvalidOperationException("Init not yet called");
+                }
                 if (KEYS_DIR == "" || KEYS_DIR == null)
                 {
 
@@ -121,6 +135,10 @@ namespace DistributedPasswordsWPF.model
         {
             get
             {
+                if (!_initCalled)
+                {
+                    throw new InvalidOperationException("Init not yet called");
+                }
                 if (DB_DIR == "" || DB_DIR == null)
                 {
                     SQLiteCommand command = new SQLiteCommand(SELECT_DB, dbConnection);

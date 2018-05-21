@@ -49,7 +49,7 @@ namespace DistributedPasswordsWPF.view
 
         }
 
-        private bool isOKFolder(string s)
+        private bool _isOKFolder(string s)
         {
             if (!Directory.Exists(s))
             {
@@ -61,44 +61,59 @@ namespace DistributedPasswordsWPF.view
         }
         private void SaveButtonClicked(object sender, RoutedEventArgs e)
         {
+            
+            _pathsOK(() =>
+            {
+                string dbString = DBPath.Content.ToString();
+                string keysString = KeysPath.Content.ToString();
+
+                Settings.DB_PATH = dbString;
+                Settings.KEYS_PATH = keysString;
+            });
+                
+            
+
+        }
+
+        private void _pathsOK(Action success = null, Router.Pages page = Router.Pages.Unlock, object payload = null)
+        {
             string dbString = DBPath.Content.ToString();
             string keysString = KeysPath.Content.ToString();
-            bool dbOk = isOKFolder(dbString);
-            bool keysOk = isOKFolder(keysString);
+            bool dbOk = _isOKFolder(dbString);
+            bool keysOk = _isOKFolder(keysString);
 
             if (dbOk && keysOk)
             {
-                Settings.DB_PATH = dbString;
-                Settings.KEYS_PATH = keysString;
-                Router.instance.DisplayPage(Router.Pages.Unlock);
+
+                success?.Invoke();
+                Router.instance.DisplayPage(page, payload);
 
             }
             else
             {
-                System.Windows.MessageBox.Show("The path is not an existing folder");
+                String s = (string)FindResource("PathSettings_InvalidFolder");
+                System.Windows.MessageBox.Show(s);
             }
 
+            
+            
         }
 
-        private void Backbutton_Click(object sender, RoutedEventArgs e)
-        {
-            Router.instance.DisplayPage(Router.Pages.Unlock);
-
-        }
+      
 
         private void BrowseDB_Click(object sender, RoutedEventArgs e)
         {
-            labelFileChooser(DBPath);
+            _labelFileChooser(DBPath);
 
         }
 
-        private void labelFileChooser(System.Windows.Controls.Label lbl)
+        private void _labelFileChooser(System.Windows.Controls.Label lbl)
         {
 
 
             using (var fbd = new FolderBrowserDialog())
             {
-                if (isOKFolder(lbl.Content.ToString()))
+                if (_isOKFolder(lbl.Content.ToString()))
                 {
                     fbd.SelectedPath = lbl.Content.ToString();
                 }
@@ -117,7 +132,12 @@ namespace DistributedPasswordsWPF.view
 
         private void BrowseKeys_Click(object sender, RoutedEventArgs e)
         {
-            labelFileChooser(KeysPath);
+            _labelFileChooser(KeysPath);
+        }
+
+        private void Backbutton_Click(object sender, RoutedEventArgs e)
+        {
+            _pathsOK();
         }
     }
 }

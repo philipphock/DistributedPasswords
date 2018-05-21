@@ -6,5 +6,6 @@
     <system:String x:Key="PathSettings_InfoDB_Default">Folder where the encrypted database entries are stored</system:String>
     <system:String x:Key="PathSettings_InfoKeys_Default">Folder where encryption related files are stored</system:String>
 
+    <system:String x:Key="PathSettings_InvalidFolder">"The path is not an existing folder"</system:String>
 
 </ResourceDictionary>

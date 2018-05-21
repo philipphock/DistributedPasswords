@@ -10,25 +10,33 @@ namespace DistributedPasswordsWPF.model
 {
     class PasswordSystem
     {
-        private readonly Header header = new Header();
+        private Header header;
 
         public void Init()
         {
-            Settings.Init();
             DEBUG.enabled = true;
- 
-            try
-            {
-                string db = Settings.DB_PATH;
-                string keys = Settings.KEYS_PATH;
-                Router.instance.DisplayPage(Router.Pages.Unlock);
+            Settings.Init();
+            
+            header = new Header();
 
-            }
-            catch (ArgumentException)
+            
+            string db = Settings.DB_PATH;
+            string keys = Settings.KEYS_PATH;
+
+            if (string.IsNullOrEmpty(db) || string.IsNullOrEmpty(keys))
             {
                 Router.instance.DisplayPage(Router.Pages.PathSettings);
-
             }
+            else
+            {
+                Router.instance.DisplayPage(Router.Pages.Unlock);
+            }
+
+            
+
+            
+            
+
         }
 
         public bool IsHeaderFilePresent()
