@@ -14,12 +14,8 @@ namespace DistributedPasswordsWPF.model
         public void Init()
         {
             Settings.Init();
-
-            
-            
-
-            //Debug.WriteLine(_header);
-
+            DEBUG.enabled = true;
+ 
             try
             {
                 string db = Settings.DB_PATH;

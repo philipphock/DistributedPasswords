@@ -63,7 +63,7 @@ namespace DistributedPasswordsWPF.model
                 throw new InvalidOperationException("Header not decrypted");
             }
             this._decryptedheader = Crypto.Decrypt(this._header, EnhancePassword(password));
-            Debug.WriteLine("decryptedHeader"+this._decryptedheader);
+            DEBUG.Print(this.GetType(), "decryptedHeader" + this._decryptedheader);
             
         }
 
@@ -73,7 +73,7 @@ namespace DistributedPasswordsWPF.model
             if (File.Exists(file))
             {
                 this._header = File.ReadAllText(file);
-                Debug.WriteLine("eHeader: " + this._header);
+                DEBUG.Print(this.GetType(), "eHeader: " + this._header);
             }
             else
             {
@@ -91,12 +91,10 @@ namespace DistributedPasswordsWPF.model
             if (File.Exists(file))
             {
                 this._hash = File.ReadAllText(file);
-                //Debug.WriteLine("############# - Hash: "+this._hash);
 
             }
             else
             {
-                //Debug.WriteLine("############# - Generate Hash");
                 _hash = GenerateHash();
                 File.WriteAllText(Path.Combine(Settings.KEYS_PATH, "hash").ToString(), _hash);
             }

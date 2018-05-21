@@ -8,6 +8,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <author>
+/// https://msdn.microsoft.com/de-de/library/system.security.cryptography.aes(v=vs.110).aspx
+/// </author>
+
 namespace DistributedPasswordsWPF
 {
     class AES
@@ -78,9 +82,9 @@ namespace DistributedPasswordsWPF
                 aesAlg.Key = (new SHA256Managed()).ComputeHash(Key);
                 aesAlg.IV = IV;
                 aesAlg.Padding = PaddingMode.Zeros;
-                Debug.WriteLine("KEY: " + DecodeEncodeHelper.Bin2Hex((new SHA256Managed()).ComputeHash(Key)));
-                Debug.WriteLine("IV : " + DecodeEncodeHelper.Bin2Hex(IV));
-
+                DEBUG.Print("AES","KEY: " + DecodeEncodeHelper.Bin2Hex((new SHA256Managed()).ComputeHash(Key)));
+                DEBUG.Print("AES", "IV : " + DecodeEncodeHelper.Bin2Hex(IV));
+                
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 

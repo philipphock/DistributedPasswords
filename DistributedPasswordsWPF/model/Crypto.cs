@@ -31,8 +31,8 @@ namespace DistributedPasswordsWPF
             var iv = t.Take(16);
             byte[] ivb = iv.ToArray();
             byte[] to = t.Skip(16).ToArray();
-            Debug.WriteLine("pass: "+password);
-            Debug.WriteLine("data: " +DecodeEncodeHelper.Bin2Hex(to));
+            DEBUG.Print("Crypto", "pass: " + password);
+            DEBUG.Print("Crypto", "data: " + DecodeEncodeHelper.Bin2Hex(to));
             return AES.Decrypt(to, p, ivb);
         }
     }
