@@ -169,12 +169,18 @@ namespace DistributedPasswordsWPF
         {
 
             _comboboxChanged();
+            
         }
       
         private void _comboboxChanged()
         {
+
+            SelectedUsername = User.SelectedItem as Username;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedUsername"));
             PasswordBox1.Password = SelectedUsername?.Password;
             PasswordBox2.Password = SelectedUsername?.Password;
+            
+
         }
     }
 }

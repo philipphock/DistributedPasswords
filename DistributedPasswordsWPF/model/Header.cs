@@ -68,7 +68,6 @@ namespace DistributedPasswordsWPF.model
                 throw new InvalidOperationException("Header not decrypted");
             }
             string d = Crypto.Decrypt(this._header, EnhancePassword(password));
-            DEBUG.Print(this.GetType(), "decryptedHeader: " + d);
 
             if (_headerRegex.IsMatch(d))
             {
@@ -85,7 +84,6 @@ namespace DistributedPasswordsWPF.model
             if (File.Exists(file))
             {
                 this._header = File.ReadAllText(file);
-                DEBUG.Print(this.GetType(), "eHeader: " + this._header);
             }
             else
             {

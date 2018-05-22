@@ -24,7 +24,7 @@ namespace DistributedPasswordsWPF.model
                     Notes = d.notes
                 };
 
-                entry.Usernames.Add(u);
+                entry.Add(u);
 
             }
             

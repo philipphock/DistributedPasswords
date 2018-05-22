@@ -1,22 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    public class Username
+    public class Username: INotifyPropertyChanged
     {
         private string username;
         private string email;
         private string password;
         private string notes;
 
-        public string Name { get => username; set => username = value; }
-        public string Email { get => email; set => email = value; }
-        public string Password { get => password; set => password = value; }
-        public string Notes { get => notes; set => notes = value; }
+        public string Name {
+            get{
+               return username;
+            }
+            set{
+                username = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+            }
+        }
+        public string Email { get => email; set {
+                email = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Email"));
+            }
+        }
+        public string Password { get => password; set
+            {
+                password = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Password"));
+
+            }
+        }
+        public string Notes { get => notes; set
+            {
+                notes = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Notes"));
+
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyObservers()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Password"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Email"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Notes"));
+
+        }
 
         public override string ToString()
         {
