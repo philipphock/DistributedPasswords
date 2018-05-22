@@ -38,7 +38,7 @@ namespace DistributedPasswordsWPF.model
 
         private string GenerateHash()
         {
-            byte[] rnd = new byte[4];
+            byte[] rnd = new byte[32];
             random.NextBytes(rnd);
             string h = DecodeEncodeHelper.Bin2Hex(rnd);
             return h; 
