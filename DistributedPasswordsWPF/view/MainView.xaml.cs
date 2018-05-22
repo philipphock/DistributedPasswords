@@ -60,6 +60,7 @@ namespace DistributedPasswordsWPF
         {
             Button button = sender as Button;
             PasswordEntry entry = button.DataContext as PasswordEntry;
+
             DEBUG.Print(this.GetType(), entry.Id);
         }
 
@@ -68,7 +69,10 @@ namespace DistributedPasswordsWPF
         {
             Button button = sender as Button;
             PasswordEntry entry = button.DataContext as PasswordEntry;
+            Router.instance.DisplayPage(Router.Pages.EditNew, entry);
+
             DEBUG.Print(this.GetType(), entry.Id);
+
         }
 
         //delete button

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model.dataobjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,13 @@ namespace DistributedPasswordsWPF
     /// </summary>
     public partial class EditNew : Page
     {
+        private enum Mode
+        {
+            EDIT,NEW
+        }
+
+        private Mode _mode;
+
         public EditNew()
         {
             InitializeComponent();
@@ -39,6 +47,19 @@ namespace DistributedPasswordsWPF
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
             Router.instance.DisplayPage(Router.Pages.GenPW);
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Router.instance.Payload.GetType() == typeof(string)){
+                //new
+                _mode = Mode.NEW;
+            }
+            else
+            {
+                _mode = Mode.EDIT;
+                PasswordEntry entry = Router.instance.Payload as PasswordEntry;
+            }
         }
     }
 }
