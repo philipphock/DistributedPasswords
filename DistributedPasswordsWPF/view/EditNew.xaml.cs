@@ -61,5 +61,25 @@ namespace DistributedPasswordsWPF
                 PasswordEntry entry = Router.instance.Payload as PasswordEntry;
             }
         }
+
+        private void UrlizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowHidePwdBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
