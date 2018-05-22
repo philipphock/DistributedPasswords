@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    public class PasswordEntry: INotifyPropertyChanged
+    public class PasswordEntry: INotifyPropertyChanged, IDeepCloneable<PasswordEntry>
     {
         private string _id;
         private string _encryptedfilename;
@@ -59,6 +59,21 @@ namespace DistributedPasswordsWPF.model.dataobjects
                 }
             }
             
+
+        }
+
+        public PasswordEntry DeepClone()
+        {
+            var ret = new PasswordEntry();
+
+            ret._id = _id;
+            ret._encryptedfilename = _encryptedfilename;
+            foreach (var u in usernames)
+            {
+                ret.Add(u.DeepClone());
+            }
+
+            return ret;
 
         }
 

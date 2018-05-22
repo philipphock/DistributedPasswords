@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    public class Username: INotifyPropertyChanged
+    public class Username: INotifyPropertyChanged, IDeepCloneable<Username>
     {
         private string username;
         private string email;
@@ -44,6 +44,19 @@ namespace DistributedPasswordsWPF.model.dataobjects
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Username DeepClone()
+        {
+            return new Username
+            {
+                Name = Name,
+                Email = Email,
+                Password = Password,
+                Notes = Notes
+            };
+
+            
+        }
 
         public void NotifyObservers()
         {

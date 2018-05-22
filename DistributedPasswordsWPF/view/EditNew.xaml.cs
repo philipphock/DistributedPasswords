@@ -32,6 +32,9 @@ namespace DistributedPasswordsWPF
         private Mode _mode;
 
         private bool _pwvisible;
+
+        private PasswordEntry entryToOverride;
+
         private PasswordEntry entry;
         public PasswordEntry Entry { get => entry; set => entry = value; }
 
@@ -80,9 +83,7 @@ namespace DistributedPasswordsWPF
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            BindingExpression be = EmailBox.GetBindingExpression(TextBox.TextProperty);
-            be.UpdateSource();
-            _reset();
+            
             Router.instance.DisplayPage(Router.Pages.Main);
         }
 
@@ -121,8 +122,8 @@ namespace DistributedPasswordsWPF
             else
             {
                 _mode = Mode.EDIT;
-                PasswordEntry entry = Router.instance.Payload as PasswordEntry;
-                this.entry = entry;
+                entryToOverride = Router.instance.Payload as PasswordEntry;
+                this.entry = entryToOverride.DeepClone();
                 
                 
             }
