@@ -67,11 +67,9 @@ namespace DistributedPasswordsWPF.model
             int cnt = 0;
             foreach (string s in ss)
             {
-                DEBUG.Print(this.GetType(), s);
                 string dec = this.header.DecryptWithHeaderPassword(s);
                 string enc = s;
-                DEBUG.Print(this.GetType(), "___>>",dec);
-
+                DEBUG.Print("PasswordSystem",dec.Length);
                 PasswordEntry e = new PasswordEntry
                 {
                     Id = dec,
@@ -96,7 +94,6 @@ namespace DistributedPasswordsWPF.model
 
         public void Save(PasswordEntry entry)
         {
-            DEBUG.Print(this.GetType(),entry);
             string s = ContentParser.GetJSONString(entry);
             string es = header.EncryptWithHeaderPassword(s);
             if (string.IsNullOrWhiteSpace(entry.Encryptedfilename))

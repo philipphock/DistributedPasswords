@@ -27,7 +27,8 @@ namespace DistributedPasswordsWPF
 
         private static string _pad(string s)
         {
-            string s2 = ""+(32 - s.Length % 32) * (int)(32 - s.Length % 32);
+            int len = (32 - s.Length % 32);
+            string s2 = new string((char)len, len);
 
             return string.Concat(s, s2);
         }
@@ -40,7 +41,7 @@ namespace DistributedPasswordsWPF
 
             rnd.NextBytes(iv);
 
-            byte[] encrypted = AES.Encrypt(plaintext, p, iv);
+            byte[] encrypted = AES.Encrypt(_pad(plaintext), p, iv);
             byte[] ivEnc = new byte[encrypted.Length + iv.Length];
 
             Array.Copy(iv, ivEnc, iv.Length);

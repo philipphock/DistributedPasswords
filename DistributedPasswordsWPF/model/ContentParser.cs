@@ -14,10 +14,8 @@ namespace DistributedPasswordsWPF.model
         public void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
         {
 
-            DEBUG.Print("ContentParser", decryptedFileContent);
-
+            DEBUG.Print(decryptedFileContent);
             dynamic o = JsonConvert.DeserializeObject(decryptedFileContent);
-            DEBUG.Print("ContentParser", o);
             
             if (o is null)
             {
@@ -43,7 +41,7 @@ namespace DistributedPasswordsWPF.model
             }
             catch (NullReferenceException)
             {
-                entry.Id = o.Id;
+                //entry.Id = o.Id;
                 foreach (dynamic d in o.Usernames)
                 {
                     Username u = new Username
