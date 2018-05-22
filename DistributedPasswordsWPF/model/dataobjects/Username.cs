@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    class Username
+    public class Username
     {
-        public string username;
-        public string email;
-        public string password;
-        public string notes;
+        private string username;
+        private string email;
+        private string password;
+        private string notes;
+
+        public string Name { get => username; set => username = value; }
+        public string Email { get => email; set => email = value; }
+        public string Password { get => password; set => password = value; }
+        public string Notes { get => notes; set => notes = value; }
 
         public override string ToString()
         {
@@ -20,7 +25,7 @@ username: {0}
 email: {1}
 password: {2}
 notes: {3}
-",username, email, password, notes);
+",Name, Email, Password, Notes);
         }
     }
 }

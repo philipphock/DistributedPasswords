@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    class PasswordEntry
+    public class PasswordEntry
     {
         private string _id;
         private string _encryptedfilename;
@@ -16,6 +16,6 @@ namespace DistributedPasswordsWPF.model.dataobjects
         public string Encryptedfilename { get => _encryptedfilename; set => _encryptedfilename = value; }
         
         public string Id { get => _id; set => _id = value; }
-        internal List<Username> Usernames { get => usernames; set => usernames = value; }
+        public List<Username> Usernames { get => usernames; set => usernames = value; }
     }
 }
