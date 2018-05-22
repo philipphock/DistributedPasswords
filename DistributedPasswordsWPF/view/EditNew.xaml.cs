@@ -24,14 +24,14 @@ namespace DistributedPasswordsWPF
     /// </summary>
     public partial class EditNew : Page, INotifyPropertyChanged
     {
-        private enum Mode
+        public enum Mode
         {
             EDIT,NEW
         }
 
         private Mode _mode;
 
-
+        private bool _pwvisible;
         private PasswordEntry entry;
         public PasswordEntry Entry { get => entry; set => entry = value; }
 
@@ -62,7 +62,7 @@ namespace DistributedPasswordsWPF
             NotesBox.Text = "";
             EmailBox.Text = "";
             IdBox.Text = "";
-
+            _pwvisible = false;
             OnPropertyChanged();
         }
 
@@ -82,7 +82,6 @@ namespace DistributedPasswordsWPF
         {
             BindingExpression be = EmailBox.GetBindingExpression(TextBox.TextProperty);
             be.UpdateSource();
-            DEBUG.Print(this.GetType(), SelectedUsername.Email);
             _reset();
             Router.instance.DisplayPage(Router.Pages.Main);
         }
@@ -94,16 +93,17 @@ namespace DistributedPasswordsWPF
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+            _pwvisible = false;
             if (Router.instance.Payload == null)
             {
                 //abort password manager:
-                _comboboxChanged();
+                //_comboboxChanged();
                 
                 return;
             }
-            if (Router.instance.Payload.GetType() == typeof(string)){
+            if (Router.instance.Payload.GetType() == typeof(Mode)){
 
-                if (Router.instance.Payload as string == "new")
+                if ((Mode)Router.instance.Payload  == Mode.NEW)
                 {
                     //new
 
@@ -154,7 +154,26 @@ namespace DistributedPasswordsWPF
 
         private void UrlizeBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var url = new Uri(IdBox.Text);
+                var fragments = url.Authority.Split('.');
+                if (fragments.Length > 2)
+                {
+                    IdBox.Text = fragments[fragments.Length - 2] + "." + fragments[fragments.Length - 1];
+                }
+                else
+                {
+                    IdBox.Text = url.Authority;
+                }
+            }
+            catch (UriFormatException)
+            {
+                //no uri
+            }
+            
+            
+            
         }
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
@@ -216,6 +235,32 @@ namespace DistributedPasswordsWPF
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        
+
+        private void ShowHidePwdBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            _pwvisible = !_pwvisible;
+            if (_pwvisible)
+            {
+                PasswordBoxVisible.Visibility = Visibility.Visible;
+                PasswordBox1.Visibility = Visibility.Collapsed;
+                PasswordBox2.Visibility = Visibility.Hidden;
+                PasswordBoxVisible.Text = PasswordBox1.Password;
+                ShowHidePwdBtn.Content= "Hide";
+            }
+            else
+            {
+                
+                PasswordBoxVisible.Visibility = Visibility.Collapsed;
+                PasswordBox1.Visibility = Visibility.Visible;
+                PasswordBox2.Visibility = Visibility.Visible;
+                PasswordBox1.Password = PasswordBoxVisible.Text;
+                PasswordBox2.Password = PasswordBoxVisible.Text;
+                PasswordBoxVisible.Text = "";
+                ShowHidePwdBtn.Content = "Show";
+            }
+            
         }
     }
 }

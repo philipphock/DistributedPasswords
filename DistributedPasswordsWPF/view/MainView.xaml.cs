@@ -52,7 +52,7 @@ namespace DistributedPasswordsWPF
         //new button
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Router.instance.DisplayPage(Router.Pages.EditNew, "new");
+            Router.instance.DisplayPage(Router.Pages.EditNew, EditNew.Mode.NEW);
         }
 
         //select button
@@ -63,7 +63,7 @@ namespace DistributedPasswordsWPF
 
         }
 
-        //ei´dit button
+        //edit button
         private void Button_Item_Edit(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
