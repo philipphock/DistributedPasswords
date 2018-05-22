@@ -30,6 +30,7 @@ namespace DistributedPasswordsWPF
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             wrongpasswordcounter = 0;
+            PasswordBox.Password = "";
             if (!PasswordSystem.Instance.IsHeaderFilePresent())
             {
                 Info.Content = "Header file not present, type in a new password to create one";
@@ -48,17 +49,25 @@ namespace DistributedPasswordsWPF
 
         private void PasswordBoxUp(object sender, KeyEventArgs e)
         {
+            string inp = PasswordBox.Password;
+            
             Info.Content = "";
             if (e.Key == Key.Enter)
             {
+                PasswordBox.Password = "";
+
+                if (string.IsNullOrEmpty(inp))
+                {
+                    return;
+                }
                 if (!PasswordSystem.Instance.IsHeaderFilePresent())
                 {
-                    PasswordSystem.Instance.CreateHeader(PasswordBox.Password);
+                    PasswordSystem.Instance.CreateHeader(inp);
                     Info.Content = "Header created, retype your password to unlock";
                 }
                 else
                 {
-                    bool op = PasswordSystem.Instance.Unlock(PasswordBox.Password);
+                    bool op = PasswordSystem.Instance.Unlock(inp);
                     if (!op)
                     {
                         Info.Content = "Wrong password" + String.Concat(Enumerable.Repeat(".", wrongpasswordcounter));
@@ -68,7 +77,6 @@ namespace DistributedPasswordsWPF
                     {
                         Router.instance.DisplayPage(Router.Pages.Main);
                     }
-
                 }
                 //TODO check password, if correct, route
                 //Router.instance.DisplayPage(Router.Pages.Main);
