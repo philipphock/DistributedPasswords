@@ -22,40 +22,23 @@ namespace DistributedPasswordsWPF.model
                 // TODO handle corrupt database
                 DEBUG.Print("ContentParser", "Error reading json file");
             }
-            try
+            
+            foreach (dynamic d in o.usernames)
             {
-                foreach (dynamic d in o.usernames)
+                Username u = new Username
                 {
-                    Username u = new Username
-                    {
-                        Name = d.username,
-                        Password = d.password,
-                        Email = d.email,
-                        Notes = d.notes
-                    };
+                    Name = d.username,
+                    Password = d.password,
+                    Email = d.email,
+                    Notes = d.notes
+                };
 
-                    entry.Add(u);
-
-                }
+                entry.Add(u);
 
             }
-            catch (NullReferenceException)
-            {
-                //entry.Id = o.Id;
-                foreach (dynamic d in o.Usernames)
-                {
-                    Username u = new Username
-                    {
-                        Name = d.Name,
-                        Password = d.Password,
-                        Email = d.Email,
-                        Notes = d.Notes
-                    };
 
-                    entry.Add(u);
-
-                }
-            }
+            
+            
         }
 
         public string GetJSONString(PasswordEntry entry)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
         private string password;
         private string notes;
 
+        [JsonProperty(PropertyName = "username")]
         public string Name {
             get{
                return username;
@@ -23,11 +25,15 @@ namespace DistributedPasswordsWPF.model.dataobjects
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
             }
         }
+
+        [JsonProperty(PropertyName = "email")]
         public string Email { get => email; set {
                 email = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Email"));
             }
         }
+
+        [JsonProperty(PropertyName = "password")]
         public string Password { get => password; set
             {
                 password = value;
@@ -35,6 +41,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
             }
         }
+
+        [JsonProperty(PropertyName = "notes")]
         public string Notes { get => notes; set
             {
                 notes = value;

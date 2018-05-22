@@ -19,6 +19,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
         [JsonIgnore]
         public string Encryptedfilename { get => _encryptedfilename; set => _encryptedfilename = value; }
         
+        [JsonIgnore]
         public string Id
         {
             get => _id;
@@ -35,6 +36,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
             Notify("Usernames");
         }
 
+        [JsonProperty(PropertyName = "usernames")]
         public IList<Username> Usernames
         {
             get
@@ -66,10 +68,11 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
         public PasswordEntry DeepClone()
         {
-            var ret = new PasswordEntry();
-
-            ret._id = _id;
-            ret._encryptedfilename = _encryptedfilename;
+            var ret = new PasswordEntry
+            {
+                _id = _id,
+                _encryptedfilename = _encryptedfilename
+            };
             foreach (var u in usernames)
             {
                 ret.Add(u.DeepClone());

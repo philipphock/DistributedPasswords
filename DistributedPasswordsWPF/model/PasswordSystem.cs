@@ -100,7 +100,17 @@ namespace DistributedPasswordsWPF.model
             {
                 entry.Encryptedfilename = header.EncryptWithHeaderPassword(entry.Id);
             }
+            else
+            {
+                //handle renamed id, here we must change the encryptedfilename
+                if (header.DecryptWithHeaderPassword(entry.Encryptedfilename) != entry.Id)
+                {
+                    //id has changed, so must our encryptedfilename
+                    entry.Encryptedfilename = header.EncryptWithHeaderPassword(entry.Id);
 
+                }
+            }
+            
             File.WriteAllText(Path.Combine(Settings.DB_PATH, entry.Encryptedfilename), es);
 
         }
