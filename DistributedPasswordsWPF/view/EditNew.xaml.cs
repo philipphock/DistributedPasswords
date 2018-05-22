@@ -1,4 +1,5 @@
 ﻿using DistributedPasswordsWPF.debug;
+using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
@@ -83,9 +84,17 @@ namespace DistributedPasswordsWPF
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            
-            Router.instance.DisplayPage(Router.Pages.Main);
+            if (_isPasswordValid())
+            {
+                PasswordSystem.Instance.Save(this.entry);
+                Router.instance.DisplayPage(Router.Pages.Main);
+            }
+            else
+            {
+                _pw();
+            }
         }
+            
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
@@ -261,7 +270,72 @@ namespace DistributedPasswordsWPF
                 PasswordBoxVisible.Text = "";
                 ShowHidePwdBtn.Content = "Show";
             }
+            _pw();
+        }
+
+        private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            _pw();
+        }
+
+        private void PasswordBox2_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            _pw();
+        }
+
+        private void PasswordBoxVisible_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _pw();
+        }
+
+        private void _pw()
+        {
+            if (!_isPasswordValid())
+            {
+                PasswordInfo.Content = "passwords are different";
+            }
+            else
+            {
+                PasswordInfo.Content = "";
+                DEBUG.Print("editnwe", "WRITE " + PasswordBox1.Password);
+
+            }
+        }
+
+        private bool _isPasswordValid()
+        {
+            if (_pwvisible)
+            {
+                return true;
+            }
+
+            return PasswordBox1.Password == PasswordBox2.Password;
+        }
+
+        private void PasswordBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (_isPasswordValid())
+            {
+                this.SelectedUsername.Password = PasswordBox1.Password;
+            }
             
+
+        }
+
+        private void PasswordBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (_isPasswordValid())
+            {
+                this.SelectedUsername.Password = PasswordBox2.Password;
+            }
+
+        }
+
+        private void PasswordBoxVisible_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.SelectedUsername.Password = PasswordBoxVisible.Text;
+    
+
         }
     }
 }

@@ -39,8 +39,14 @@ namespace DistributedPasswordsWPF
             byte[] iv = new byte[16];
 
             rnd.NextBytes(iv);
-            
-            return DecodeEncodeHelper.Bin2Hex(AES.Encrypt(plaintext,p,iv));
+
+            byte[] encrypted = AES.Encrypt(plaintext, p, iv);
+            byte[] ivEnc = new byte[encrypted.Length + iv.Length];
+
+            Array.Copy(iv, ivEnc, iv.Length);
+            Array.Copy(encrypted, 0, ivEnc, iv.Length, encrypted.Length);
+
+            return DecodeEncodeHelper.Bin2Hex(ivEnc);
         }
 
         public static string Decrypt(string cyphertext, string password)

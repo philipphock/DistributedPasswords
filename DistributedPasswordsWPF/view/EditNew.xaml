@@ -36,9 +36,9 @@
         <Label Content="email" Grid.Row="2" Margin="3"/>
         <Label Content="password" Grid.Row="3" Margin="3"/>
         <Label Content="password again" Grid.Row="4" Margin="3" />
-        <PasswordBox IsEnabled="{Binding UserActive}" Name="PasswordBox1" Grid.Column="1" Margin="3" Grid.Row="3" />
-        <PasswordBox IsEnabled="{Binding UserActive}" Name="PasswordBox2" Grid.Column="1" Margin="3" Grid.Row="4" />
-        <TextBox Name="PasswordBoxVisible" Grid.Column="1" Margin="3" Grid.Row="3" Visibility="Collapsed" />
+        <PasswordBox PasswordChanged="PasswordBox1_PasswordChanged" IsEnabled="{Binding UserActive}" Name="PasswordBox1" Grid.Column="1" Margin="3" Grid.Row="3" KeyUp="PasswordBox1_KeyUp" />
+        <PasswordBox PasswordChanged="PasswordBox2_PasswordChanged" IsEnabled="{Binding UserActive}" Name="PasswordBox2" Grid.Column="1" Margin="3" Grid.Row="4" KeyUp="PasswordBox2_KeyUp" />
+        <TextBox TextChanged="PasswordBoxVisible_TextChanged" Text="{Binding SelectedUsername.Password}" Name="PasswordBoxVisible" Grid.Column="1" Margin="3" Grid.Row="3" Visibility="Collapsed" KeyUp="PasswordBoxVisible_KeyUp" />
 
         <TextBox Name="IdBox" Grid.Column="1" Margin="3" TextWrapping="Wrap" Height="22" Text="{Binding Entry.Id, Mode=TwoWay}" />
         <TextBox Name="EmailBox" Grid.Column="1" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.Email, Mode=TwoWay}" Height="22" Grid.Row="2"/>
@@ -46,6 +46,7 @@
         <Button Name="RemoveBtn" Content="del" Grid.Column="2"  Grid.Row="1" Margin="50,3,58,3" Click="RemoveBtn_Click_1"/>
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,162"/>
         <Button x:Name="RemoveBtn_Copy" Content="rename" Grid.Column="2"  Grid.Row="1" Margin="87,3,3,3" Click="Rename_Click"/>
+        <Label Name="PasswordInfo" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

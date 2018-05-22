@@ -62,7 +62,8 @@ namespace DistributedPasswordsWPF.model
         {
             if (_initCalled)
             {
-                throw new InvalidOperationException("Settings.Init() already called");
+                //throw new InvalidOperationException("Settings.Init() already called");
+                return;
             }
 
             _initCalled = true;

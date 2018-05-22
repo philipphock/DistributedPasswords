@@ -1,4 +1,5 @@
-﻿using DistributedPasswordsWPF.model;
+﻿using DistributedPasswordsWPF.debug;
+using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
@@ -30,12 +31,15 @@ namespace DistributedPasswordsWPF
         private void _getData()
         {
             List<PasswordEntry> data = PasswordSystem.Instance.ReadDatabase();
+            
+
             listView.ItemsSource = data;
 
         }
 
         private void Lock_Click(object sender, RoutedEventArgs e)
         {
+            PasswordSystem.Instance.Lock();
             Router.instance.DisplayPage(Router.Pages.Unlock);
         }
 

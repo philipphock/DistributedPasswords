@@ -20,6 +20,22 @@ namespace DistributedPasswordsWPF.model
         private static Random random = new Random();
         private readonly Regex _headerRegex = new Regex("^[a-zA-Z0-9]*$");
 
+        public void Clear()
+        {
+            _header = null;
+            _hash = null;
+            _decryptedheader = null;
+        }
+
+        public static string HASH_FULL_PATH()
+        {
+            return Path.Combine(Settings.KEYS_PATH, "hash").ToString();
+        }
+        public static string HEADER_FULL_PATH()
+        {
+            return Path.Combine(Settings.KEYS_PATH, "header").ToString();
+        }
+
         private string EnhancePassword(string password)
         {
             ReadHash();

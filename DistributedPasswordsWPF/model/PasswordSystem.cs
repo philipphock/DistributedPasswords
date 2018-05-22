@@ -14,6 +14,7 @@ namespace DistributedPasswordsWPF.model
     {
         private Header header;
 
+        
         public void Init()
         {
             DEBUG.enabled = true;
@@ -66,9 +67,10 @@ namespace DistributedPasswordsWPF.model
             int cnt = 0;
             foreach (string s in ss)
             {
-                
+                DEBUG.Print(this.GetType(), s);
                 string dec = this.header.DecryptWithHeaderPassword(s);
                 string enc = s;
+                DEBUG.Print(this.GetType(), "___>>",dec);
 
                 PasswordEntry e = new PasswordEntry
                 {
@@ -78,9 +80,9 @@ namespace DistributedPasswordsWPF.model
 
                 string encryptedContent = File.ReadAllText(Path.Combine(Settings.DB_PATH, enc));
                 string decryptedContent = this.header.DecryptWithHeaderPassword(encryptedContent);
-
+                
                 ContentParser.ParseToEntry(e, decryptedContent);
-
+                
                 ret.Add(e);
 
                 cnt++;
@@ -92,7 +94,27 @@ namespace DistributedPasswordsWPF.model
 
         public ContentParser ContentParser { get; } = new ContentParser();
 
+        public void Save(PasswordEntry entry)
+        {
+            DEBUG.Print(this.GetType(),entry);
+            string s = ContentParser.GetJSONString(entry);
+            string es = header.EncryptWithHeaderPassword(s);
+            if (string.IsNullOrWhiteSpace(entry.Encryptedfilename))
+            {
+                entry.Encryptedfilename = header.EncryptWithHeaderPassword(entry.Id);
+            }
+
+            File.WriteAllText(Path.Combine(Settings.DB_PATH, entry.Encryptedfilename), es);
+
+        }
+
         public static PasswordSystem Instance = new PasswordSystem();
+        
+        public void Lock()
+        {
+            header.Clear();
+        }
+
         private PasswordSystem()
         {
            
