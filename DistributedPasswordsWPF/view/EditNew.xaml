@@ -25,25 +25,26 @@
             <ColumnDefinition Width="140"/>
         </Grid.ColumnDefinitions>
         <Button Name="UrlizeBtn" Content="URLize" Grid.Column="2" Margin="3" Click="UrlizeBtn_Click"/>
-        <Button Name="AddUserBtn" Content="add" Grid.Column="2"  Grid.Row="1" Margin="72,3,3,3"/>
+        <Button Name="AddUserBtn" Content="add" Grid.Column="2"  Grid.Row="1" Margin="3,3,95,3" Click="AddUserBtn_Click_1"/>
         <Button Name="Generate" Content="generate" Grid.Column="2"  Grid.Row="3" Margin="3" Click="Generate_Click"/>
         <Button Name="ShowHidePwdBtn" Content="show" Grid.Column="2"  Grid.Row="4" Margin="3"/>
         <Button Content="save" Grid.Column="2" Grid.Row="7" Margin="3,10" FontSize="36" Name="Save" Click="Save_Click"  />
         <Button Content="back" Grid.Row="7" Margin="3,20" FontSize="26" Name="Back" Click="Back_Click" />
-        <TextBox Name="NotesBox" Grid.Row="6" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="3,33,3,3" Text="{Binding SelectedUsername.Notes, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+        <TextBox Name="NotesBox" IsEnabled="{Binding UserActive}" Grid.Row="6" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="3,33,3,3" Text="{Binding SelectedUsername.Notes, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
         <Label Content="id" Margin="3"/>
         <Label Content="user" Grid.Row="1" Margin="3"/>
         <Label Content="email" Grid.Row="2" Margin="3"/>
         <Label Content="password" Grid.Row="3" Margin="3"/>
         <Label Content="password again" Grid.Row="4" Margin="3" />
-        <PasswordBox Name="PasswordBox1" Grid.Column="1" Margin="3" Grid.Row="3" />
-        <PasswordBox Name="PasswordBox2" Grid.Column="1" Margin="3" Grid.Row="4" />
+        <PasswordBox IsEnabled="{Binding UserActive}" Name="PasswordBox1" Grid.Column="1" Margin="3" Grid.Row="3" />
+        <PasswordBox IsEnabled="{Binding UserActive}" Name="PasswordBox2" Grid.Column="1" Margin="3" Grid.Row="4" />
 
         <TextBox Name="IdBox" Grid.Column="1" Margin="3" TextWrapping="Wrap" Height="22" Text="{Binding Entry.Id, Mode=TwoWay}" />
-        <TextBox Name="EmailBox" Grid.Column="1" Margin="3" TextWrapping="Wrap" Text="{Binding SelectedUsername.Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Height="22" Grid.Row="2"/>
+        <TextBox Name="EmailBox" Grid.Column="1" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Height="22" Grid.Row="2"/>
         <ComboBox Name="User" Grid.Column="1" HorizontalAlignment="Stretch" Margin="3" Grid.Row="1" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Entry.Usernames, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="SelectedUsername" SelectionChanged="ComboBox_SelectionChanged"/>
-        <Button Name="RemoveBtn" Content="remove" Grid.Column="2"  Grid.Row="1" Margin="3,3,73,3"/>
+        <Button Name="RemoveBtn" Content="del" Grid.Column="2"  Grid.Row="1" Margin="50,3,58,3" Click="RemoveBtn_Click_1"/>
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,162"/>
+        <Button x:Name="RemoveBtn_Copy" Content="rename" Grid.Column="2"  Grid.Row="1" Margin="87,3,3,3" Click="Rename_Click"/>
 
     </Grid>
 </Page>

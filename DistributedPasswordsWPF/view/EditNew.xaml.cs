@@ -1,4 +1,5 @@
-﻿using DistributedPasswordsWPF.model.dataobjects;
+﻿using DistributedPasswordsWPF.debug;
+using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,13 @@ namespace DistributedPasswordsWPF
         private Username selectedUsername;
         public Username SelectedUsername { get => selectedUsername; set => selectedUsername = value; }
 
+        public bool UserActive
+        {
+            get
+            {
+                return SelectedUsername != null;
+            }
+        }
 
         public EditNew()
         {
@@ -134,7 +142,8 @@ namespace DistributedPasswordsWPF
 
                 SelectedUsername = entry.Usernames[0];
                 OnPropertyChanged("SelectedUsername");
-
+                OnPropertyChanged("UserActive");
+                
                 //enable fields
             }
             else
@@ -176,10 +185,36 @@ namespace DistributedPasswordsWPF
         {
 
             SelectedUsername = User.SelectedItem as Username;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedUsername"));
+            OnPropertyChanged("SelectedUsername");
+            OnPropertyChanged("UserActive");
             PasswordBox1.Password = SelectedUsername?.Password;
             PasswordBox2.Password = SelectedUsername?.Password;
             
+
+        }
+
+        private void AddUserBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            string ret = Microsoft.VisualBasic.Interaction.InputBox("Username:", "Username", "");
+            if (!string.IsNullOrEmpty(ret))
+            {
+                Username n = new Username
+                {
+                    Name = ret
+                };
+
+                entry.Add(n);
+            }
+            _checkUsernameSize();
+        }
+
+        private void RemoveBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

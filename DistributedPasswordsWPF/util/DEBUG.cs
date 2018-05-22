@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DistributedPasswordsWPF
+namespace DistributedPasswordsWPF.debug
 {
     class DEBUG
     {
