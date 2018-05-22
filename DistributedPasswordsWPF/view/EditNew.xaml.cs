@@ -49,6 +49,12 @@ namespace DistributedPasswordsWPF
         {
             entry = null;
             SelectedUsername = null;
+            PasswordBox1.Password = "";
+            PasswordBox2.Password = "";
+            NotesBox.Text = "";
+            EmailBox.Text = "";
+            IdBox.Text = "";
+
             OnPropertyChanged();
         }
 
@@ -80,10 +86,28 @@ namespace DistributedPasswordsWPF
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+            if (Router.instance.Payload == null)
+            {
+                //abort password manager:
+                _comboboxChanged();
+                
+                return;
+            }
             if (Router.instance.Payload.GetType() == typeof(string)){
-                //new
-                _mode = Mode.NEW;
-                this.entry = new PasswordEntry();
+
+                if (Router.instance.Payload as string == "new")
+                {
+                    //new
+
+                    _mode = Mode.NEW;
+                    this.entry = new PasswordEntry();
+                }
+                else
+                {
+                    //back from password generator
+                    _comboboxChanged();
+                }
+                
                 
             }
             else
@@ -144,8 +168,13 @@ namespace DistributedPasswordsWPF
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            DEBUG.Print(this.GetType(), "->", SelectedUsername);
+            _comboboxChanged();
         }
       
+        private void _comboboxChanged()
+        {
+            PasswordBox1.Password = SelectedUsername?.Password;
+            PasswordBox2.Password = SelectedUsername?.Password;
+        }
     }
 }
