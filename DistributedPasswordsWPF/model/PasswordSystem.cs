@@ -94,6 +94,10 @@ namespace DistributedPasswordsWPF.model
 
         public void Save(PasswordEntry entry)
         {
+            
+
+            string todelete = null;
+
             string s = ContentParser.GetJSONString(entry);
             string es = header.EncryptWithHeaderPassword(s);
             if (string.IsNullOrWhiteSpace(entry.Encryptedfilename))
@@ -105,13 +109,21 @@ namespace DistributedPasswordsWPF.model
                 //handle renamed id, here we must change the encryptedfilename
                 if (header.DecryptWithHeaderPassword(entry.Encryptedfilename) != entry.Id)
                 {
+                    todelete = entry.Encryptedfilename;
                     //id has changed, so must our encryptedfilename
                     entry.Encryptedfilename = header.EncryptWithHeaderPassword(entry.Id);
+
 
                 }
             }
             
             File.WriteAllText(Path.Combine(Settings.DB_PATH, entry.Encryptedfilename), es);
+            //then we get rid of the old file
+
+            if (todelete != null)
+            {
+                File.Delete(Path.Combine(Settings.DB_PATH, todelete));
+            }
 
         }
 
