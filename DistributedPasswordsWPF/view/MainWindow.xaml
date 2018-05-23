@@ -8,7 +8,7 @@
         xmlns:Properties="clr-namespace:DistributedPasswordsWPF.Properties" x:Class="DistributedPasswordsWPF.MainWindow"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" Closed="Window_Closed">
+        Title="DistributedPasswords" Height="600" Width="1000" MinHeight="600" MinWidth="1000" Closed="Window_Closed" Icon="pack://siteoforigin:,,,/assets/img/tray.png">
 
     
 
