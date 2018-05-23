@@ -33,10 +33,10 @@
         <Button Content="change password" Name="ChgPW" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Margin="0,0,0,0" Click="ChgPW_Click" />
         <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36" AutomationProperties.Name="Add" Click="Button_Click"/>
 
-        <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True">
+        <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True" Click="Button_Click_1">
             <Image Source="/DistributedPasswordsWPF;component/assets/img/search.png" ></Image>
         </Button>
-        <TextBox Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="36"/>
+        <TextBox Name="SearchBox" Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="36" KeyUp="TextBox_KeyUp"/>
         <Button Content="lock" Name="Lock"  HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Click="Lock_Click"  />
         <ListView x:Name="listView" Grid.ColumnSpan="3" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
             <ListView.ItemTemplate>

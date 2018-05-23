@@ -32,7 +32,7 @@ namespace DistributedPasswordsWPF
         private void _getData()
         {
             List<PasswordEntry> data = PasswordSystem.Instance.ReadDatabase();
-            
+
 
             listView.ItemsSource = data;
 
@@ -84,11 +84,35 @@ namespace DistributedPasswordsWPF
             Button button = sender as Button;
             PasswordEntry entry = button.DataContext as PasswordEntry;
 
-            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Delete " + entry.Id+ "?", "Delete", MessageBoxButton.YesNo);
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Delete " + entry.Id + "?", "Delete", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
                 File.Delete(System.IO.Path.Combine(Settings.DB_PATH, entry.Encryptedfilename));
                 _getData();
+            }
+        }
+
+        //search button
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _filter();
+        }
+
+        private void _filter()
+        {
+            listView.ItemsSource = PasswordSystem.Instance.Filter(SearchBox.Text);
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                _filter();
+            }
+            if (e.Key == Key.Escape)
+            {
+                SearchBox.Text = "";
+                _filter();
             }
         }
     }

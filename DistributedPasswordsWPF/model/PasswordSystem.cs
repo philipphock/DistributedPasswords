@@ -13,7 +13,7 @@ namespace DistributedPasswordsWPF.model
     class PasswordSystem
     {
         private Header header;
-        private List<PasswordEntry> _cachcedList;
+        private List<PasswordEntry> _cachedList;
 
 
         public void Init()
@@ -59,6 +59,25 @@ namespace DistributedPasswordsWPF.model
             this.header.CreateHeader(password);
         }
 
+        public List<PasswordEntry> Filter(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return _cachedList;
+            }
+            List<PasswordEntry> ret = new List<PasswordEntry>();
+            foreach (PasswordEntry e in _cachedList)
+            {
+                if (string.IsNullOrEmpty(e.Id)) continue;
+                if (e.Id.Contains(s))
+                {
+                    ret.Add(e);
+                }
+            }
+            return ret;
+        }
+        
+
         public List<PasswordEntry> ReadDatabase()
         {
 
@@ -84,7 +103,7 @@ namespace DistributedPasswordsWPF.model
 
                 cnt++;
             }
-            _cachcedList = ret;
+            _cachedList = ret;
             SelectedEntry = null;
             return ret;
         }
@@ -156,14 +175,14 @@ namespace DistributedPasswordsWPF.model
         }
         public bool TrySelect(string id)
         {
-            if (_cachcedList == null) return false;
+            if (_cachedList == null) return false;
 
             if (SelectedEntry != null && SelectedEntry.Id == id)
             {
                 return true;
             }
 
-            foreach (PasswordEntry e in _cachcedList)
+            foreach (PasswordEntry e in _cachedList)
             {
                 DEBUG.Print(GetType(),"entry:", e.Id,"param", id);
                 if (e.Id == id)

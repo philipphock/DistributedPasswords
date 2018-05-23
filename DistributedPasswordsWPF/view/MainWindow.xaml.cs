@@ -33,13 +33,27 @@ namespace DistributedPasswordsWPF
 
             _tray = new Tray(this);
 
+            this.StateChanged += Window_StateChanged;
 
         }
 
 
 
 
-        
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            switch (this.WindowState)
+            {
+                case WindowState.Maximized:
+                    break;
+                case WindowState.Minimized:
+                    Router.instance.HideMain();
+                    break;
+                case WindowState.Normal:
+
+                    break;
+            }
+        }
 
 
 

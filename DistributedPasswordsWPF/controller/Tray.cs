@@ -22,7 +22,6 @@ namespace DistributedPasswordsWPF.controller
                 Visible = true
             };
             notifyIcon.Click += new System.EventHandler(_notifyIcon_Click);
-            window.StateChanged += Window_StateChanged;
 
         }
 
@@ -44,19 +43,6 @@ namespace DistributedPasswordsWPF.controller
             notifyIcon = null;
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            switch (window.WindowState)
-            {
-                case WindowState.Maximized:
-                    break;
-                case WindowState.Minimized:
-                    Router.instance.HideMain();
-                    break;
-                case WindowState.Normal:
-
-                    break;
-            }
-        }
+        
     }
 }
