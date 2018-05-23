@@ -147,6 +147,23 @@ namespace DistributedPasswordsWPF.model
             
         }
 
+        private PasswordEntry SelectedEntry;
+
+        public bool TrySelect(string id)
+        {
+            return false;
+        }
+
+        public string GetPasswordFromSelection()
+        {
+            return "";
+        }
+
+        public string GetUsernameFromSelection()
+        {
+            return "";
+        }
+
         private PasswordSystem()
         {
            

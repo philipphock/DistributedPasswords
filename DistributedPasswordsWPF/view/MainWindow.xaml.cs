@@ -1,7 +1,14 @@
-﻿using DistributedPasswordsWPF.model;
-
+﻿using DistributedPasswordsWPF.controller;
+using DistributedPasswordsWPF.model;
+using DistributedPasswordsWPF.model.util;
+using NHotkey;
+using NHotkey.Wpf;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-
+using System.Windows.Input;
 
 namespace DistributedPasswordsWPF
 {
@@ -10,39 +17,48 @@ namespace DistributedPasswordsWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private readonly Hotkey _hotkey;
+        private readonly Tray _tray;
+
         public MainWindow()
         {
+            _hotkey = new Hotkey();
+           
+
             InitializeComponent();
 
-            Router.instance.init(this);
+            Router.instance.Init(this);
             PasswordSystem.Instance.Init();
 
-            System.Windows.Forms.NotifyIcon notifyIcon = null;
-
-            
-
-            notifyIcon = new System.Windows.Forms.NotifyIcon();
-
-
-            notifyIcon.Icon = new System.Drawing.Icon("assets/img/tray.ico");
-            notifyIcon.Visible = true;
-
-            notifyIcon.Click += new System.EventHandler(_notifyIcon_Click);
+            _tray = new Tray(this);
 
 
         }
 
-        void _notifyIcon_Click(object sender, System.EventArgs e)
-        {
-            if (this.Visibility == Visibility.Visible)
-            {
 
-                Router.instance.HideMain();
-            }
-            else
-            {
-                Router.instance.ShowMain();
-            }
+
+
+        
+
+
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+            _tray.Dispose();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
         }
     }
 }
+
+/*
+Application.Current.Dispatcher.Invoke(
+    () =>
+    {
+               
+    });
+*/

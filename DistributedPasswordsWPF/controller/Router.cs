@@ -1,6 +1,9 @@
 ﻿using DistributedPasswordsWPF.view;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace DistributedPasswordsWPF
 {
@@ -22,9 +25,14 @@ namespace DistributedPasswordsWPF
             window.Visibility = System.Windows.Visibility.Hidden;
         }
 
-        public void ShowMain()
+        public async void ShowMain()
         {
             window.Visibility = System.Windows.Visibility.Visible;
+            await Task.Delay(100);
+            window.WindowState = System.Windows.WindowState.Normal;
+            window.Activate();
+            window.Topmost = true;
+
         }
 
         private Router()
@@ -46,7 +54,7 @@ namespace DistributedPasswordsWPF
 
         }
 
-        public void init(MainWindow window)
+        public void Init(MainWindow window)
         {
             this.window = window;
         }

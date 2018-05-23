@@ -7,13 +7,13 @@
         xmlns:local="clr-namespace:DistributedPasswordsWPF"
         xmlns:Properties="clr-namespace:DistributedPasswordsWPF.Properties" x:Class="DistributedPasswordsWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
+        Closing="Window_Closing"
+        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" Closed="Window_Closed">
+
     
 
     <Grid>
         <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
-
-        
     </Grid>
 
 

@@ -1,6 +1,7 @@
 ﻿using DistributedPasswordsWPF.debug;
 using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
+using DistributedPasswordsWPF.model.util;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -162,25 +163,7 @@ namespace DistributedPasswordsWPF
 
         private void UrlizeBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var url = new Uri(IdBox.Text);
-                var fragments = url.Authority.Split('.');
-                if (fragments.Length > 2)
-                {
-                    IdBox.Text = fragments[fragments.Length - 2] + "." + fragments[fragments.Length - 1];
-                }
-                else
-                {
-                    IdBox.Text = url.Authority;
-                }
-            }
-            catch (UriFormatException)
-            {
-                //no uri
-            }
-            
-            
+            IdBox.Text = URL.URLize(IdBox.Text);
             
         }
 

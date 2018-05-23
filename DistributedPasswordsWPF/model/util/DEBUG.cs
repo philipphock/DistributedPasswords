@@ -9,7 +9,7 @@ namespace DistributedPasswordsWPF.debug
 {
     class DEBUG
     {
-        public static bool enabled = false;
+        public static bool enabled = true;
 
         public static void Print(string origin, params object[] o)
         {
