@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributedPasswordsWPF.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,33 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
         }
 
+        
+
+        public bool IsPasswordValid
+        {
+            get
+            {
+                return NewPW1.Password == NewPW1.Password;
+
+            }
+        }
+        
+
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Router.instance.DisplayPage(Router.Pages.Main);
+            if (IsPasswordValid)
+            {
+                if (PasswordSystem.Instance.ChangePassword(OldPW.Password, NewPW1.Password))
+                {
+                    Router.instance.DisplayPage(Router.Pages.Main);
+                }
+                //TODO handle wrong old pw
+            }
+            else
+            {
+                //TODO
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

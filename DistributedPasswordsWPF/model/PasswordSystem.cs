@@ -134,6 +134,20 @@ namespace DistributedPasswordsWPF.model
             header.Clear();
         }
 
+        public bool ChangePassword(string old, string newp)
+        {
+            if (header.DecryptHeader(old, true))
+            {
+                header.ChangePassword(newp);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
         private PasswordSystem()
         {
            

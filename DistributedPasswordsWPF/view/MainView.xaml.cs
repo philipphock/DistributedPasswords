@@ -3,6 +3,7 @@ using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,13 @@ namespace DistributedPasswordsWPF
         {
             Button button = sender as Button;
             PasswordEntry entry = button.DataContext as PasswordEntry;
+
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Delete " + entry.Id+ "?", "Delete", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                File.Delete(System.IO.Path.Combine(Settings.DB_PATH, entry.Encryptedfilename));
+                _getData();
+            }
         }
     }
 }

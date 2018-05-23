@@ -75,8 +75,15 @@ namespace DistributedPasswordsWPF.model
             File.WriteAllText(p, encryptedHeader);
         }
         
+        public void ChangePassword(string newp)
+        {
+            string newheader = Crypto.Encrypt(_decryptedheader, EnhancePassword(newp));
+            
+            File.WriteAllText(Header.HEADER_FULL_PATH(), newheader);
 
-        public bool DecryptHeader(string password)
+        }
+
+        public bool DecryptHeader(string password, bool checkonly = false)
         {
             ReadHeader();
 
@@ -88,7 +95,10 @@ namespace DistributedPasswordsWPF.model
 
             if (_headerRegex.IsMatch(d))
             {
-                this._decryptedheader = d;            
+                if (!checkonly)
+                {
+                    this._decryptedheader = d;            
+                }
                 return true;
             }
             return false;

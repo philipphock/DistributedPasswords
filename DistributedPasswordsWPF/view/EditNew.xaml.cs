@@ -2,21 +2,10 @@
 using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DistributedPasswordsWPF
 {
@@ -41,6 +30,8 @@ namespace DistributedPasswordsWPF
 
         private Username selectedUsername;
         public Username SelectedUsername { get => selectedUsername; set => selectedUsername = value; }
+
+        
 
         public bool UserActive
         {
@@ -128,13 +119,20 @@ namespace DistributedPasswordsWPF
                 
                 
             }
-            else
+            else if (Router.instance.Payload.GetType() == typeof(PasswordEntry))
             {
                 _mode = Mode.EDIT;
                 entryToOverride = Router.instance.Payload as PasswordEntry;
                 this.entry = entryToOverride.DeepClone();
-                
-                
+
+
+            }
+            else if (Router.instance.Payload.GetType() == typeof(string))
+            {
+                //password generator
+                PasswordBox1.Password = Router.instance.Payload as string;
+                PasswordBox2.Password = Router.instance.Payload as string;
+                SelectedUsername.Password = Router.instance.Payload as string;
             }
 
             _checkUsernameSize();
@@ -239,14 +237,31 @@ namespace DistributedPasswordsWPF
 
         private void RemoveBtn_Click_1(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Delete "+SelectedUsername.Name+"?", "Delete", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                entry.Remove(SelectedUsername);
+                _checkUsernameSize();
+                _comboboxChanged();
+                OnPropertyChanged();
+            }
+            
+            
 
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
+            string ret = Microsoft.VisualBasic.Interaction.InputBox("Username:", "Username", "");
+            if (!string.IsNullOrEmpty(ret))
+            {
+                SelectedUsername.Name = ret;
+                OnPropertyChanged();
+
+            }
 
         }
-        
+
 
         private void ShowHidePwdBtn_Click_1(object sender, RoutedEventArgs e)
         {

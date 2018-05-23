@@ -36,6 +36,11 @@ namespace DistributedPasswordsWPF.model.dataobjects
             Notify("Usernames");
         }
 
+        public void Remove(Username username)
+        {
+            usernames.Remove(username);
+        }
+
         [JsonProperty(PropertyName = "usernames")]
         public IList<Username> Usernames
         {
