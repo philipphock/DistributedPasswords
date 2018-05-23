@@ -17,7 +17,6 @@ namespace DistributedPasswordsWPF.model
         
         public void Init()
         {
-            DEBUG.enabled = true;
             Settings.Init();
             
             header = new Header();

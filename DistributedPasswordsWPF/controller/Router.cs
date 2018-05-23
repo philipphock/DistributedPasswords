@@ -17,6 +17,15 @@ namespace DistributedPasswordsWPF
         private readonly Page pathsettings;
         private readonly Page generatePW;
 
+        public void HideMain()
+        {
+            window.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void ShowMain()
+        {
+            window.Visibility = System.Windows.Visibility.Visible;
+        }
 
         private Router()
         {
