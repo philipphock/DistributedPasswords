@@ -56,9 +56,5 @@ namespace DistributedPasswordsWPF
 }
 
 /*
-Application.Current.Dispatcher.Invoke(
-    () =>
-    {
-               
-    });
+
 */

@@ -65,7 +65,7 @@ namespace DistributedPasswordsWPF
         {
             Button button = sender as Button;
             PasswordEntry entry = button.DataContext as PasswordEntry;
-
+            Clipboard.SetData(DataFormats.Text, entry.Id);
         }
 
         //edit button

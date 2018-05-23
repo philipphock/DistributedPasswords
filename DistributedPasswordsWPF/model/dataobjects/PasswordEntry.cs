@@ -71,6 +71,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
         }
 
+        
+
         public PasswordEntry DeepClone()
         {
             var ret = new PasswordEntry

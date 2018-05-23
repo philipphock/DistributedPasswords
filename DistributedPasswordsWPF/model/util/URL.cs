@@ -10,7 +10,8 @@ namespace DistributedPasswordsWPF.model.util
     {
         public static string URLize(string s)
         {
-            string ret="";
+            if (s == null) return "";
+            string ret=s;
             try
             {
                 var url = new Uri(s);

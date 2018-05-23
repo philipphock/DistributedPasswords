@@ -13,8 +13,9 @@ namespace DistributedPasswordsWPF.model
     class PasswordSystem
     {
         private Header header;
+        private List<PasswordEntry> _cachcedList;
 
-        
+
         public void Init()
         {
             Settings.Init();
@@ -68,7 +69,6 @@ namespace DistributedPasswordsWPF.model
             {
                 string dec = this.header.DecryptWithHeaderPassword(s);
                 string enc = s;
-                DEBUG.Print("PasswordSystem",dec.Length);
                 PasswordEntry e = new PasswordEntry
                 {
                     Id = dec,
@@ -84,7 +84,8 @@ namespace DistributedPasswordsWPF.model
 
                 cnt++;
             }
-
+            _cachcedList = ret;
+            SelectedEntry = null;
             return ret;
         }
 
@@ -130,6 +131,7 @@ namespace DistributedPasswordsWPF.model
         
         public void Lock()
         {
+            SelectedEntry = null;
             header.Clear();
         }
 
@@ -147,21 +149,47 @@ namespace DistributedPasswordsWPF.model
             
         }
 
-        private PasswordEntry SelectedEntry;
-
+        public PasswordEntry SelectedEntry;
+        public void Select(PasswordEntry e)
+        {
+            SelectedEntry = e;
+        }
         public bool TrySelect(string id)
         {
+            if (_cachcedList == null) return false;
+
+            if (SelectedEntry != null && SelectedEntry.Id == id)
+            {
+                return true;
+            }
+
+            foreach (PasswordEntry e in _cachcedList)
+            {
+                DEBUG.Print(GetType(),"entry:", e.Id,"param", id);
+                if (e.Id == id)
+                {
+                    SelectedEntry = e;
+                    return true;
+                }
+            }
+            
             return false;
         }
 
         public string GetPasswordFromSelection()
         {
-            return "";
+            if (SelectedEntry == null) return null;
+            if (SelectedEntry.Usernames.Count == 0) return null;
+
+            return SelectedEntry.Usernames[0].Password;
         }
 
         public string GetUsernameFromSelection()
         {
-            return "";
+            if (SelectedEntry == null) return null;
+            if (SelectedEntry.Usernames.Count == 0) return null;
+
+            return SelectedEntry.Usernames[0].Name;
         }
 
         private PasswordSystem()
