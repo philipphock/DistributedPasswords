@@ -95,7 +95,6 @@ namespace DistributedPasswordsWPF.model
                 
                 string enc = s;
                 string id = Decrypt(enc);
-                DEBUG.Print(this.GetType(), id);
                 string encryptedContent = File.ReadAllText(Path.Combine(Settings.DB_PATH, enc));
                 EncryptedEntry e = new EncryptedEntry(id, encryptedContent, enc);
 

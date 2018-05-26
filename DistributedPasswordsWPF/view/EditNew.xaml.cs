@@ -1,8 +1,5 @@
-﻿using DistributedPasswordsWPF.debug;
-using DistributedPasswordsWPF.model;
-using DistributedPasswordsWPF.model.dataobjects;
+﻿using DistributedPasswordsWPF.model.dataobjects;
 using DistributedPasswordsWPF.model.util;
-using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -85,12 +82,11 @@ namespace DistributedPasswordsWPF
                     //new
                     
                     ee = EncryptedEntry.FromDecrypted(this.Entry);
-                    DEBUG.Print(GetType(),"save new", Entry);
+
                     ee.Save();
                 }
                 else
                 {
-                    DEBUG.Print(GetType(), "edit", Entry);
 
                     ee.Update(Entry);
                 }
@@ -115,8 +111,7 @@ namespace DistributedPasswordsWPF
             if (Router.instance.Payload == null)
             {
                 //abort password manager:
-                //_comboboxChanged();
-                DEBUG.Print(GetType(), "abort pw create");
+                _comboboxChanged();
                 return;
             }
             if (Router.instance.Payload.GetType() == typeof(Mode)){
@@ -131,7 +126,6 @@ namespace DistributedPasswordsWPF
                 }
                 else
                 {
-                    DEBUG.Print(GetType(), "pw gen");
 
                     //back from password generator
                     _comboboxChanged();
@@ -141,12 +135,10 @@ namespace DistributedPasswordsWPF
             }
             else if (Router.instance.Payload.GetType() == typeof(EncryptedEntry))
             {
-                DEBUG.Print(GetType(), "edit");
 
                 _mode = Mode.EDIT;
                 ee = Router.instance.Payload as EncryptedEntry;
                 this.entry = ee.Decrypt;
-                DEBUG.Print(GetType(), Entry.Id);
 
             }
             else if (Router.instance.Payload.GetType() == typeof(string))
@@ -316,7 +308,6 @@ namespace DistributedPasswordsWPF
             else
             {
                 PasswordInfo.Content = "";
-                DEBUG.Print("editnwe", "WRITE " + PasswordBox1.Password);
 
             }
         }

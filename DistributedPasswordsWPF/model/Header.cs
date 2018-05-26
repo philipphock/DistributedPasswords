@@ -91,8 +91,9 @@ namespace DistributedPasswordsWPF.model
             {
                 throw new InvalidOperationException("Header not decrypted");
             }
+            DEBUG.Print(GetType(), "unlock");
             string d = Crypto.Decrypt(this._header, EnhancePassword(password));
-
+            if (d == null) return false;
             if (_headerRegex.IsMatch(d))
             {
                 if (!checkonly)
@@ -132,7 +133,6 @@ namespace DistributedPasswordsWPF.model
             }
             else
             {
-                DEBUG.Print(this.GetType(), "generate hash");
                 _hash = GenerateHash();
                 File.WriteAllText(Path.Combine(Settings.KEYS_PATH, "hash").ToString(), _hash);
             }

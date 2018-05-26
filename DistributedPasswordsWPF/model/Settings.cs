@@ -83,7 +83,6 @@ namespace DistributedPasswordsWPF.model
 
             if (init)
             {
-                DEBUG.Print("Settings", "init");
 
 
                 SQLiteCommand command = new SQLiteCommand(CREATE_TABLE, dbConnection);

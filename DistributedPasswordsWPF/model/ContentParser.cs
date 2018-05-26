@@ -14,7 +14,6 @@ namespace DistributedPasswordsWPF.model
         public void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
         {
 
-            DEBUG.Print(decryptedFileContent);
             dynamic o = JsonConvert.DeserializeObject(decryptedFileContent);
             
             if (o is null)

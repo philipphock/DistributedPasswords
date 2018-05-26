@@ -21,8 +21,18 @@ namespace DistributedPasswordsWPF
 
         private static string _unpad(string s)
         {
-            int i = (int)s[s.Length - 1];
-            return s.Substring(0,s.Length - i);
+            try
+            {
+                int i = (int)s[s.Length - 1];
+                string r = s.Substring(0, s.Length - i);
+                return r;
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                //something went wrong during decryption
+                return null;
+            }
+            
         }
 
         private static string _pad(string s)
