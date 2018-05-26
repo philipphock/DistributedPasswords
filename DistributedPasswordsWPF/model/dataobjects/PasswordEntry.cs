@@ -13,11 +13,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
     {
         private string _id;
 
-        private string _encryptedfilename;
         private List<Username> usernames = new List<Username>();
 
-        [JsonIgnore]
-        public string Encryptedfilename { get => _encryptedfilename; set => _encryptedfilename = value; }
         
         [JsonIgnore]
         public string Id
@@ -30,6 +27,10 @@ namespace DistributedPasswordsWPF.model.dataobjects
             }
         }
 
+        public PasswordEntry(string id)
+        {
+            this._id = id;
+        }
         public void Add(Username n)
         {
             usernames.Add(n);
@@ -75,11 +76,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
         public PasswordEntry DeepClone()
         {
-            var ret = new PasswordEntry
-            {
-                _id = _id,
-                _encryptedfilename = _encryptedfilename
-            };
+            var ret = new PasswordEntry(_id);
+            
             foreach (var u in usernames)
             {
                 ret.Add(u.DeepClone());
@@ -98,10 +96,9 @@ namespace DistributedPasswordsWPF.model.dataobjects
             }
             return String.Format(
 @"ENTRY: {0}
-EncryptedFileName: {1}
 Usernames:
-{2}
-----------------------", Id, Encryptedfilename, usernames);
+{1}
+----------------------", Id, usernames);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

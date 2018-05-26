@@ -35,7 +35,7 @@ namespace DistributedPasswordsWPF
 
         private void _getData()
         {
-            List<PasswordEntry> data = PasswordSystem.Instance.ReadDatabase();
+            List<EncryptedEntry> data = PasswordSystem.Instance.ReadDatabase();
 
 
             listView.ItemsSource = data;
@@ -68,7 +68,7 @@ namespace DistributedPasswordsWPF
         private void Button_Item_Select(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            PasswordEntry entry = button.DataContext as PasswordEntry;
+            EncryptedEntry entry = button.DataContext as EncryptedEntry;
             Clipboard.SetData(DataFormats.Text, entry.Id);
         }
 
@@ -76,7 +76,7 @@ namespace DistributedPasswordsWPF
         private void Button_Item_Edit(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            PasswordEntry entry = button.DataContext as PasswordEntry;
+            EncryptedEntry entry = button.DataContext as EncryptedEntry;
             Router.instance.DisplayPage(Router.Pages.EditNew, entry);
 
 
@@ -86,12 +86,12 @@ namespace DistributedPasswordsWPF
         private void Button_Item_Delete(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            PasswordEntry entry = button.DataContext as PasswordEntry;
+            EncryptedEntry entry = button.DataContext as EncryptedEntry;
 
             MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Delete " + entry.Id + "?", "Delete", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                File.Delete(System.IO.Path.Combine(Settings.DB_PATH, entry.Encryptedfilename));
+                File.Delete(System.IO.Path.Combine(Settings.DB_PATH, entry.Filename));
                 _getData();
             }
         }

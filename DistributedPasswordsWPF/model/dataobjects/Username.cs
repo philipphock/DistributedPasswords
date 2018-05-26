@@ -75,6 +75,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
         }
 
+        private string _encryptedData;
+
         public override string ToString()
         {
             return String.Format(@"

@@ -24,7 +24,7 @@ namespace DistributedPasswordsWPF
 
         private bool _pwvisible;
 
-        private PasswordEntry entryToOverride;
+        private EncryptedEntry ee;
 
         private PasswordEntry entry;
         public PasswordEntry Entry { get => entry; set => entry = value; }
@@ -59,6 +59,7 @@ namespace DistributedPasswordsWPF
             EmailBox.Text = "";
             IdBox.Text = "";
             _pwvisible = false;
+            ee = null;
             OnPropertyChanged();
         }
 
@@ -78,7 +79,22 @@ namespace DistributedPasswordsWPF
         {
             if (_isPasswordValid())
             {
-                PasswordSystem.Instance.Save(this.entry);
+
+                if (ee == null)
+                {
+                    //new
+                    
+                    ee = EncryptedEntry.FromDecrypted(this.Entry);
+                    DEBUG.Print(GetType(),"save new", Entry);
+                    ee.Save();
+                }
+                else
+                {
+                    DEBUG.Print(GetType(), "edit", Entry);
+
+                    ee.Update(Entry);
+                }
+                
                 Router.instance.DisplayPage(Router.Pages.Main);
             }
             else
@@ -100,7 +116,7 @@ namespace DistributedPasswordsWPF
             {
                 //abort password manager:
                 //_comboboxChanged();
-                
+                DEBUG.Print(GetType(), "abort pw create");
                 return;
             }
             if (Router.instance.Payload.GetType() == typeof(Mode)){
@@ -108,24 +124,29 @@ namespace DistributedPasswordsWPF
                 if ((Mode)Router.instance.Payload  == Mode.NEW)
                 {
                     //new
+                    ee = null;
 
                     _mode = Mode.NEW;
-                    this.entry = new PasswordEntry();
+                    this.entry = new PasswordEntry(null);
                 }
                 else
                 {
+                    DEBUG.Print(GetType(), "pw gen");
+
                     //back from password generator
                     _comboboxChanged();
                 }
                 
                 
             }
-            else if (Router.instance.Payload.GetType() == typeof(PasswordEntry))
+            else if (Router.instance.Payload.GetType() == typeof(EncryptedEntry))
             {
-                _mode = Mode.EDIT;
-                entryToOverride = Router.instance.Payload as PasswordEntry;
-                this.entry = entryToOverride.DeepClone();
+                DEBUG.Print(GetType(), "edit");
 
+                _mode = Mode.EDIT;
+                ee = Router.instance.Payload as EncryptedEntry;
+                this.entry = ee.Decrypt;
+                DEBUG.Print(GetType(), Entry.Id);
 
             }
             else if (Router.instance.Payload.GetType() == typeof(string))
