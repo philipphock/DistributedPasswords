@@ -27,6 +27,10 @@ namespace DistributedPasswordsWPF
         public MainView()
         {
             InitializeComponent();
+            PasswordSystem.Instance.LockedHandler += (o, a) =>
+            {
+                listView.ItemsSource = null;
+            };
         }
 
         private void _getData()

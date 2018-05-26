@@ -2,11 +2,7 @@
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
@@ -151,6 +147,7 @@ namespace DistributedPasswordsWPF.model
         public void Lock()
         {
             SelectedEntry = null;
+            _cachedList = null;
             header.Clear();
         }
 
@@ -211,10 +208,16 @@ namespace DistributedPasswordsWPF.model
             return SelectedEntry.Usernames[0].Name;
         }
 
+        public event EventHandler<Locked> LockedHandler;
+
         private PasswordSystem()
         {
            
 
         }
+    }
+    public class Locked : EventArgs
+    {
+        
     }
 }

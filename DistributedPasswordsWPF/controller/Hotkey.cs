@@ -3,10 +3,7 @@ using DistributedPasswordsWPF.model.util;
 using NHotkey;
 using NHotkey.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 using System.Windows.Forms;
@@ -23,7 +20,16 @@ namespace DistributedPasswordsWPF.controller
         public Hotkey()
         {
             HotkeyManager.HotkeyAlreadyRegistered += HotkeyManager_HotkeyAlreadyRegistered;
-            HotkeyManager.Current.AddOrReplace("hit", Key.P, ModifierKeys.Control | ModifierKeys.Alt, HotkeyCatched);
+            try
+            {
+                HotkeyManager.Current.AddOrReplace("hit", Key.P, ModifierKeys.Control | ModifierKeys.Alt, HotkeyCatched);
+            }
+            catch (HotkeyAlreadyRegisteredException e)
+            {
+                System.Windows.MessageBox.Show(string.Format("The hotkey {0} is already registered by another application", e.Name));
+                Environment.Exit(1);
+            }
+            
             _timer.Elapsed += _elapsedHotkeyTime;
 
         }
