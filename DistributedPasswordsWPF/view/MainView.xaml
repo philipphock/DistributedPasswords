@@ -33,9 +33,10 @@
         <Button Content="change password" Name="ChgPW" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Margin="0,0,0,0" Click="ChgPW_Click" />
         <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="+" FontSize="36" AutomationProperties.Name="Add" Click="Button_Click"/>
 
-        <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True" Click="Button_Click_1">
-            <Image Source="/DistributedPasswordsWPF;component/assets/img/search.png" ></Image>
+        <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsCancel="True" Click="Button_Click_1" >
+            <Image Source="/DistributedPasswords;component/assets/img/search.png" ></Image>
         </Button>
+        
         <TextBox Name="SearchBox" Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="36" KeyUp="TextBox_KeyUp"/>
         <Button Content="lock" Name="Lock"  HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Click="Lock_Click"  />
         <ListView x:Name="listView" Grid.ColumnSpan="3" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
@@ -48,7 +49,7 @@
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <Label Content="{Binding Id}" Grid.Column="0" HorizontalAlignment="Left"/>
                         <Button Grid.Column="1" Click="Button_Item_Select">select</Button>
                         <Button Grid.Column="2" Click="Button_Item_Edit">edit</Button>
