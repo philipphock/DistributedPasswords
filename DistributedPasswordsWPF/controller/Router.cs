@@ -31,7 +31,7 @@ namespace DistributedPasswordsWPF
             await Task.Delay(100);
             window.WindowState = System.Windows.WindowState.Normal;
             window.Activate();
-            window.Topmost = true;
+            //window.Topmost = true;
 
         }
 
