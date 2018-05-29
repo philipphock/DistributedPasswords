@@ -1,14 +1,7 @@
 ﻿using DistributedPasswordsWPF.controller;
 using DistributedPasswordsWPF.model;
-using DistributedPasswordsWPF.model.util;
-using NHotkey;
-using NHotkey.Wpf;
 using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Input;
 
 namespace DistributedPasswordsWPF
 {

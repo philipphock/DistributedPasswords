@@ -39,7 +39,10 @@ namespace DistributedPasswordsWPF
             {
                 Info.Content = "";
             }
-                        
+
+            FocusManager.SetFocusedElement(this, PasswordBox);
+
+
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)

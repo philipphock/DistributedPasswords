@@ -177,6 +177,8 @@ namespace DistributedPasswordsWPF
         private void UrlizeBtn_Click(object sender, RoutedEventArgs e)
         {
             IdBox.Text = URL.URLize(IdBox.Text);
+            Entry.Id = IdBox.Text;
+            OnPropertyChanged("Id");
             
         }
 
