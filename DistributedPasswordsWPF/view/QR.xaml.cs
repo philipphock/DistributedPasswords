@@ -71,7 +71,13 @@ namespace DistributedPasswordsWPF.view
         //Custom
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            //TODO
+            string ret = Microsoft.VisualBasic.Interaction.InputBox("Text:", "Any text", "");
+            if (!string.IsNullOrEmpty(ret))
+            {
+                ToBitmap(ret);
+
+
+            }
         }
 
         private void ToBitmap(string s)
@@ -98,6 +104,8 @@ namespace DistributedPasswordsWPF.view
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             username = Router.instance.Payload as Username;
+            Id.Content = username.Name;
+            QRImage.Source = null;
 
         }
     }

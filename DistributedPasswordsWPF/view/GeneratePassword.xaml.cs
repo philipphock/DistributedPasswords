@@ -73,5 +73,10 @@ namespace DistributedPasswordsWPF.view
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Pw.Text = "";
+        }
     }
 }

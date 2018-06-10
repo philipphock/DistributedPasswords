@@ -15,7 +15,7 @@
             <RowDefinition/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Label Name="Id" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="395,0" Height="35" Width="10"/>
+        <Label Name="Id" Content="" VerticalAlignment="Center" FontSize="20" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
