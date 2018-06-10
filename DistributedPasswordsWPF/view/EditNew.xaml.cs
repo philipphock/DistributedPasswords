@@ -349,5 +349,10 @@ namespace DistributedPasswordsWPF
     
 
         }
+
+        private void QR_Click(object sender, RoutedEventArgs e)
+        {
+            Router.instance.DisplayPage(Router.Pages.QR, selectedUsername);
+        }
     }
 }

@@ -47,6 +47,7 @@
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,162"/>
         <Button x:Name="RemoveBtn_Copy" Content="rename" Grid.Column="2"  Grid.Row="1" Margin="87,3,3,3" Click="Rename_Click" TabIndex="6"/>
         <Label Name="PasswordInfo" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top"/>
+        <Button Name="QR" Content="QR" Grid.Column="2" Margin="3,4,3,0" Grid.Row="5" HorizontalContentAlignment="Center" Height="26" VerticalAlignment="Top" Click="QR_Click"/>
 
     </Grid>
 </Page>

@@ -9,7 +9,7 @@ namespace DistributedPasswordsWPF
 {
     class Router
     {
-        public enum Pages { Main, Unlock, EditNew, ChangePW, PathSettings,GenPW };
+        public enum Pages { Main, Unlock, EditNew, ChangePW, PathSettings,GenPW, QR };
         private Dictionary<Pages, Page> pagesLUT = new Dictionary<Pages, Page>();
         
         private MainWindow window;
@@ -19,6 +19,7 @@ namespace DistributedPasswordsWPF
         private readonly Page changepw;
         private readonly Page pathsettings;
         private readonly Page generatePW;
+        private readonly Page qr;
 
         public void HideMain()
         {
@@ -43,6 +44,7 @@ namespace DistributedPasswordsWPF
             pathsettings = new PathSettings();
             changepw = new ChangePW();
             generatePW = new GeneratePassword();
+            qr = new QR();
 
             pagesLUT.Add(Pages.Main, mainView);
             pagesLUT.Add(Pages.Unlock, unlock);
@@ -50,6 +52,8 @@ namespace DistributedPasswordsWPF
             pagesLUT.Add(Pages.ChangePW, changepw);
             pagesLUT.Add(Pages.PathSettings, pathsettings);
             pagesLUT.Add(Pages.GenPW, generatePW);
+            pagesLUT.Add(Pages.QR, qr);
+
 
 
         }
