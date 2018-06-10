@@ -1,13 +1,11 @@
 ﻿using DistributedPasswordsWPF.view;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace DistributedPasswordsWPF
 {
-    class Router
+    public class Router
     {
         public enum Pages { Main, Unlock, EditNew, ChangePW, PathSettings,GenPW, QR };
         private Dictionary<Pages, Page> pagesLUT = new Dictionary<Pages, Page>();

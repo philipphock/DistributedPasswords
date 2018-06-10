@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
-    class ContentParser
+    public static class ContentParser
     {
-        public void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
+
+        public static void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
         {
 
             dynamic o = JsonConvert.DeserializeObject(decryptedFileContent);
@@ -40,7 +41,7 @@ namespace DistributedPasswordsWPF.model
             
         }
 
-        public string GetJSONString(PasswordEntry entry)
+        public static string GetJSONString(PasswordEntry entry)
         {
             return JsonConvert.SerializeObject(entry);
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
-    class FileHelper
+    public class FileHelper
     {
 
         

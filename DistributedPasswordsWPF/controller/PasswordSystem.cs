@@ -6,13 +6,13 @@ using System.IO;
 
 namespace DistributedPasswordsWPF.model
 {
-    class PasswordSystem
+    public class PasswordSystem
     {
         private Header header;
         private List<EncryptedEntry> _cachedList;
 
 
-        public void Init()
+        public bool Init()
         {
             Settings.Init();
             
@@ -24,11 +24,11 @@ namespace DistributedPasswordsWPF.model
 
             if (string.IsNullOrEmpty(db) || string.IsNullOrEmpty(keys))
             {
-                Router.instance.DisplayPage(Router.Pages.PathSettings);
+                return true;
             }
             else
             {
-                Router.instance.DisplayPage(Router.Pages.Unlock);
+                return false;
             }
 
             
@@ -110,7 +110,6 @@ namespace DistributedPasswordsWPF.model
         }
 
 
-        public ContentParser ContentParser { get; } = new ContentParser();
 
        
 

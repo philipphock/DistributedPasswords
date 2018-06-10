@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.dataobjects
 {
-    class EncryptedEntry
+    public class EncryptedEntry
     {
         private string _text;
         private string _filename;
@@ -20,26 +20,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
             this._id = id;
         }
 
-        public static EncryptedEntry FromDecrypted(PasswordEntry e)
-        {
-            string s = PasswordSystem.Instance.ContentParser.GetJSONString(e);
-            string t = PasswordSystem.Instance.Encrypt(s);
-            string f = PasswordSystem.Instance.Encrypt(e.Id);
-            EncryptedEntry ret = new EncryptedEntry(e.Id, t, f);
-
-            return ret;
-        }
-
-
-        public PasswordEntry Decrypt
-        {
-            get {
-                PasswordEntry ret = new PasswordEntry(_id);
-                string decryptedContent = PasswordSystem.Instance.Decrypt(_text);
-                PasswordSystem.Instance.ContentParser.ParseToEntry(ret, decryptedContent);
-                return ret;
-            }
-        }
+        
 
         public string Id
         {
@@ -56,6 +37,29 @@ namespace DistributedPasswordsWPF.model.dataobjects
             File.WriteAllText(Path.Combine(Settings.DB_PATH, Filename), _text);
         }
 
+
+        public static EncryptedEntry FromDecrypted(PasswordEntry e)
+        {
+            string s = ContentParser.GetJSONString(e);
+            string t = PasswordSystem.Instance.Encrypt(s);
+            string f = PasswordSystem.Instance.Encrypt(e.Id);
+            EncryptedEntry ret = new EncryptedEntry(e.Id, t, f);
+
+            return ret;
+        }
+
+
+        public PasswordEntry Decrypt
+        {
+            get
+            {
+                PasswordEntry ret = new PasswordEntry(_id);
+                string decryptedContent = PasswordSystem.Instance.Decrypt(_text);
+                ContentParser.ParseToEntry(ret, decryptedContent);
+                return ret;
+            }
+        }
+
         public void Update(PasswordEntry e)
         {
             string todelete = null;
@@ -68,7 +72,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
                 this._id = e.Id;
             }
 
-            string s = PasswordSystem.Instance.ContentParser.GetJSONString(e);
+            string s = ContentParser.GetJSONString(e);
             _text = PasswordSystem.Instance.Encrypt(s);
 
             File.WriteAllText(Path.Combine(Settings.DB_PATH, Filename), _text);

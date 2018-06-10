@@ -1,15 +1,9 @@
-﻿using DistributedPasswordsWPF.debug;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.SQLite;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
-    class Settings
+    public class Settings
     {
         private static string SETTINGS_DIR = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "DstPassword");
         private static string SETTINGS = System.IO.Path.Combine(SETTINGS_DIR,"settings.sqlite");

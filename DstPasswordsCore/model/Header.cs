@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
-    class Header
+    public class Header
     {
         public string _header = null;
         private string _decryptedheader = null;

@@ -22,7 +22,16 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
 
             Router.instance.Init(this);
-            PasswordSystem.Instance.Init();
+            bool r = PasswordSystem.Instance.Init();
+            if (r)
+            {
+                Router.instance.DisplayPage(Router.Pages.PathSettings);
+            }
+            else
+            {
+                Router.instance.DisplayPage(Router.Pages.Unlock);
+            }
+
 
             _tray = new Tray(this);
 

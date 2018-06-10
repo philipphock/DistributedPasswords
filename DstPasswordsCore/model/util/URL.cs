@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model.util
 {
-    class URL
+    public class URL
     {
         public static string URLize(string s)
         {
