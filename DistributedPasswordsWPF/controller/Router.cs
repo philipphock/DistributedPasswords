@@ -11,7 +11,7 @@ namespace DistributedPasswordsWPF
         private Dictionary<Pages, Page> pagesLUT = new Dictionary<Pages, Page>();
         
         private MainWindow window;
-        private readonly Page mainView;
+        private readonly MainView mainView;
         private readonly Page unlock;
         private readonly Page editnew;
         private readonly Page changepw;
@@ -54,11 +54,14 @@ namespace DistributedPasswordsWPF
 
 
 
+
         }
 
         public void Init(MainWindow window)
         {
             this.window = window;
+            window.HideHandler += mainView.OnMainHidden;
+
         }
 
         public void DisplayPage(Pages page)

@@ -119,5 +119,12 @@ namespace DistributedPasswordsWPF
                 _filter();
             }
         }
+
+        
+        public void OnMainHidden(object sender, MainWindow.Hide h)
+        {
+            SearchBox.Text = "";
+            _filter();
+        }
     }
 }

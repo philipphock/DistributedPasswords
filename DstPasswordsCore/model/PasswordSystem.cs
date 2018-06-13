@@ -175,6 +175,7 @@ namespace DistributedPasswordsWPF.model
         }
 
         public event EventHandler<Locked> LockedHandler;
+        
 
         private PasswordSystem()
         {
@@ -186,4 +187,5 @@ namespace DistributedPasswordsWPF.model
     {
         
     }
+
 }

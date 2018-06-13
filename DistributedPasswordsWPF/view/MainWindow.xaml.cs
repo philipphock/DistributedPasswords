@@ -50,6 +50,8 @@ namespace DistributedPasswordsWPF
                     break;
                 case WindowState.Minimized:
                     Router.instance.HideMain();
+                    Router.instance.DisplayPage(Router.Pages.Main);
+                    HideHandler?.Invoke(this, null);
                     break;
                 case WindowState.Normal:
 
@@ -67,6 +69,13 @@ namespace DistributedPasswordsWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+        }
+
+        public event EventHandler<Hide> HideHandler;
+
+        public class Hide : EventArgs
+        {
+
         }
     }
 }
