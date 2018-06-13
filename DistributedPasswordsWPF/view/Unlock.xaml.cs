@@ -50,7 +50,7 @@ namespace DistributedPasswordsWPF
             Router.instance.DisplayPage(Router.Pages.PathSettings);
         }
 
-        private void PasswordBoxUp(object sender, KeyEventArgs e)
+        private async void PasswordBoxUp(object sender, KeyEventArgs e)
         {
             string inp = PasswordBox.Password;
             
@@ -70,7 +70,9 @@ namespace DistributedPasswordsWPF
                 }
                 else
                 {
-                    bool op = PasswordSystem.Instance.Unlock(inp);
+                    PasswordBox.IsEnabled = false;
+                    bool op = await PasswordSystem.Instance.Unlock(inp);
+                    PasswordBox.IsEnabled = true;
                     if (!op)
                     {
                         Info.Content = "Wrong password" + String.Concat(Enumerable.Repeat(".", wrongpasswordcounter));

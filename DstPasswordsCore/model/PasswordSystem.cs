@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DistributedPasswordsWPF.model
 {
@@ -45,11 +47,16 @@ namespace DistributedPasswordsWPF.model
         }
 
 
-        public bool Unlock(string password)
+        public Task<bool> Unlock(string password)
         {
-            bool success = this.header.DecryptHeader(password);
+           return Task<bool>.Run(() =>
+           {
+               bool success = this.header.DecryptHeader(password);
+               return success;
+           });
+            
 
-            return success;
+            
         }
 
         public string Encrypt(string plaintext)
