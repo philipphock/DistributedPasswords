@@ -3,6 +3,7 @@ using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DistributedPasswordsWPF.model
 {
@@ -71,16 +72,8 @@ namespace DistributedPasswordsWPF.model
             {
                 return _cachedList;
             }
-            var ret = new List<EncryptedEntry>();
-            foreach (EncryptedEntry e in _cachedList)
-            {
-                if (string.IsNullOrEmpty(e.Id)) continue;
-                if (e.Id.Contains(s))
-                {
-                    ret.Add(e);
-                }
-            }
-            return ret;
+            var ret = _cachedList.Where(i => i.Id.Contains(s));            
+            return ret.ToList();
         }
         
 
