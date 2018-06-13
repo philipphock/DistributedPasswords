@@ -35,8 +35,8 @@ namespace DistributedPasswordsWPF
 
         private void _getData()
         {
-            List<EncryptedEntry> data = PasswordSystem.Instance.ReadDatabase();
-
+            List<EncryptedEntry> data = PasswordSystem.Instance.ReadDatabase().OrderBy(s => s.Id).ToList();
+            
 
             listView.ItemsSource = data;
 
