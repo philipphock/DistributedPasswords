@@ -2429,6 +2429,9 @@ namespace DstPasswordsAndroid
 			// aapt resource value: 0x7f08003d
 			public const int bottom = 2131230781;
 			
+			// aapt resource value: 0x7f0800b0
+			public const int button1 = 2131230896;
+			
 			// aapt resource value: 0x7f080063
 			public const int buttonPanel = 2131230819;
 			
@@ -2497,6 +2500,9 @@ namespace DstPasswordsAndroid
 			
 			// aapt resource value: 0x7f080020
 			public const int disableHome = 2131230752;
+			
+			// aapt resource value: 0x7f0800af
+			public const int editText1 = 2131230895;
 			
 			// aapt resource value: 0x7f08007e
 			public const int edit_query = 2131230846;
@@ -2579,14 +2585,17 @@ namespace DstPasswordsAndroid
 			// aapt resource value: 0x7f080018
 			public const int line3 = 2131230744;
 			
+			// aapt resource value: 0x7f0800ae
+			public const int linearLayout1 = 2131230894;
+			
 			// aapt resource value: 0x7f08001d
 			public const int listMode = 2131230749;
 			
 			// aapt resource value: 0x7f080061
 			public const int list_item = 2131230817;
 			
-			// aapt resource value: 0x7f0800ae
-			public const int masked = 2131230894;
+			// aapt resource value: 0x7f0800b2
+			public const int masked = 2131230898;
 			
 			// aapt resource value: 0x7f08009f
 			public const int media_actions = 2131230879;
@@ -2644,6 +2653,9 @@ namespace DstPasswordsAndroid
 			
 			// aapt resource value: 0x7f080075
 			public const int radio = 2131230837;
+			
+			// aapt resource value: 0x7f0800ad
+			public const int relativeLayout1 = 2131230893;
 			
 			// aapt resource value: 0x7f08004a
 			public const int right = 2131230794;
@@ -2840,8 +2852,8 @@ namespace DstPasswordsAndroid
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int visible = 2131230893;
+			// aapt resource value: 0x7f0800b1
+			public const int visible = 2131230897;
 			
 			// aapt resource value: 0x7f08003c
 			public const int withText = 2131230780;
@@ -3087,6 +3099,9 @@ namespace DstPasswordsAndroid
 			
 			// aapt resource value: 0x7f04003c
 			public const int tooltip = 2130968636;
+			
+			// aapt resource value: 0x7f04003d
+			public const int Unlock = 2130968637;
 			
 			static Layout()
 			{
