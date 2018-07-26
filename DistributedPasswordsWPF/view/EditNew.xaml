@@ -30,7 +30,7 @@
         <Button Name="ShowHidePwdBtn" IsEnabled="{Binding UserActive}" Content="show" Grid.Column="2"  Grid.Row="4" Margin="3" Click="ShowHidePwdBtn_Click_1" TabIndex="9"/>
         <Button Content="save" IsEnabled="{Binding UserActive}" Grid.Column="2" Grid.Row="7" Margin="3,10" FontSize="36" Name="Save" Click="Save_Click"  />
         <Button Content="back" Grid.Row="7" Margin="3,20" FontSize="26" Name="Back" Click="Back_Click" />
-        <TextBox Name="NotesBox" IsEnabled="{Binding UserActive}" Grid.Row="6" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="3,33,3,3" Text="{Binding SelectedUsername.Notes, Mode=TwoWay}" TabIndex="12"/>
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Name="NotesBox" IsEnabled="{Binding UserActive}" Grid.Row="6" Grid.ColumnSpan="3" Margin="3,33,3,3" Text="{Binding SelectedUsername.Notes, Mode=TwoWay}" TabIndex="12"/>
         <Label Content="id" Margin="3"/>
         <Label Content="user" Grid.Row="1" Margin="3"/>
         <Label Content="email" Grid.Row="2" Margin="3"/>
