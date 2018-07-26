@@ -62,7 +62,7 @@ namespace DistributedPasswordsWPF
         public void Init(MainWindow window)
         {
             this.window = window;
-            window.HideHandler += mainView.OnMainHidden;
+            window.WinHandler += mainView.OnMainWindowChanged;
 
         }
 

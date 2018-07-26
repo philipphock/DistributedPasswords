@@ -129,11 +129,19 @@ namespace DistributedPasswordsWPF
         }
 
         
-        public void OnMainHidden(object sender, MainWindow.Hide h)
+        public void OnMainWindowChanged(object sender, MainWindow.WinState s)
         {
-            SearchBox.Text = "";
-            _filter();
-            _getData();
+            if (s.WindowState == MainWindow.WinState.State.Hide)
+            {
+                SearchBox.Text = "";
+                _filter();
+            }
+
+            if (s.WindowState == MainWindow.WinState.State.Show)
+            {
+                _getData();
+            }
+            
         }
     }
 }

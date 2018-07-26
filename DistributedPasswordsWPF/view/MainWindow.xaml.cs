@@ -51,10 +51,10 @@ namespace DistributedPasswordsWPF
                 case WindowState.Minimized:
                     Router.instance.HideMain();
                     Router.instance.DisplayPage(Router.Pages.Main);
-                    HideHandler?.Invoke(this, null);
+                    WinHandler?.Invoke(this, new WinState(WinState.State.Hide));
                     break;
                 case WindowState.Normal:
-
+                    WinHandler?.Invoke(this, new WinState(WinState.State.Show));
                     break;
             }
         }
@@ -71,12 +71,31 @@ namespace DistributedPasswordsWPF
         {
         }
 
-        public event EventHandler<Hide> HideHandler;
+        public event EventHandler<WinState> WinHandler;
 
-        public class Hide : EventArgs
+        public class WinState : EventArgs
         {
+            public enum State
+            {
+                Hide, Show
+            }
+            private readonly State _State;
+            public WinState(State s)
+            {
+                this._State = s;
+            }
+
+            public State WindowState
+            {
+                get
+                {
+                    return this._State;
+                }
+            }
+
 
         }
+
     }
 }
 
