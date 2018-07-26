@@ -3,6 +3,7 @@ using DistributedPasswordsWPF.model;
 using DistributedPasswordsWPF.model.dataobjects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace DistributedPasswordsWPF
         public MainView()
         {
             InitializeComponent();
+
             PasswordSystem.Instance.LockedHandler += (o, a) =>
             {
                 listView.ItemsSource = null;
@@ -39,6 +41,7 @@ namespace DistributedPasswordsWPF
             
 
             listView.ItemsSource = data;
+            Debug.WriteLine("getdata");
 
         }
 
@@ -56,6 +59,11 @@ namespace DistributedPasswordsWPF
         {
             Router.instance.DisplayPage(Router.Pages.ChangePW);
 
+        }
+
+        public void UpdateData()
+        {
+            _getData();
         }
 
         //new button
@@ -125,6 +133,7 @@ namespace DistributedPasswordsWPF
         {
             SearchBox.Text = "";
             _filter();
+            _getData();
         }
     }
 }

@@ -52,6 +52,8 @@ namespace DistributedPasswordsWPF
             pagesLUT.Add(Pages.GenPW, generatePW);
             pagesLUT.Add(Pages.QR, qr);
 
+            
+                
 
 
 
