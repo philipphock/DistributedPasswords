@@ -33,7 +33,7 @@
         <Button Content="back" Grid.Row="8" Margin="3,20" FontSize="26" Name="Back" Click="Back_Click" />
         <TextBox TextWrapping="Wrap" AcceptsReturn="True" Name="NotesBox" IsEnabled="{Binding UserActive}" Grid.Row="6" Grid.ColumnSpan="3" Margin="3,33,3,1" Text="{Binding SelectedUsername.Notes, Mode=TwoWay}" TabIndex="12"/>
         <Label Content="id" Margin="3"/>
-        <Label Content="user" Grid.Row="1" Margin="3"/>
+        <Label Content="user" Grid.Row="1" Margin="3,3,38,3"/>
         <Label Content="email" Grid.Row="2" Margin="3"/>
         <Label Content="password" Grid.Row="3" Margin="3"/>
         <Label Content="password again" Grid.Row="4" Margin="3" />
@@ -53,6 +53,7 @@
         <PasswordBox PasswordChanged="PasswordBox2_PasswordChanged" IsEnabled="{Binding UserActive}" x:Name="PasswordBox2_Copy" Grid.Column="1" Margin="3" Grid.Row="4" KeyUp="PasswordBox2_KeyUp" TabIndex="10" />
         <TextBox x:Name="TFAContent" Grid.Column="1" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.TFA, Mode=TwoWay}" Grid.Row="7" TabIndex="7"/>
         <TextBox x:Name="TFAOTP" Grid.Column="2" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.TFAOTP, Mode=OneWay}" Grid.Row="7" TabIndex="7"/>
+        <Button Content="CPY" HorizontalAlignment="Left" Margin="107,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="27" Click="CPY_Usrname"/>
 
     </Grid>
 </Page>
