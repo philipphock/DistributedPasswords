@@ -36,13 +36,21 @@ namespace DistributedPasswordsWPF.model
             return Path.Combine(Settings.KEYS_PATH, "header").ToString();
         }
 
-        private string EnhancePassword(string password)
+        private string EnhancePasswordOLD(string password)
         {
             ReadHash();
             byte[] h = (new SHA256Managed()).ComputeHash(Encoding.UTF8.GetBytes(String.Concat(password, _hash)));
             return DecodeEncodeHelper.Bin2Hex(h);
         }
-        
+        private string EnhancePassword(string password)
+        {
+            ReadHash();
+            HMACSHA1 hmac = new HMACSHA1(Encoding.UTF8.GetBytes(password));
+            byte[] h = hmac.ComputeHash(Encoding.UTF8.GetBytes(_hash));
+                
+            return DecodeEncodeHelper.Bin2Hex(h);
+        }
+
         public string EncryptWithHeaderPassword(string text)
         {
             return Crypto.Encrypt(text, _decryptedheader);
