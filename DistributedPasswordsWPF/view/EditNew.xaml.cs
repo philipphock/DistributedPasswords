@@ -1,13 +1,17 @@
-﻿using DistributedPasswordsWPF.model.dataobjects;
+﻿using DistributedPasswordsWPF.model;
+using DistributedPasswordsWPF.model.dataobjects;
 using DistributedPasswordsWPF.model.util;
 using DstPasswordsCore.model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Linq;
+using System.Windows.Media;
 
 namespace DistributedPasswordsWPF
 {
@@ -87,10 +91,12 @@ namespace DistributedPasswordsWPF
                 if (ee == null)
                 {
                     //new
-                    
-                    ee = EncryptedEntry.FromDecrypted(this.Entry);
-
-                    ee.Save();
+                    var ee_local = ee;
+                    do
+                    {
+                        ee_local = EncryptedEntry.FromDecrypted(this.Entry);
+                    } while (!ee_local.Save());
+                    ee = ee_local;
                 }
                 else
                 {
@@ -111,8 +117,10 @@ namespace DistributedPasswordsWPF
             Router.instance.DisplayPage(Router.Pages.GenPW);
         }
 
+        private List<EncryptedEntry> entries;
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+            entries = PasswordSystem.Instance.ReadDatabase();
             _pwvisible = false;
             TFAContent.Visibility = Visibility.Hidden;
 
@@ -463,6 +471,29 @@ namespace DistributedPasswordsWPF
                 TFAContent.Visibility = Visibility.Visible;
             }
             
+        }
+
+        private void IdBox_TextChanged(object sender, TextChangedEventArgs targs)
+        {
+            EncryptedEntry entry = entries.Find(e => e.Id == IdBox.Text);
+            PasswordInfo.Foreground = System.Windows.Media.Brushes.Black;
+            if (entry != null && entry.Id != ee?.Id)
+            {
+                if (_mode == Mode.EDIT)
+                {
+                    PasswordInfo.Foreground = System.Windows.Media.Brushes.Red ;
+
+                }
+                
+                PasswordInfo.Content = "WARNING: This ID already exists!!!";
+
+            }
+            else
+            {
+                PasswordInfo.Content = "";
+
+            }
+
         }
     }
 }

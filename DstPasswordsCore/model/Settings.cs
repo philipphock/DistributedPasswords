@@ -5,6 +5,7 @@ namespace DistributedPasswordsWPF.model
 {
     public class Settings
     {
+        private static readonly bool DEBUGPATH = false;
         private static string SETTINGS_DIR = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "DstPassword");
         private static string SETTINGS = System.IO.Path.Combine(SETTINGS_DIR,"settings.sqlite");
 
@@ -112,7 +113,11 @@ namespace DistributedPasswordsWPF.model
                         KEYS_DIR = reader2["VALUE"].ToString();
                     }
                 }
-                //return @"D:\assets\keys";
+                if (DEBUGPATH)
+                {
+                    return @"D:\assets\keys";
+                }
+                
                 return KEYS_DIR;
             }
 
@@ -142,6 +147,10 @@ namespace DistributedPasswordsWPF.model
                     {
                         DB_DIR = reader1["VALUE"].ToString();
                     }
+                }
+                if (DEBUGPATH)
+                {
+                    return @"D:\assets\db";
                 }
                 //return @"D:\assets\db";
                 return DB_DIR;

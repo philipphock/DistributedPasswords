@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,9 +33,16 @@ namespace DistributedPasswordsWPF.model.dataobjects
 
         public string Filename { get => _filename;}
 
-        public void Save()
+        public bool Save()
         {
+            var Filename = this.Filename;
+            
+            if (!_checkFile(Filename, false, false))
+            {
+                return false;
+            }
             File.WriteAllText(Path.Combine(Settings.DB_PATH, Filename), _text);
+            return true;
         }
 
 
@@ -63,17 +71,22 @@ namespace DistributedPasswordsWPF.model.dataobjects
         public void Update(PasswordEntry e)
         {
             string todelete = null;
-
-            if (_id != e.Id)
+            bool idChanged = _id != e.Id;
+            do
             {
-                //id has changed, so must our filename
-                todelete = Filename;
-                _filename = PasswordSystem.Instance.Encrypt(e.Id);
-                this._id = e.Id;
-            }
+                if (idChanged)
+                {
+            
+                    //id has changed, so must our filename
+                    todelete = Filename;
+                    _filename = PasswordSystem.Instance.Encrypt(e.Id);
+                    this._id = e.Id;
+                }
 
-            string s = ContentParser.GetJSONString(e);
-            _text = PasswordSystem.Instance.Encrypt(s);
+                string s = ContentParser.GetJSONString(e);
+                _text = PasswordSystem.Instance.Encrypt(s);
+
+            } while (!_checkFile(_filename, true, idChanged));
 
             File.WriteAllText(Path.Combine(Settings.DB_PATH, Filename), _text);
 
@@ -83,5 +96,55 @@ namespace DistributedPasswordsWPF.model.dataobjects
             }
 
         }
+        
+       
+        private bool _checkFile(string filename, bool isUpdate, bool idsChanged)
+        {
+            
+            string fqfn = Path.Combine(Settings.DB_PATH, filename);
+            if (!File.Exists(fqfn))
+            {
+                return true;
+            }
+
+
+
+            /*
+             when the program continues to the code below, this means the file exists.. 
+             this might be no problem but it might override an existing entry, there are the following cases:
+
+            case A: isUpdate == false
+                1) the file we override is another entry, me must change the new filename until there is no other value
+                
+            case B: isUpdate == true:
+                a) we do not update the id: 
+                   that's our file, go ahead and override it
+                   
+                b) we update the id:
+                   the file we override is another entry, me must change the new filename until there is no other value
+            
+            */
+            
+
+            if (isUpdate)
+            {
+                //0
+                if (!idsChanged)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+                //
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
     }
 }
