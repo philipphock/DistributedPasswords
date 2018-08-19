@@ -386,7 +386,10 @@ namespace DistributedPasswordsWPF
 
             set
             {
-                tfaotp = value;
+                
+                
+                
+                tfaotp = string.Concat(new String('0', Math.Max((6 - value.Length), 0)),value);
             }
         }
         private Auth2FAUpdateEvent tfaEvent;

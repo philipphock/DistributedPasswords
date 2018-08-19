@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace DstPasswordsCore.model
             _initTimer();
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Subscribe(EventHandler<int> onChange)
         {
             OTPChanged += onChange;
@@ -41,7 +43,7 @@ namespace DstPasswordsCore.model
                 _initTimer();
             }
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UnsubscribeAll()
         {
             if (_checkTimer != null)
@@ -60,7 +62,7 @@ namespace DstPasswordsCore.model
                 OTPChanged -= (EventHandler<int>) d;
             }
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Unsubscribe(EventHandler<int> onChange)
         {
             OTPChanged -= onChange;
@@ -80,6 +82,7 @@ namespace DstPasswordsCore.model
 
         private int prev = 0;
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void _initTimer()
         {
             if (_checkTimer != null)
