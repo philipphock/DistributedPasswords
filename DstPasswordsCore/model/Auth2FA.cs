@@ -39,7 +39,7 @@ namespace DstPasswordsCore.model
             return result;
         }
 
-        public static Auth2FAUpdateEvent GenerateReneableOTP(string secret, long interval=30, int digits = 6)
+        public static Auth2FAUpdateEvent GenerateRenewableOTP(string secret, long interval=30, int digits = 6)
         {
             return new Auth2FAUpdateEvent(secret, interval, digits);
         }

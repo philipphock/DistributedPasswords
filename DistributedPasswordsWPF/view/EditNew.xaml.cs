@@ -1,6 +1,10 @@
 ﻿using DistributedPasswordsWPF.model.dataobjects;
 using DistributedPasswordsWPF.model.util;
+using DstPasswordsCore.model;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,6 +61,9 @@ namespace DistributedPasswordsWPF
             IdBox.Text = "";
             _pwvisible = false;
             ee = null;
+
+            
+
             OnPropertyChanged();
         }
 
@@ -87,7 +94,6 @@ namespace DistributedPasswordsWPF
                 }
                 else
                 {
-
                     ee.Update(Entry);
                 }
                 
@@ -108,6 +114,8 @@ namespace DistributedPasswordsWPF
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             _pwvisible = false;
+            TFAContent.Visibility = Visibility.Hidden;
+
             if (Router.instance.Payload == null)
             {
                 //abort password manager:
@@ -148,6 +156,12 @@ namespace DistributedPasswordsWPF
                 PasswordBox2.Password = Router.instance.Payload as string;
                 SelectedUsername.Password = Router.instance.Payload as string;
             }
+
+            PasswordBoxVisible.Visibility = Visibility.Collapsed;
+            PasswordBox1.Visibility = Visibility.Visible;
+            PasswordBox2.Visibility = Visibility.Visible;
+            PasswordBoxVisible.Text = "";
+            ShowHidePwdBtn.Content = "Show";
 
             _checkUsernameSize();
             this.DataContext = this;
@@ -313,7 +327,7 @@ namespace DistributedPasswordsWPF
 
             }
         }
-
+        
         private bool _isPasswordValid()
         {
             if (_pwvisible)
@@ -353,6 +367,99 @@ namespace DistributedPasswordsWPF
         private void QR_Click(object sender, RoutedEventArgs e)
         {
             Router.instance.DisplayPage(Router.Pages.QR, selectedUsername);
+        }
+
+        private void CPY_Usrname(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetData(DataFormats.Text, SelectedUsername.Name);
+
+            
+        }
+
+        private string tfaotp;
+        public string TFAOTPValue
+        {
+            get
+            {
+                return tfaotp;
+            }
+
+            set
+            {
+                tfaotp = value;
+            }
+        }
+        private Auth2FAUpdateEvent tfaEvent;
+        private void TFAContent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string content = TFAContent.Text;
+            TFAOTPValue = "";
+            
+            tfaEvent?.UnsubscribeAll();
+
+            if (string.IsNullOrEmpty(content))
+            {
+                //Debug.WriteLine("null");
+                return;
+            }
+            string param = content;
+            try
+            {
+                Uri uri = new Uri(param);
+                param = HttpUtility.ParseQueryString(uri.Query).Get("secret");
+                if (string.IsNullOrEmpty(param))
+                {
+                    param = content;
+
+                }
+                //Debug.WriteLine("parsed: "+param);
+            }
+            catch (Exception)
+            {
+                //Debug.WriteLine("cannot parse, use plain text:" + param);
+            }
+
+            //Debug.WriteLine("using: " + param);
+
+            try
+            {
+                int i = Auth2FA.GenerateOTP(param);
+
+                tfaEvent = Auth2FA.GenerateRenewableOTP(param);
+                tfaEvent.Subscribe((src, otp) =>
+                {
+                    TFAOTPValue = "" + otp;
+                    OnPropertyChanged("TFAOTPValue");
+                    Debug.WriteLine("+++++++++update++++++++++");
+
+                });
+            }
+            catch (Exception)
+            {
+                //pass
+                //Debug.WriteLine("err");
+            }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            tfaEvent?.UnsubscribeAll();
+            tfaEvent = null;
+
+        }
+
+        private void TfaLockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (TFAContent.Visibility == Visibility.Visible)
+            {
+                TFAContent.Visibility = Visibility.Hidden;
+
+            }
+            else
+            {
+                TFAContent.Visibility = Visibility.Visible;
+            }
+            
         }
     }
 }

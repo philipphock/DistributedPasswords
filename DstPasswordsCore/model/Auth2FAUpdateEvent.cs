@@ -1,6 +1,7 @@
 ﻿using DstPasswordsCore.model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -43,11 +44,21 @@ namespace DstPasswordsCore.model
 
         public void UnsubscribeAll()
         {
+            if (_checkTimer != null)
+            {
+
+                _checkTimer.Enabled = false;
+                _checkTimer.Stop();
+                _checkTimer.Dispose();
+
+                _checkTimer = null;
+
+            }
+            if (OTPChanged == null) return;
             foreach (Delegate d in OTPChanged.GetInvocationList())
             {
                 OTPChanged -= (EventHandler<int>) d;
             }
-            _checkTimer.Enabled = false;
         }
 
         public void Unsubscribe(EventHandler<int> onChange)
@@ -58,6 +69,10 @@ namespace DstPasswordsCore.model
             {
                 _subscriber = 0;
                 _checkTimer.Enabled = false;
+                _checkTimer.Stop();
+                _checkTimer.Dispose();
+
+                _checkTimer = null;
 
             }
 
@@ -67,6 +82,13 @@ namespace DstPasswordsCore.model
 
         private void _initTimer()
         {
+            if (_checkTimer != null)
+            {
+                _checkTimer.Enabled = false;
+                _checkTimer.Stop();
+                _checkTimer.Dispose();
+               
+            }
             _checkTimer = new System.Timers.Timer();
             _checkTimer.Interval = 1000;
             _checkTimer.Elapsed += (s, a) =>

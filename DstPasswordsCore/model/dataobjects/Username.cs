@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
         private string email;
         private string password;
         private string notes;
+        private string tfa;
 
         [JsonProperty(PropertyName = "username")]
         public string Name {
@@ -25,6 +27,21 @@ namespace DistributedPasswordsWPF.model.dataobjects
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
             }
         }
+
+        [JsonProperty(PropertyName = "TFA")]
+        public string TFA
+        {
+            get
+            {
+                return tfa;
+            }
+            set
+            {
+                tfa= value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TFA"));
+            }
+        }
+
 
         [JsonProperty(PropertyName = "email")]
         public string Email { get => email; set {
@@ -60,7 +77,8 @@ namespace DistributedPasswordsWPF.model.dataobjects
                 Name = Name,
                 Email = Email,
                 Password = Password,
-                Notes = Notes
+                Notes = Notes,
+                TFA = TFA
             };
 
             
@@ -72,6 +90,7 @@ namespace DistributedPasswordsWPF.model.dataobjects
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Password"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Email"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Notes"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TFA"));
 
         }
 

@@ -8,10 +8,21 @@ namespace ConsoleTestApp
     {
         static void Main(string[] args)
         {
+            //NBSWY3DP
+            try
+            {
+                int i = Auth2FA.GenerateOTP(";");
+                Console.WriteLine(i);
 
-            Auth2FAUpdateEvent e = Auth2FA.GenerateReneableOTP("NBSWY3DP",1);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERR");
 
+            }
+            Console.ReadKey();
 
+            /*
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = false;
@@ -33,10 +44,10 @@ namespace ConsoleTestApp
             {
                 Console.WriteLine("->"+i);
             });
-
+            */
         }
-            
-   
-       
+
+
+
     }
 }

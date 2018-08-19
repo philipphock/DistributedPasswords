@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:DistributedPasswordsWPF"
       mc:Ignorable="d"
       Loaded="PageLoaded"
-      Title="EditNew" Height="480" Width="895">
+      Title="EditNew" Height="480" Width="895" Unloaded="Page_Unloaded">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -47,13 +47,14 @@
         <Button Name="RemoveBtn" Content="del" Grid.Column="2"  Grid.Row="1" Margin="50,3,58,0" Click="RemoveBtn_Click_1" Height="24" VerticalAlignment="Top" TabIndex="5"/>
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,115"/>
         <Button x:Name="RemoveBtn_Copy" Content="rename" Grid.Column="2"  Grid.Row="1" Margin="87,3,3,3" Click="Rename_Click" TabIndex="6"/>
-        <Label Name="PasswordInfo" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" Height="10"/>
+        <Label Name="PasswordInfo" Grid.Column="1" Grid.Row="5" Content="" VerticalAlignment="Top" Height="30"/>
         <Button Name="QR" Content="QR" Grid.Column="2" Margin="3,4,3,0" Grid.Row="5" HorizontalContentAlignment="Center" Height="26" VerticalAlignment="Top" Click="QR_Click"/>
         <Label Content="2FA" Grid.Row="7" Margin="3"/>
-        <PasswordBox PasswordChanged="PasswordBox2_PasswordChanged" IsEnabled="{Binding UserActive}" x:Name="PasswordBox2_Copy" Grid.Column="1" Margin="3" Grid.Row="4" KeyUp="PasswordBox2_KeyUp" TabIndex="10" />
-        <TextBox x:Name="TFAContent" Grid.Column="1" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.TFA, Mode=TwoWay}" Grid.Row="7" TabIndex="7"/>
-        <TextBox x:Name="TFAOTP" Grid.Column="2" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.TFAOTP, Mode=OneWay}" Grid.Row="7" TabIndex="7"/>
-        <Button Content="CPY" HorizontalAlignment="Left" Margin="107,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="27" Click="CPY_Usrname"/>
+        <!--<PasswordBox PasswordChanged="PasswordBox2_PasswordChanged" IsEnabled="{Binding UserActive}" x:Name="PasswordBox2_Copy" Grid.Column="1" Margin="3" Grid.Row="4" KeyUp="PasswordBox2_KeyUp" TabIndex="10" />-->
+        <TextBox x:Name="TFAContent" Margin="1,3,5,3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.TFA, Mode=TwoWay}" Grid.Row="7" TabIndex="7" Grid.Column="1" TextChanged="TFAContent_TextChanged"/>
+        <TextBox x:Name="TFAOTP" Grid.Column="2" Margin="3" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding TFAOTPValue, Mode=OneWay}" Grid.Row="7" TabIndex="7"/>
+        <Button x:Name="CopyUsername"  Content="CPY" HorizontalAlignment="Left" Margin="107,5,0,5" Grid.Row="1" Width="27" Click="CPY_Usrname"/>
+        <Button x:Name="TfaLockBtn"  Content="(o)" HorizontalAlignment="Left" Margin="107,3,3,3" Grid.Row="7" Width="27" Click="TfaLockBtn_Click"/>
 
     </Grid>
 </Page>
