@@ -14,15 +14,21 @@ namespace DistributedPasswordsWPF.model
     {
         public static void ParseToEntry(PasswordEntry entry, string decryptedFileContent)
         {
+            int last = decryptedFileContent.LastIndexOf('}')+1;
+            
+            if (last != decryptedFileContent.Length)
+            {
 
+                decryptedFileContent=decryptedFileContent.Substring(0, last);
+                Debug.WriteLine("corrupt data recognized");
+
+            }
+
+            
             //Debug.WriteLine(decryptedFileContent);
             dynamic o = JsonConvert.DeserializeObject(decryptedFileContent);
             
-            if (o is null)
-            {
-                // TODO handle corrupt database
-                DEBUG.Print("ContentParser", "Error reading json file");
-            }
+            
             
             foreach (dynamic d in o.usernames)
             {
