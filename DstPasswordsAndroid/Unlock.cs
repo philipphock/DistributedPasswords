@@ -1,72 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Preferences;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using DstPasswordsCore.model;
+using DstPasswordsAndroid.model;
+using Android.Content;
 
 namespace DstPasswordsAndroid
 {
     [Activity(Label = "Unlock")]
     public class Unlock : Activity
     {
-        private readonly string KEY_DB = "DB";
-        private readonly string KEY_KEYS = "KEYS";
+
+        private EditText keysUIField;
+        private EditText dbUIField;
+        private EditText passwordUIFiled;
+        private ISettings _settings;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Unlock);
-            _loadValues();
+            keysUIField = FindViewById<EditText>(Resource.Id.keys);
+            dbUIField = FindViewById<EditText>(Resource.Id.db);
+            passwordUIFiled = FindViewById<EditText>(Resource.Id.password);
+
+            _settings = new Settings();
+
+            keysUIField.Text = _settings.KEYS_PATH;
+            dbUIField.Text = _settings.DB_PATH;
             // Create your application here
         }
 
         protected override void OnPause()
         {
             base.OnPause();
-            _storeValues();
+            _settings.KEYS_PATH = keysUIField.Text;
+            _settings.DB_PATH = dbUIField.Text;
         }
 
-        private void _loadValues()
+        
+
+        public async void UnlockBtn(View v)
         {
-            EditText keysUIField = FindViewById<EditText>(Resource.Id.keys);
-            EditText dbUIField = FindViewById<EditText>(Resource.Id.db);
+            PasswordSystem.Instance.Init(_settings);
+            passwordUIFiled.Enabled = false;
+            bool unlocked = await PasswordSystem.Instance.Unlock(passwordUIFiled.Text);
+            passwordUIFiled.Enabled = true;
+            if (unlocked)
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
 
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
-            var keys = prefs.GetString(KEY_KEYS,"");
-            var db = prefs.GetString(KEY_DB, "");
-
-            keysUIField.Text = keys;
-            dbUIField.Text = db;
-        }
-
-        private void _storeValues()
-        {
-            EditText keysUIField = FindViewById<EditText>(Resource.Id.keys);
-            EditText dbUIField = FindViewById<EditText>(Resource.Id.db);
-
-            var keys = keysUIField.Text;
-            var db = dbUIField.Text;
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
-            ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString(KEY_DB, db);
-            editor.PutString(KEY_KEYS, keys);
-            
-            editor.Apply();        // applies changes asynchronously on newer APIs
-            
-
-        }
-
-        public void UnlockBtn(View v)
-        {
-            
         }
 
     }

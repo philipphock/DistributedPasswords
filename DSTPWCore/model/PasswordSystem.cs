@@ -19,6 +19,12 @@ namespace DstPasswordsCore.model
                 return _settings;
             }
         }
+        
+        public bool NotInitOrLocked()
+        {
+            if (header == null) return true;
+            return header._header == null;
+        }
 
         public bool Init(ISettings Settings)
         {
@@ -124,6 +130,7 @@ namespace DstPasswordsCore.model
         {
             SelectedEntry = null;
             _cachedList = null;
+            
             header.Clear();
         }
 

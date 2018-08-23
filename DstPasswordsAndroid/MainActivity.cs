@@ -3,6 +3,8 @@ using Android.Widget;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Content;
+using DstPasswordsCore.model;
+using Android.Util;
 
 namespace DstPasswordsAndroid
 {
@@ -17,12 +19,33 @@ namespace DstPasswordsAndroid
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.activity_main);
 
-            _route(Pages.Unlock);
+            _init();
 
+
+
+        }
+
+        private void _init()
+        {
+            if (PasswordSystem.Instance.NotInitOrLocked())
+            {
+                _route(Pages.Unlock);
+            }
+            else
+            {
+                SetContentView(Resource.Layout.activity_main);
+
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            _init();
             
+
         }
 
         private void _route(Pages p)
