@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="25px"
     android:minHeight="25px"
@@ -13,15 +14,44 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1">
-        <EditText
-            android:inputType="textPassword"
-            android:id="@+id/editText1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+		<TextView
+			android:text="DB Folder"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView1" />
+		<EditText
+			android:inputType="text"
+			android:id="@+id/db"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+		<TextView
+			android:text="Keys Folder"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView3" />
+		<EditText
+			android:inputType="text"
+			android:id="@+id/keys"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+		<TextView
+			android:text="Password"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView2" />
+		<EditText
+			android:inputType="textPassword"
+			android:id="@+id/password"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
         <Button
             android:text="Unlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button1" />
+			android:onClick="UnlockBtn"
+            android:id="@+id/unlock" />
     </LinearLayout>
 </RelativeLayout>
