@@ -1,5 +1,5 @@
-﻿using DistributedPasswordsWPF.model;
-using DistributedPasswordsWPF.model.util;
+﻿using DstPasswordsCore.model;
+using DstPasswordsCore.model.util;
 using NHotkey;
 using NHotkey.Wpf;
 using System;

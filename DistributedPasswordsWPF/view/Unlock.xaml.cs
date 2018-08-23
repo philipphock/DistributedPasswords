@@ -1,4 +1,5 @@
 ﻿using DistributedPasswordsWPF.model;
+using DstPasswordsCore.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

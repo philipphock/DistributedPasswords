@@ -1,17 +1,15 @@
-﻿using DistributedPasswordsWPF.model;
-using DistributedPasswordsWPF.model.dataobjects;
-using DistributedPasswordsWPF.model.util;
-using DstPasswordsCore.model;
+﻿using DstPasswordsCore.model;
+using DstPasswordsCore.model.dataobjects;
+using DstPasswordsCore.model.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Linq;
-using System.Windows.Media;
 
 namespace DistributedPasswordsWPF
 {

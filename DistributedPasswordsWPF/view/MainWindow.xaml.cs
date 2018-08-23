@@ -1,5 +1,6 @@
 ﻿using DistributedPasswordsWPF.controller;
 using DistributedPasswordsWPF.model;
+using DstPasswordsCore.model;
 using System;
 using System.Windows;
 
@@ -22,7 +23,7 @@ namespace DistributedPasswordsWPF
             InitializeComponent();
 
             Router.instance.Init(this);
-            bool r = PasswordSystem.Instance.Init();
+            bool r = PasswordSystem.Instance.Init(new Settings());
             if (r)
             {
                 Router.instance.DisplayPage(Router.Pages.PathSettings);

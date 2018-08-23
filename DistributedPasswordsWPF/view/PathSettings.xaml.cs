@@ -1,4 +1,5 @@
 ﻿using DistributedPasswordsWPF.model;
+using DstPasswordsCore.model;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -36,13 +37,13 @@ namespace DistributedPasswordsWPF.view
         {
 
             
-            string dbp = Settings.DB_PATH;
+            string dbp = PasswordSystem.Instance.Settings.DB_PATH;
             DBPath.Text = dbp;
 
             
 
             
-            string keys = Settings.KEYS_PATH;
+            string keys = PasswordSystem.Instance.Settings.KEYS_PATH;
             KeysPath.Text = keys;
 
             
@@ -67,8 +68,8 @@ namespace DistributedPasswordsWPF.view
                 string dbString = DBPath.Text.ToString();
                 string keysString = KeysPath.Text.ToString();
 
-                Settings.DB_PATH = dbString;
-                Settings.KEYS_PATH = keysString;
+                PasswordSystem.Instance.Settings.DB_PATH = dbString;
+                PasswordSystem.Instance.Settings.KEYS_PATH = keysString;
             });
                 
             
