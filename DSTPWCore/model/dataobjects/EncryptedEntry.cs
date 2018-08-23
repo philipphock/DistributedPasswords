@@ -50,6 +50,10 @@ namespace DstPasswordsCore.model.dataobjects
             return ret;
         }
 
+        public string DecryptAsString()
+        {
+            return PasswordSystem.Instance.Decrypt(_text);
+        }
 
         public PasswordEntry Decrypt
         {

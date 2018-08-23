@@ -5,6 +5,10 @@ using Android.Support.V7.App;
 using Android.Content;
 using DstPasswordsCore.model;
 using Android.Util;
+using DstPasswordsAndroid.model;
+using System.Collections.Generic;
+using DstPasswordsCore.model.dataobjects;
+using System.Linq;
 
 namespace DstPasswordsAndroid
 {
@@ -15,6 +19,9 @@ namespace DstPasswordsAndroid
         {
             Unlock
         }
+
+        private ListView _entries;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,6 +43,22 @@ namespace DstPasswordsAndroid
             {
                 SetContentView(Resource.Layout.activity_main);
 
+                _entries = FindViewById<ListView>(Resource.Id.entries);
+                List<EncryptedEntry> e = PasswordSystem.Instance.ReadDatabase().OrderBy(s => s.Id).ToList();
+
+                EntriesAdapter a = new EntriesAdapter(Application.Context, e);
+                _entries.Adapter = a;
+                _entries.ItemClick += (s, ev) =>
+                {
+                    EncryptedEntry item = a.GetItem(ev.Position);
+                    string ds = item.DecryptAsString();
+                    Intent intent = new Intent(this, typeof(EntryView));
+                    intent.PutExtra("asString", ds);
+                    StartActivity(intent);
+
+
+                };
+                //_entries.Invalidate();
             }
         }
 
