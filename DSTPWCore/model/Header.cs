@@ -98,6 +98,7 @@ namespace DstPasswordsCore.model
             
             string d = Crypto.Decrypt(this._header, EnhancePassword(password));
             if (d == null) return false;
+
             if (_headerRegex.IsMatch(d))
             {
                 if (!checkonly)

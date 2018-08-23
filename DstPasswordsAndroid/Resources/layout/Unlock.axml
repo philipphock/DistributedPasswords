@@ -51,7 +51,7 @@
             android:text="Unlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-			android:onClick="UnlockBtn"
+			
             android:id="@+id/unlock" />
     </LinearLayout>
 </RelativeLayout>
