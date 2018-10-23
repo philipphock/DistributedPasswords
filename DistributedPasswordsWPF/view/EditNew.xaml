@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:DistributedPasswordsWPF"
       mc:Ignorable="d"
       Loaded="PageLoaded"
-      Title="EditNew" Height="480" Width="895" Unloaded="Page_Unloaded">
+      Title="EditNew" Height="480" Width="895" Unloaded="Page_Unloaded" KeyUp="KeyUpAll">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>

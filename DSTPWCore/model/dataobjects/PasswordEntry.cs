@@ -102,5 +102,42 @@ Usernames:
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public override int GetHashCode()
+        {
+            int hash = _id?.GetHashCode() ?? 0;
+            foreach (var u in usernames)
+            {
+                hash += u.GetHashCode();
+            }
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                var other = obj as PasswordEntry;
+                if (other.Id != this.Id)
+                {
+                    return false;
+                }
+
+                if (usernames.Count != other.usernames.Count)
+                {
+                    return false;
+                }
+                var a = usernames.All(other.usernames.Contains);
+
+                return a;
+
+
+            }
+            
+        }
     }
 }

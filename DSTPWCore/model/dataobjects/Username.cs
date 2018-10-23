@@ -105,5 +105,47 @@ password: {2}
 notes: {3}
 ",Name, Email, Password, Notes);
         }
+
+        public override int GetHashCode()
+        {
+            int hash = (username?.GetHashCode() ?? 0) + email?.GetHashCode() ?? 0 + password?.GetHashCode() ?? 0 + notes?.GetHashCode() ?? 0 + tfa?.GetHashCode() ?? 0;
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                var other = obj as Username;
+                if (username != other.username)
+                {
+                    return false;
+                }
+                if (email != other.email)
+                {
+                    return false;
+                }
+                if (password != other.password)
+                {
+                    return false;
+                }
+                if (notes != other.notes)
+                {
+                    return false;
+                }
+                if (tfa != other.tfa)
+                {
+                    return false;
+                }
+         
+            }
+            return true;
+        }
     }
+
+    
 }

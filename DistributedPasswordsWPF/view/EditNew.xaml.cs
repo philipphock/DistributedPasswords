@@ -144,8 +144,7 @@ namespace DistributedPasswordsWPF
                     //back from password generator
                     _comboboxChanged();
                 }
-                
-                
+
             }
             else if (Router.instance.Payload.GetType() == typeof(EncryptedEntry))
             {
@@ -173,7 +172,13 @@ namespace DistributedPasswordsWPF
             this.DataContext = this;
             OnPropertyChanged();
 
+            //Debug.WriteLine("page load");
 
+
+        }
+
+        private void _checkDataChanged()
+        {
 
         }
 
@@ -492,6 +497,11 @@ namespace DistributedPasswordsWPF
 
             }
 
+        }
+
+        private void KeyUpAll(object sender, KeyEventArgs e)
+        {
+            Debug.WriteLine("keyup");
         }
     }
 }
