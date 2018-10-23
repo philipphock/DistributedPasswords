@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,6 +51,8 @@ namespace DistributedPasswordsWPF
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event PropertyChangedEventHandler PropertyChanged2;
+
         private void _reset()
         {
             entry = null;
@@ -70,7 +73,7 @@ namespace DistributedPasswordsWPF
         protected void OnPropertyChanged(string name="")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            _checkDataChanged();
+            
         }
 
         
@@ -171,6 +174,12 @@ namespace DistributedPasswordsWPF
 
             _checkUsernameSize();
             this.DataContext = this;
+
+            PropertyChanged += (o, ea) =>
+            {
+                Debug.WriteLine("check");
+            };
+
             OnPropertyChanged();
 
             //Debug.WriteLine("page load");
@@ -178,8 +187,9 @@ namespace DistributedPasswordsWPF
 
         }
 
-        private void _checkDataChanged()
+        private  void _checkDataChanged()
         {
+
             if (ee == null)
             {
                 Save.Content = "Save";
@@ -245,9 +255,11 @@ namespace DistributedPasswordsWPF
         {
 
             _comboboxChanged();
-            
+            _checkDataChanged();
+
+
         }
-      
+
         private void _comboboxChanged()
         {
 
@@ -331,16 +343,22 @@ namespace DistributedPasswordsWPF
         private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)
         {
             _pw();
+            _checkDataChanged();
+
         }
 
         private void PasswordBox2_PasswordChanged(object sender, RoutedEventArgs e)
         {
             _pw();
+            _checkDataChanged();
+
         }
 
         private void PasswordBoxVisible_TextChanged(object sender, TextChangedEventArgs e)
         {
             _pw();
+            _checkDataChanged();
+
         }
 
         private void _pw()
@@ -470,6 +488,8 @@ namespace DistributedPasswordsWPF
                 //pass
                 //Debug.WriteLine("err");
             }
+            _checkDataChanged();
+
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -513,13 +533,26 @@ namespace DistributedPasswordsWPF
                 PasswordInfo.Content = "";
 
             }
+            _checkDataChanged();
 
         }
 
-        private void KeyUpAll(object sender, KeyEventArgs e)
+        private void KeyDownAll(object sender, KeyEventArgs e)
         {
-            Debug.WriteLine("keyup");
+            
+       
+        }
+
+        private void EmailBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
             _checkDataChanged();
+
+        }
+
+        private void NotesBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _checkDataChanged();
+
         }
     }
 }

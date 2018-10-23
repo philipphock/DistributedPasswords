@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:DistributedPasswordsWPF"
       mc:Ignorable="d"
       Loaded="PageLoaded"
-      Title="EditNew" Height="480" Width="895" Unloaded="Page_Unloaded" KeyUp="KeyUpAll">
+      Title="EditNew" Height="480" Width="895" Unloaded="Page_Unloaded" KeyDown="KeyDownAll">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
         <Button Name="ShowHidePwdBtn" IsEnabled="{Binding UserActive}" Content="show" Grid.Column="2"  Grid.Row="4" Margin="3" Click="ShowHidePwdBtn_Click_1" TabIndex="9"/>
         <Button Content="save" IsEnabled="{Binding UserActive}" Grid.Column="2" Grid.Row="8" Margin="3,10" FontSize="36" Name="Save" Click="Save_Click"  />
         <Button Content="back" Grid.Row="8" Margin="3,20" FontSize="26" Name="Back" Click="Back_Click" />
-        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Name="NotesBox" IsEnabled="{Binding UserActive}" Grid.Row="6" Grid.ColumnSpan="3" Margin="3,33,3,1" Text="{Binding SelectedUsername.Notes, Mode=TwoWay}" TabIndex="12"/>
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Name="NotesBox" IsEnabled="{Binding UserActive}"  Grid.Row="6" Grid.ColumnSpan="3" Margin="3,33,3,1" Text="{Binding SelectedUsername.Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="12" TextChanged="NotesBox_TextChanged"/>
         <Label Content="id" Margin="3"/>
         <Label Content="user" Grid.Row="1" Margin="3,3,38,3"/>
         <Label Content="email" Grid.Row="2" Margin="3"/>
@@ -42,7 +42,7 @@
         <TextBox TextChanged="PasswordBoxVisible_TextChanged" Text="{Binding SelectedUsername.Password}" Name="PasswordBoxVisible" Grid.Column="1" Margin="3" Grid.Row="3" Visibility="Collapsed" KeyUp="PasswordBoxVisible_KeyUp" />
 
         <TextBox Name="IdBox" Grid.Column="1" Margin="3,4" TextWrapping="Wrap" Text="{Binding Entry.Id, Mode=TwoWay}" TabIndex="1" TextChanged="IdBox_TextChanged" />
-        <TextBox Name="EmailBox" Grid.Column="1" Margin="3,4" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.Email, Mode=TwoWay}" Grid.Row="2" TabIndex="7"/>
+        <TextBox Name="EmailBox" Grid.Column="1" Margin="3,4" TextWrapping="Wrap" IsEnabled="{Binding UserActive}" Text="{Binding SelectedUsername.Email, Mode=TwoWay}" Grid.Row="2" TabIndex="7" TextChanged="EmailBox_TextChanged"/>
         <ComboBox Name="User" Grid.Column="1" IsEnabled="{Binding UserActive}" HorizontalAlignment="Stretch" Margin="3" Grid.Row="1" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Entry.Usernames, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="SelectedUsername" SelectionChanged="ComboBox_SelectionChanged" TabIndex="3"/>
         <Button Name="RemoveBtn" Content="del" Grid.Column="2"  Grid.Row="1" Margin="50,3,58,0" Click="RemoveBtn_Click_1" Height="24" VerticalAlignment="Top" TabIndex="5"/>
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,115"/>

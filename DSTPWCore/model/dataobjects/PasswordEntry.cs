@@ -116,7 +116,6 @@ Usernames:
 
         public override bool Equals(object obj)
         {
-            Debug.WriteLine("check equals");
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             {
                 return false;
@@ -134,6 +133,7 @@ Usernames:
                     return false;
                 }
                 var a = usernames.All(other.usernames.Contains);
+                Debug.WriteLine(a);
 
                 return a;
 
