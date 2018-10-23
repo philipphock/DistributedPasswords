@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,6 +116,7 @@ Usernames:
 
         public override bool Equals(object obj)
         {
+            Debug.WriteLine("check equals");
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             {
                 return false;

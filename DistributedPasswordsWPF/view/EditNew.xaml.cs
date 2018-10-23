@@ -35,8 +35,6 @@ namespace DistributedPasswordsWPF
         private Username selectedUsername;
         public Username SelectedUsername { get => selectedUsername; set => selectedUsername = value; }
 
-        
-
         public bool UserActive
         {
             get
@@ -72,7 +70,10 @@ namespace DistributedPasswordsWPF
         protected void OnPropertyChanged(string name="")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            _checkDataChanged();
         }
+
+        
 
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -179,7 +180,23 @@ namespace DistributedPasswordsWPF
 
         private void _checkDataChanged()
         {
-
+            if (ee == null)
+            {
+                Save.Content = "Save";
+                return;
+            }
+            PasswordEntry tmp = ee?.Decrypt;
+            
+            Debug.WriteLine(tmp.Id);
+            Debug.WriteLine(entry.Id);
+            if (!tmp.Equals(entry))
+            {
+                Save.Content = "Save*";
+            }
+            else
+            {
+                Save.Content = "Save";
+            }
         }
 
         private void _checkUsernameSize()
@@ -502,6 +519,7 @@ namespace DistributedPasswordsWPF
         private void KeyUpAll(object sender, KeyEventArgs e)
         {
             Debug.WriteLine("keyup");
+            _checkDataChanged();
         }
     }
 }
