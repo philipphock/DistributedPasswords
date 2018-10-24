@@ -51,7 +51,6 @@ namespace DistributedPasswordsWPF
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged2;
 
         private void _reset()
         {
@@ -81,8 +80,23 @@ namespace DistributedPasswordsWPF
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            _reset();
-            Router.instance.DisplayPage(Router.Pages.Main);
+            if (_checkDataChanged())
+            {
+                MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Leave anyway?", "Data modified", MessageBoxButton.YesNo);
+                if (dialogResult == MessageBoxResult.Yes)
+                {
+                    _reset();
+                    Router.instance.DisplayPage(Router.Pages.Main);
+                }
+
+            }
+            else
+            {
+                _reset();
+                Router.instance.DisplayPage(Router.Pages.Main);
+            }
+
+            
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -111,8 +125,10 @@ namespace DistributedPasswordsWPF
             {
                 _pw();
             }
+            _checkDataChanged();
+
         }
-            
+
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
@@ -177,7 +193,7 @@ namespace DistributedPasswordsWPF
 
             PropertyChanged += (o, ea) =>
             {
-                Debug.WriteLine("check");
+                //Debug.WriteLine("check");
             };
 
             OnPropertyChanged();
@@ -187,26 +203,30 @@ namespace DistributedPasswordsWPF
 
         }
 
-        private  void _checkDataChanged()
+        private  bool _checkDataChanged()
         {
 
             if (ee == null)
             {
                 Save.Content = "Save";
-                return;
+                return false;
             }
             PasswordEntry tmp = ee?.Decrypt;
             
-            Debug.WriteLine(tmp.Id);
-            Debug.WriteLine(entry.Id);
+            //Debug.WriteLine(tmp.Id);
+            //Debug.WriteLine(entry.Id);
             if (!tmp.Equals(entry))
             {
                 Save.Content = "Save*";
+                return true;
             }
             else
             {
                 Save.Content = "Save";
+                return false;
             }
+
+
         }
 
         private void _checkUsernameSize()

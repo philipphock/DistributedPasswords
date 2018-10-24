@@ -133,7 +133,7 @@ Usernames:
                     return false;
                 }
                 var a = usernames.All(other.usernames.Contains);
-                Debug.WriteLine(a);
+                //Debug.WriteLine(a);
 
                 return a;
 
