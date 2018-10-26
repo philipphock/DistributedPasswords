@@ -93,7 +93,7 @@ namespace DistributedPasswordsWPF.view
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             username = Router.instance.Payload as Username;
-            Id.Content = username.Name;
+            Id.Content = username?.Name;
             QRImage.Source = null;
 
         }

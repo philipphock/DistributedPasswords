@@ -54,12 +54,17 @@ namespace DistributedPasswordsWPF
 
         private void _reset()
         {
+            
+            User.SelectedIndex = -1;
+            //User.SelectedItem = null;
+            //User.ItemsSource = null;
             entry = null;
             SelectedUsername = null;
             PasswordBox1.Password = "";
             PasswordBox2.Password = "";
             NotesBox.Text = "";
             EmailBox.Text = "";
+            
             IdBox.Text = "";
             _pwvisible = false;
             ee = null;
@@ -231,7 +236,7 @@ namespace DistributedPasswordsWPF
 
         private void _checkUsernameSize()
         {
-            if (entry.Usernames.Count > 0)
+            if (entry?.Usernames?.Count > 0)
             {
 
                 SelectedUsername = entry.Usernames[0];
@@ -573,6 +578,11 @@ namespace DistributedPasswordsWPF
         {
             _checkDataChanged();
 
+        }
+
+        private void CPY_Password(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetData(DataFormats.Text, SelectedUsername.Password);
         }
     }
 }
