@@ -1,6 +1,7 @@
 ﻿using DstPasswordsCore.model;
 using System;
 using System.Data.SQLite;
+using System.Diagnostics;
 
 namespace DistributedPasswordsWPF.model
 {
@@ -14,6 +15,7 @@ namespace DistributedPasswordsWPF.model
 
         private string DB_DIR = null;
         private string KEYS_DIR = null;
+        private bool? PW_CPY = null;
 
 
         private static readonly string CREATE_TABLE = @"
@@ -28,6 +30,7 @@ namespace DistributedPasswordsWPF.model
         private static readonly string CREATE_KV_ENTRIES = @"
                     INSERT INTO `settings`(`ID`,`KEY`,`VALUE`) VALUES (1,'DB',NULL);
                     INSERT INTO `settings`(`ID`,`KEY`,`VALUE`) VALUES (2,'KEYS',NULL);
+                    INSERT INTO `settings`(`ID`,`KEY`,`VALUE`) VALUES (3,'PW_CPY',NULL);
                 ";
 
         private static readonly string UPDATE_DB = @"
@@ -38,6 +41,10 @@ namespace DistributedPasswordsWPF.model
             UPDATE `settings` SET `VALUE`=:v WHERE _rowid_='2';
         ";
 
+        private static readonly string UPDATE_PW_CPY = @"
+            UPDATE `settings` SET `VALUE`=:v WHERE _rowid_='3';
+        ";
+
         private static readonly string SELECT_DB = @"
             SELECT `VALUE` FROM `settings` WHERE `ID` = 1;        
         ";
@@ -46,6 +53,11 @@ namespace DistributedPasswordsWPF.model
             SELECT `VALUE` FROM `settings` WHERE `ID` = 2;        
         ";
 
+        private static readonly string SELECT_PWCPY = @"
+            SELECT `VALUE` FROM `settings` WHERE `ID` = 3;        
+        ";
+
+        private static readonly string CREATE_ROW3 = "INSERT INTO `settings`(`ID`,`KEY`,`VALUE`) VALUES (3,'PW_CPY',NULL);";
 
         public Settings()
         {
@@ -90,8 +102,17 @@ namespace DistributedPasswordsWPF.model
                 command2.ExecuteNonQuery();
 
             }
-            
 
+            // check version
+            SQLiteCommand command3 = new SQLiteCommand(SELECT_PWCPY, dbConnection);
+            SQLiteDataReader reader1 = command3.ExecuteReader();
+
+            if (!reader1.HasRows)
+            {
+                // row 3 not present, means old db version
+                new SQLiteCommand(CREATE_ROW3, dbConnection).ExecuteNonQuery();
+
+            }
 
         }
 
@@ -170,6 +191,47 @@ namespace DistributedPasswordsWPF.model
             }
         }
 
+
+        public bool CPY_PW
+        {
+            get
+            {
+                if (!_initCalled)
+                {
+                    throw new InvalidOperationException("Init not yet called");
+                }
+                if (PW_CPY == null)
+                {
+                    SQLiteCommand command = new SQLiteCommand(SELECT_PWCPY, dbConnection);
+                    SQLiteDataReader reader1 = command.ExecuteReader();
+                    while (reader1.Read())
+                    {
+                        PW_CPY = reader1["VALUE"].ToString() == "1";
+                    }
+                }
+                
+                if (PW_CPY == null)
+                {
+                    PW_CPY = false;
+                }
+                
+                return PW_CPY ==  true;
+            }
+
+            set
+            {
+                string _value = "0";
+                if (value)
+                {
+                    _value = "1";
+                }
+                SQLiteCommand command = new SQLiteCommand(UPDATE_PW_CPY, dbConnection);
+                command.Parameters.Add("v", System.Data.DbType.String).Value = _value;
+                command.ExecuteNonQuery();
+
+                PW_CPY = value;
+            }
+        }
 
     }
 }

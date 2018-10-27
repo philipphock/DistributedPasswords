@@ -28,7 +28,8 @@
             <RowDefinition Height="22"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="37"/>
             <RowDefinition Height="22"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
@@ -36,17 +37,18 @@
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <TextBox Name="DBPath" Text="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
-        <TextBox Name="KeysPath" Text="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
-        
+        <TextBox Name="KeysPath" Text="PATH/TO/FILE" Grid.Column="1" Margin="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalContentAlignment="Center" />
+
         <Button Name="BrowseDB"  Content="browse"  Grid.Row="2" Height="30" VerticalAlignment="Top" Click="BrowseDB_Click" />
-        <Button Name="BrowseKeys" Content="browse"  Grid.Row="6" Click="BrowseKeys_Click" />
+        <Button Name="BrowseKeys" Content="browse"  Grid.Row="7" Click="BrowseKeys_Click" />
         <Label Content="{DynamicResource PathSettings_InfoDB_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" x:Name="InfoDB"/>
-        <Label Content="{DynamicResource PathSettings_InfoKeys_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Label Content="{DynamicResource PathSettings_InfoKeys_Default}" Grid.Column="1" Margin="0,2,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Database" Grid.Column="1" Grid.Row="1" FontSize="10" Margin="10,0,0,0" FontStyle="Italic" Grid.ColumnSpan="2"/>
-        <Label Content="Keys" Grid.Column="1" Grid.Row="5" FontSize="10" Margin="10,0,0,0" FontStyle="Italic" Grid.ColumnSpan="2"/>
-        <Label Content="Settings"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" Height="58" Margin="172,9,171,9" Width="148" Grid.Column="1"/>
-        <Button Name="Backbutton" Content="back" Margin="3,10,3,20" Grid.Row="9" FontSize="26" Click="Backbutton_Click"/>
-        <Button Content="save" Grid.Column="2" Margin="3,0,3,10" Grid.Row="9" FontSize="36" Click="SaveButtonClicked"/>
+        <Label Content="Keys" Grid.Column="1" Grid.Row="6" FontSize="10" Margin="10,0,0,0" FontStyle="Italic" Grid.ColumnSpan="2"/>
+        <Label Content="Settings"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" Height="58" Margin="172,8,171,9" Width="148" Grid.Column="1"/>
+        <Button Name="Backbutton" Content="back" Margin="3,10,3,20" Grid.Row="10" FontSize="26" Click="Backbutton_Click"/>
+        <Button Content="save" Grid.Column="2" Margin="3,0,3,10" Grid.Row="10" FontSize="36" Click="SaveButtonClicked"/>
+        <CheckBox Content="use copy paste for passwords" Grid.Column="1" HorizontalAlignment="Left" Height="18" Grid.Row="4" VerticalAlignment="Top" Name="CpyPw"/>
 
     </Grid>
 </Page>

@@ -16,5 +16,9 @@ namespace DstPasswordsCore.model
         {
             get; set;
         }
+        bool CPY_PW
+        {
+            get;set;
+        }
     }
 }

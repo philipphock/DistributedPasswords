@@ -46,7 +46,10 @@ namespace DistributedPasswordsWPF.view
             string keys = PasswordSystem.Instance.Settings.KEYS_PATH;
             KeysPath.Text = keys;
 
-            
+            bool pwcpy = PasswordSystem.Instance.Settings.CPY_PW;
+            CpyPw.IsChecked = pwcpy;
+
+
 
         }
 
@@ -67,9 +70,11 @@ namespace DistributedPasswordsWPF.view
             {
                 string dbString = DBPath.Text.ToString();
                 string keysString = KeysPath.Text.ToString();
+                bool pw_cpy = CpyPw.IsChecked == true;
 
                 PasswordSystem.Instance.Settings.DB_PATH = dbString;
                 PasswordSystem.Instance.Settings.KEYS_PATH = keysString;
+                PasswordSystem.Instance.Settings.CPY_PW = pw_cpy;
             });
                 
             

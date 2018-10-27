@@ -16,6 +16,7 @@ namespace DistributedPasswordsWPF.controller
         private System.Timers.Timer _timer = new System.Timers.Timer(500);
         private double lastHotkey = 0;
         private int hotkeyCounter = 0;
+        private string lastUsername = "";
 
         public Hotkey()
         {
@@ -52,7 +53,7 @@ namespace DistributedPasswordsWPF.controller
         
 
 
-        private void _elapsedHotkeyTime(object source, ElapsedEventArgs e)
+        private  void _elapsedHotkeyTime(object source, ElapsedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(
             () =>
@@ -65,23 +66,46 @@ namespace DistributedPasswordsWPF.controller
                     string el = null;
                     if (hotkeyCounter == 1)
                     {
+                        lastUsername = data;
                         el = PasswordSystem.Instance.GetUsernameFromSelection();
+
                     }
                     if (hotkeyCounter == 2)
                     {
                         el = PasswordSystem.Instance.GetPasswordFromSelection();
                     }
+                    
                     if (el != null)
                     {
-                        foreach (char c in el)
+                        if (PasswordSystem.Instance.Settings.CPY_PW)
                         {
-                            if ("~^+(){}[]%".Contains(c))
+                            Clipboard.SetData(DataFormats.Text, el);
+                            SendKeys.SendWait("^v");
+
+                            if (hotkeyCounter == 1)
                             {
-                                SendKeys.SendWait("{" + c + "}");
+                                Clipboard.SetData(DataFormats.Text, lastUsername);
                             }
-                            else
+                            if (hotkeyCounter == 2)
                             {
-                                SendKeys.SendWait(c.ToString());
+                                Clipboard.SetData(DataFormats.Text, "");
+                            }
+                            
+
+
+                        }
+                        else
+                        {
+                            foreach (char c in el)
+                            {
+                                if ("~^+(){}[]%".Contains(c))
+                                {
+                                    SendKeys.SendWait("{" + c + "}");
+                                }
+                                else
+                                {
+                                    SendKeys.SendWait(c.ToString());
+                                }
                             }
                         }
                     }
