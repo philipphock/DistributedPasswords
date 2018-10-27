@@ -58,11 +58,14 @@ namespace DistributedPasswordsWPF.controller
             System.Windows.Application.Current.Dispatcher.Invoke(
             () =>
             {
-                if (hotkeyCounter == 1 || hotkeyCounter == 2)
+                if (hotkeyCounter == 1 || hotkeyCounter == 2 || hotkeyCounter == 3)
                 {
                     string data = System.Windows.Clipboard.GetData(System.Windows.DataFormats.Text) as string;
                     data = URL.URLize(data);
-                    PasswordSystem.Instance.TrySelect(data);
+                    if (!PasswordSystem.Instance.TrySelect(data))
+                    {
+                        return;
+                    }
                     string el = null;
                     if (hotkeyCounter == 1)
                     {
@@ -73,6 +76,13 @@ namespace DistributedPasswordsWPF.controller
                     if (hotkeyCounter == 2)
                     {
                         el = PasswordSystem.Instance.GetPasswordFromSelection();
+                    }
+                    if (hotkeyCounter == 3)
+                    {
+                        el = PasswordSystem.Instance.GetTFAFromSelection();
+                        el = TFAHelper.TryParseUrl(el);
+                        int eli = Auth2FA.GenerateOTP(el);
+                        el = TFAHelper.AddPadding(""+eli);
                     }
                     
                     if (el != null)
@@ -88,7 +98,7 @@ namespace DistributedPasswordsWPF.controller
                             }
                             if (hotkeyCounter == 2)
                             {
-                                Clipboard.SetData(DataFormats.Text, "");
+                                Clipboard.SetData(DataFormats.Text, lastUsername);
                             }
                             
 
@@ -112,7 +122,7 @@ namespace DistributedPasswordsWPF.controller
                 }
                 
                 
-                if (hotkeyCounter == 3)
+                if (hotkeyCounter == 4)
                 {
                     Router.instance.ShowMain();
                 }

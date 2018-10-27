@@ -193,6 +193,16 @@ namespace DstPasswordsCore.model
             return e.Usernames[0].Name;
         }
 
+        public string GetTFAFromSelection()
+        {
+            if (SelectedEntry == null) return null;
+            PasswordEntry e = SelectedEntry.Decrypt;
+
+            if (e.Usernames.Count == 0) return null;
+
+            return e.Usernames[0].TFA;
+        }
+
         public event EventHandler<Locked> LockedHandler;
         
 

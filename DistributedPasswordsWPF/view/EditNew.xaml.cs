@@ -457,10 +457,9 @@ namespace DistributedPasswordsWPF
 
             set
             {
-                
-                
-                
-                tfaotp = string.Concat(new String('0', Math.Max((6 - value.Length), 0)),value);
+
+                tfaotp = TFAHelper.AddPadding(value);
+                    
             }
         }
         private Auth2FAUpdateEvent tfaEvent;
@@ -476,35 +475,19 @@ namespace DistributedPasswordsWPF
                 //Debug.WriteLine("null");
                 return;
             }
-            string param = content;
-            try
-            {
-                Uri uri = new Uri(param);
-                param = HttpUtility.ParseQueryString(uri.Query).Get("secret");
-                if (string.IsNullOrEmpty(param))
-                {
-                    param = content;
-
-                }
-                //Debug.WriteLine("parsed: "+param);
-            }
-            catch (Exception)
-            {
-                //Debug.WriteLine("cannot parse, use plain text:" + param);
-            }
-
-            //Debug.WriteLine("using: " + param);
+            string param = TFAHelper.TryParseUrl(content);
+            
 
             try
             {
                 int i = Auth2FA.GenerateOTP(param);
-
+                TFAOTPValue = ""+i;
                 tfaEvent = Auth2FA.GenerateRenewableOTP(param);
                 tfaEvent.Subscribe((src, otp) =>
                 {
                     TFAOTPValue = "" + otp;
                     OnPropertyChanged("TFAOTPValue");
-                    Debug.WriteLine("+++++++++update++++++++++");
+                    //Debug.WriteLine("+++++++++update++++++++++");
 
                 });
             }
