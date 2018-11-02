@@ -3,6 +3,7 @@ using DstPasswordsCore.model.util;
 using NHotkey;
 using NHotkey.Wpf;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
@@ -60,11 +61,16 @@ namespace DistributedPasswordsWPF.controller
             {
                 if (hotkeyCounter == 1 || hotkeyCounter == 2 || hotkeyCounter == 3)
                 {
+
+
                     string data = System.Windows.Clipboard.GetData(System.Windows.DataFormats.Text) as string;
-                    data = URL.URLize(data);
                     if (!PasswordSystem.Instance.TrySelect(data))
                     {
-                        return;
+                        data = URL.URLize(data);
+                        if (!PasswordSystem.Instance.TrySelect(data))
+                        {
+                            return;
+                        }
                     }
                     string el = null;
                     if (hotkeyCounter == 1)
@@ -73,6 +79,7 @@ namespace DistributedPasswordsWPF.controller
                         el = PasswordSystem.Instance.GetUsernameFromSelection();
 
                     }
+
                     if (hotkeyCounter == 2)
                     {
                         el = PasswordSystem.Instance.GetPasswordFromSelection();
