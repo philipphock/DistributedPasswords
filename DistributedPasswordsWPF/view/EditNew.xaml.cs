@@ -3,6 +3,7 @@ using DstPasswordsCore.model.dataobjects;
 using DstPasswordsCore.model.util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -25,14 +26,68 @@ namespace DistributedPasswordsWPF
         }
 
         private Mode _mode;
-
+        private int lastSelectedIndex = -1;
         private bool _pwvisible;
-
+        
         private EncryptedEntry ee;
 
         private PasswordEntry entry;
-        public PasswordEntry Entry { get => entry; set => entry = value; }
+        public PasswordEntry Entry
+        {
+            get => entry;
 
+            set
+            {
+                entry = value;
+            }
+        }
+
+        private readonly ObservableCollection<Username> usernamesview = new ObservableCollection<Username>();
+        public ObservableCollection<Username> UsernamesView
+        {
+            get => usernamesview;
+        }
+        private void UpdateUsernamesViewFromModel()
+        {
+            UsernamesView.Clear();
+            if (Entry != null)
+            {
+                foreach (var u in Entry.Usernames)
+                {
+                    UsernamesView.Add(u);
+
+                }
+            }
+            Debug.WriteLine(lastSelectedIndex);
+            if (lastSelectedIndex != -1)
+            {
+                User.SelectedIndex = lastSelectedIndex;
+                SelectedUsername = UsernamesView[lastSelectedIndex];
+            }
+            else if (UsernamesView.Count > 0)
+            {
+                if (User.SelectedIndex >= UsernamesView.Count || User.SelectedIndex == -1)
+                {
+                    User.SelectedIndex = 0;
+                    SelectedUsername = UsernamesView[0];
+                }
+            }                
+            else
+            {
+                SelectedUsername = null;
+                User.SelectedIndex = -1;
+
+            }
+
+            OnPropertyChanged("SelectedUsername");
+            OnPropertyChanged("UserActive");
+            OnPropertyChanged("UsernamesView");
+
+        }
+        private void UpdateModelFromUsernamesView()
+        {
+            Entry.UpdateList(UsernamesView);
+        }
         private Username selectedUsername;
         public Username SelectedUsername { get => selectedUsername; set => selectedUsername = value; }
 
@@ -55,20 +110,21 @@ namespace DistributedPasswordsWPF
         private void _reset()
         {
             
-            User.SelectedIndex = -1;
+            
             //User.SelectedItem = null;
             //User.ItemsSource = null;
-            entry = null;
+            Entry = null;
+            lastSelectedIndex = -1;
             SelectedUsername = null;
+            UsernamesView.Clear();
             PasswordBox1.Password = "";
             PasswordBox2.Password = "";
             NotesBox.Text = "";
             EmailBox.Text = "";
-            
+            UsernamesView.Clear();
             IdBox.Text = "";
             _pwvisible = false;
             ee = null;
-
             
 
             OnPropertyChanged();
@@ -85,6 +141,7 @@ namespace DistributedPasswordsWPF
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+
             if (_checkDataChanged())
             {
                 MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Leave anyway?", "Data modified", MessageBoxButton.YesNo);
@@ -108,7 +165,7 @@ namespace DistributedPasswordsWPF
         {
             if (_isPasswordValid())
             {
-
+                UpdateModelFromUsernamesView();
                 if (ee == null)
                 {
                     //new
@@ -123,7 +180,7 @@ namespace DistributedPasswordsWPF
                 {
                     ee.Update(Entry);
                 }
-                
+                _reset();
                 Router.instance.DisplayPage(Router.Pages.Main);
             }
             else
@@ -137,6 +194,7 @@ namespace DistributedPasswordsWPF
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
+            lastSelectedIndex = User.SelectedIndex;
             Router.instance.DisplayPage(Router.Pages.GenPW);
         }
 
@@ -154,6 +212,7 @@ namespace DistributedPasswordsWPF
                 return;
             }
             if (Router.instance.Payload.GetType() == typeof(Mode)){
+                _reset();
 
                 if ((Mode)Router.instance.Payload  == Mode.NEW)
                 {
@@ -165,23 +224,27 @@ namespace DistributedPasswordsWPF
                 }
                 else
                 {
-
                     //back from password generator
+
                     _comboboxChanged();
                 }
 
             }
             else if (Router.instance.Payload.GetType() == typeof(EncryptedEntry))
             {
+                _reset();
 
                 _mode = Mode.EDIT;
                 ee = Router.instance.Payload as EncryptedEntry;
                 this.entry = ee.Decrypt;
 
+
+
             }
             else if (Router.instance.Payload.GetType() == typeof(string))
             {
                 //password generator
+
                 PasswordBox1.Password = Router.instance.Payload as string;
                 PasswordBox2.Password = Router.instance.Payload as string;
                 SelectedUsername.Password = Router.instance.Payload as string;
@@ -193,8 +256,10 @@ namespace DistributedPasswordsWPF
             PasswordBoxVisible.Text = "";
             ShowHidePwdBtn.Content = "Show";
 
-            _checkUsernameSize();
+            
             this.DataContext = this;
+            UpdateUsernamesViewFromModel();
+            _comboboxChanged();
 
             PropertyChanged += (o, ea) =>
             {
@@ -204,13 +269,17 @@ namespace DistributedPasswordsWPF
             OnPropertyChanged();
 
             //Debug.WriteLine("page load");
-
+            UpdateUsernamesViewFromModel();
 
         }
 
         private  bool _checkDataChanged()
         {
-
+            if (_mode == Mode.NEW)
+            {
+                Save.Content = "Save*";
+                return true;
+            }
             if (ee == null)
             {
                 Save.Content = "Save";
@@ -234,22 +303,7 @@ namespace DistributedPasswordsWPF
 
         }
 
-        private void _checkUsernameSize()
-        {
-            if (entry?.Usernames?.Count > 0)
-            {
-
-                SelectedUsername = entry.Usernames[0];
-                OnPropertyChanged("SelectedUsername");
-                OnPropertyChanged("UserActive");
-                
-                //enable fields
-            }
-            else
-            {
-                //disable fields
-            }
-        }
+  
 
         private void UrlizeBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -288,12 +342,18 @@ namespace DistributedPasswordsWPF
         private void _comboboxChanged()
         {
 
-            SelectedUsername = User.SelectedItem as Username;
+            SelectedUsername =  User.SelectedItem as Username;
+            if (SelectedUsername == null && UsernamesView.Count > 0)
+            {
+                User.SelectedIndex = 0;
+                SelectedUsername = User.SelectedItem as Username;
+
+            }
             OnPropertyChanged("SelectedUsername");
             OnPropertyChanged("UserActive");
             PasswordBox1.Password = SelectedUsername?.Password;
             PasswordBox2.Password = SelectedUsername?.Password;
-            
+
 
         }
 
@@ -309,7 +369,7 @@ namespace DistributedPasswordsWPF
 
                 entry.Add(n);
             }
-            _checkUsernameSize();
+            UpdateUsernamesViewFromModel();
         }
 
         private void RemoveBtn_Click_1(object sender, RoutedEventArgs e)
@@ -318,7 +378,8 @@ namespace DistributedPasswordsWPF
             if (dialogResult == MessageBoxResult.Yes)
             {
                 entry.Remove(SelectedUsername);
-                _checkUsernameSize();
+                lastSelectedIndex = -1;
+                UpdateUsernamesViewFromModel();
                 _comboboxChanged();
                 OnPropertyChanged();
             }
@@ -438,6 +499,7 @@ namespace DistributedPasswordsWPF
         private void QR_Click(object sender, RoutedEventArgs e)
         {
             Router.instance.DisplayPage(Router.Pages.QR, selectedUsername);
+            
         }
 
         private void CPY_Usrname(object sender, RoutedEventArgs e)

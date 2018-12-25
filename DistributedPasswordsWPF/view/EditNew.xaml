@@ -43,7 +43,7 @@
 
         <TextBox Name="IdBox" Grid.Column="1" Margin="3,4" TextWrapping="Wrap" Text="{Binding Entry.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="1" TextChanged="IdBox_TextChanged" />
         <TextBox Name="EmailBox" Grid.Column="1" Margin="3,4" TextWrapping="Wrap" IsEnabled="{Binding UserActive, UpdateSourceTrigger=PropertyChanged}" Text="{Binding SelectedUsername.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" TabIndex="7" TextChanged="EmailBox_TextChanged"/>
-        <ComboBox Name="User" Grid.Column="1" IsEnabled="{Binding UserActive, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3" Grid.Row="1" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Entry.Usernames, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="SelectedUsername" SelectionChanged="ComboBox_SelectionChanged" TabIndex="3"/>
+        <ComboBox Name="User" Grid.Column="1" IsEnabled="{Binding UserActive, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3" Grid.Row="1" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding UsernamesView, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="SelectedUsername" SelectionChanged="ComboBox_SelectionChanged" TabIndex="3"/>
         <Button Name="RemoveBtn" Content="del" Grid.Column="2"  Grid.Row="1" Margin="50,3,58,0" Click="RemoveBtn_Click_1" Height="24" VerticalAlignment="Top" TabIndex="5"/>
         <Label Content="notes" Grid.Row="6" Margin="0,4,6,115"/>
         <Button x:Name="RemoveBtn_Copy" Content="rename" Grid.Column="2"  Grid.Row="1" Margin="87,3,3,3" Click="Rename_Click" TabIndex="6"/>

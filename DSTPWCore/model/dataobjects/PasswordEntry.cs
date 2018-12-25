@@ -43,6 +43,15 @@ namespace DstPasswordsCore.model.dataobjects
             usernames.Remove(username);
         }
 
+        public void UpdateList(IList<Username> us)
+        {
+            usernames.Clear();
+            foreach (var u in us)
+            {
+                Add(u);
+            }
+        }
+
         [JsonProperty(PropertyName = "usernames")]
         public IList<Username> Usernames
         {

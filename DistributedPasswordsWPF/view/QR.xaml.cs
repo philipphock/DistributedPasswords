@@ -71,6 +71,7 @@ namespace DistributedPasswordsWPF.view
 
         private void ToBitmap(string s)
         {
+            if (s == null) return;
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(s, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             System.Drawing.Bitmap bitmap = qrCode.GetGraphic(20);
