@@ -95,6 +95,21 @@ namespace DistributedPasswordsWPF
             }
         }
 
+        private void Button_Item_CPYUN(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            EncryptedEntry entry = button.DataContext as EncryptedEntry;
+                
+            Clipboard.SetData(DataFormats.Text, entry.Decrypt.Usernames.ElementAtOrDefault(0)?.Name);
+        }
+
+        private void Button_Item_CPYPW(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            EncryptedEntry entry = button.DataContext as EncryptedEntry;
+
+            Clipboard.SetData(DataFormats.Text, entry.Decrypt.Usernames.ElementAtOrDefault(0)?.Password);
+        }
         //search button
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

@@ -88,10 +88,10 @@ namespace DstPasswordsCore.model
         {
             if (string.IsNullOrEmpty(s))
             {
-                return _cachedList;
+                return _cachedList.OrderBy(e => e.Id).ToList();
             }
             var ret = _cachedList.Where(i => i.Id.Contains(s));            
-            return ret.ToList();
+            return ret.OrderBy(e => e.Id).ToList();
         }
         
 
